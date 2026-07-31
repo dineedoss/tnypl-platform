@@ -1,0 +1,58 @@
+
+const cfg=window.TNYPL_CONFIG;
+const sb=supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
+let players=[];
+const loginPanel=document.getElementById('loginPanel'), dash=document.getElementById('dashboard'), body=document.getElementById('playersBody');
+
+async function checkSession(){const {data}=await sb.auth.getSession(); data.session?showDashboard():showLogin();}
+function showLogin(){loginPanel.hidden=false;dash.hidden=true}
+async function showDashboard(){loginPanel.hidden=true;dash.hidden=false;await loadPlayers()}
+document.getElementById('loginForm').addEventListener('submit',async e=>{
+ e.preventDefault(); const email=adminEmail.value,password=adminPassword.value;
+ const {error}=await sb.auth.signInWithPassword({email,password});
+ if(error) loginMessage.textContent=error.message; else showDashboard();
+});
+document.getElementById('logoutBtn').onclick=async()=>{await sb.auth.signOut();showLogin()};
+
+async function loadPlayers(){
+ const {data,error}=await sb.from('players').select('*').order('created_at',{ascending:false});
+ if(error){alert(error.message);return} players=data||[]; renderStats();renderTable();
+}
+function renderStats(){
+ totalCount.textContent=players.length;
+ paymentCount.textContent=players.filter(p=>p.payment_verified).length;
+ ageCount.textContent=players.filter(p=>p.age_verified).length;
+ eligibleCount.textContent=players.filter(p=>p.status==='eligible').length;
+}
+function filtered(){
+ const q=searchInput.value.toLowerCase(), s=statusFilter.value;
+ return players.filter(p=>(!s||p.status===s)&&(`${p.full_name} ${p.district} ${p.primary_role}`.toLowerCase().includes(q)));
+}
+function renderTable(){
+ body.innerHTML=filtered().map(p=>`<tr>
+ <td><strong>${p.full_name}</strong><br><small>${p.email}</small></td>
+ <td>${p.date_of_birth}</td><td>${p.district}</td><td>${p.primary_role}</td>
+ <td>${p.cricheroes_url?`<a href="${p.cricheroes_url}" target="_blank">Open</a>`:'—'}</td>
+ <td>${p.payment_verified?'✅':'⏳'}</td><td>${p.age_verified?'✅':'⏳'}</td>
+ <td><span class="pill ${p.status}">${p.status}</span></td>
+ <td>
+  <button class="small-btn" onclick="toggleVerify('${p.id}','payment_verified',${!p.payment_verified})">Payment</button>
+  <button class="small-btn" onclick="toggleVerify('${p.id}','age_verified',${!p.age_verified})">Age</button>
+  <button class="small-btn" onclick="setStatus('${p.id}','eligible')">Eligible</button>
+  <button class="small-btn" onclick="setStatus('${p.id}','rejected')">Reject</button>
+ </td></tr>`).join('');
+}
+window.toggleVerify=async(id,field,val)=>{await sb.from('players').update({[field]:val}).eq('id',id);await loadPlayers()}
+window.setStatus=async(id,status)=>{
+ const p=players.find(x=>x.id===id);
+ if(status==='eligible' && (!p.payment_verified||!p.age_verified)){alert('Verify payment and age before marking draft eligible.');return}
+ await sb.from('players').update({status}).eq('id',id);await loadPlayers()
+}
+searchInput.oninput=renderTable;statusFilter.onchange=renderTable;
+exportBtn.onclick=()=>{
+ const cols=['full_name','date_of_birth','parent_name','parent_phone','email','district','school','academy','cricheroes_url','primary_role','batting_style','bowling_style','tshirt_size','pant_size','payment_verified','age_verified','status'];
+ const esc=v=>`"${String(v??'').replaceAll('"','""')}"`;
+ const csv=[cols.join(','),...players.map(p=>cols.map(c=>esc(p[c])).join(','))].join('\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='tnypl-players.csv';a.click();
+}
+checkSession();

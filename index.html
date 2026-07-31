@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tamil Nadu Youth Premier League</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="hero">
+  <nav>
+    <div class="brand">TNYPL</div>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#prizes">Prizes</a>
+      <a href="#register">Register</a>
+      <a href="admin.html">Admin</a>
+    </div>
+  </nav>
+  <div class="hero-content">
+    <p class="eyebrow">U13–U14 Youth T20 Cricket</p>
+    <h1>Tamil Nadu Youth Premier League</h1>
+    <p>Six franchise teams. Thirteen players per squad. Five days of competitive youth cricket.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="#register">Register Player</a>
+      <a class="btn secondary" href="#live">Watch Live</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="live" class="section">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Broadcast</p>
+        <h2>Watch TNYPL</h2>
+      </div>
+      <span id="liveBadge" class="badge">Latest video</span>
+    </div>
+    <div class="video-wrap">
+      <iframe id="youtubeFrame" title="TNYPL YouTube" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <section id="about" class="section grid-3">
+    <article class="card"><h3>6 Teams</h3><p>Founding franchise teams competing in a round-robin youth league.</p></article>
+    <article class="card"><h3>13 Players</h3><p>Each franchise carries a 13-player squad.</p></article>
+    <article class="card"><h3>U13–U14</h3><p>Only players who satisfy the official date-of-birth window are draft eligible.</p></article>
+  </section>
+
+  <section id="prizes" class="section">
+    <p class="eyebrow">Prize Pool</p>
+    <h2>Compete for Recognition</h2>
+    <div class="grid-3">
+      <article class="card prize"><strong>₹50,000</strong><span>Champions</span></article>
+      <article class="card prize"><strong>₹20,000</strong><span>Runner-up</span></article>
+      <article class="card prize"><strong>₹500</strong><span>Man of the Match</span></article>
+    </div>
+    <p class="muted">Tournament MVP, Best Batter, Best Bowler and Best Fielder awards are also included.</p>
+  </section>
+
+  <section id="register" class="section">
+    <p class="eyebrow">Player Registration</p>
+    <h2>Apply for the Player Draft</h2>
+    <div class="notice">
+      Registration fee: <strong>₹2,000</strong>. A valid payment receipt and age proof are mandatory.
+      Submission does not guarantee draft entry. Only verified U13–U14 players will be marked draft eligible.
+    </div>
+
+    <form id="registrationForm" class="form-grid">
+      <label>Player full name<input name="full_name" required></label>
+      <label>Date of birth<input type="date" name="date_of_birth" id="dob" required></label>
+      <label>Calculated age<input id="ageDisplay" readonly placeholder="Calculated automatically"></label>
+      <label>Parent / guardian name<input name="parent_name" required></label>
+      <label>Parent phone<input name="parent_phone" required></label>
+      <label>Email<input type="email" name="email" required></label>
+      <label>District<input name="district" required></label>
+      <label>School<input name="school"></label>
+      <label>Academy / Club<input name="academy"></label>
+      <label>CricHeroes profile URL<input type="url" name="cricheroes_url" placeholder="https://cricheroes.com/..."></label>
+      <label>Primary role
+        <select name="primary_role" required>
+          <option value="">Select</option><option>Batter</option><option>Bowler</option>
+          <option>All-rounder</option><option>Wicketkeeper-batter</option>
+        </select>
+      </label>
+      <label>Batting style
+        <select name="batting_style" required><option value="">Select</option><option>Right-hand</option><option>Left-hand</option></select>
+      </label>
+      <label>Bowling style<input name="bowling_style" placeholder="Right-arm medium, leg-spin, etc."></label>
+      <label>T-shirt size
+        <select name="tshirt_size" required><option value="">Select</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option></select>
+      </label>
+      <label>Pant size<input name="pant_size" required></label>
+      <label>Age proof<input type="file" id="ageProof" accept=".pdf,.jpg,.jpeg,.png" required></label>
+      <label>Payment receipt<input type="file" id="paymentReceipt" accept=".pdf,.jpg,.jpeg,.png" required></label>
+      <label class="full check"><input type="checkbox" required> I confirm that all details are correct and understand that verification is required before draft eligibility.</label>
+      <button class="btn primary full" type="submit">Submit Registration</button>
+      <div id="formMessage" class="full"></div>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <strong>Tamil Nadu Youth Premier League</strong>
+  <span>Play • Compete • Win</span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
