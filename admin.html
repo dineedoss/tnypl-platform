@@ -1,48 +1,100 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>TNYPL Admin</title><link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TNYPL Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body class="admin-body">
+
 <header class="admin-header">
-  <div><p class="eyebrow">TNYPL</p><h1>Admin Dashboard</h1></div>
-  <div><a class="btn secondary" href="index.html">View Site</a> <button id="logoutBtn" class="btn secondary">Logout</button></div>
+  <div class="admin-brand">
+    <span class="admin-brand-text">TNYPL</span>
+    <div>
+      <h1>Admin Dashboard</h1>
+    </div>
+  </div>
+  <div class="admin-actions">
+    <a class="btn btn-secondary" href="index.html">← View Site</a>
+    <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+  </div>
 </header>
 
-<main class="section">
-  <section id="loginPanel" class="card narrow">
-    <h2>Admin Login</h2>
-    <form id="loginForm" class="stack">
-      <label>Email<input type="email" id="adminEmail" required></label>
-      <label>Password<input type="password" id="adminPassword" required></label>
-      <button class="btn primary">Login</button>
-      <div id="loginMessage"></div>
-    </form>
+<main class="admin-main">
+
+  <!-- Login Panel -->
+  <section id="loginPanel" class="narrow">
+    <div class="login-card">
+      <p class="eyebrow">Secure Access</p>
+      <h2>Admin Login</h2>
+      <form id="loginForm" class="stack" style="margin-top:24px">
+        <label>Email address <input type="email" id="adminEmail" placeholder="admin@tnypl.in" required></label>
+        <label>Password <input type="password" id="adminPassword" placeholder="••••••••" required></label>
+        <button class="btn btn-gold" type="submit">Login to Dashboard</button>
+        <div id="loginMessage" class="form-msg"></div>
+      </form>
+    </div>
   </section>
 
+  <!-- Dashboard -->
   <section id="dashboard" hidden>
+
     <div class="stats-grid">
-      <article class="stat"><span>Total registrations</span><strong id="totalCount">0</strong></article>
-      <article class="stat"><span>Payment verified</span><strong id="paymentCount">0</strong></article>
-      <article class="stat"><span>Age verified</span><strong id="ageCount">0</strong></article>
-      <article class="stat"><span>Draft eligible</span><strong id="eligibleCount">0</strong></article>
+      <article class="stat">
+        <span>Total Registrations</span>
+        <strong id="totalCount">0</strong>
+      </article>
+      <article class="stat">
+        <span>Payment Verified</span>
+        <strong id="paymentCount">0</strong>
+      </article>
+      <article class="stat">
+        <span>Age Verified</span>
+        <strong id="ageCount">0</strong>
+      </article>
+      <article class="stat">
+        <span>Draft Eligible</span>
+        <strong id="eligibleCount">0</strong>
+      </article>
     </div>
 
     <div class="toolbar">
-      <input id="searchInput" placeholder="Search name, district, role">
-      <select id="statusFilter"><option value="">All statuses</option><option value="pending">Pending</option><option value="eligible">Eligible</option><option value="rejected">Rejected</option></select>
-      <button id="exportBtn" class="btn secondary">Export CSV</button>
+      <input id="searchInput" placeholder="Search by name, district, or role…">
+      <select id="statusFilter">
+        <option value="">All statuses</option>
+        <option value="pending">Pending</option>
+        <option value="eligible">Eligible</option>
+        <option value="rejected">Rejected</option>
+      </select>
+      <button id="exportBtn" class="btn btn-secondary">Export CSV</button>
     </div>
 
     <div class="table-wrap">
       <table>
-        <thead><tr><th>Player</th><th>DOB</th><th>District</th><th>Role</th><th>CricHeroes</th><th>Payment</th><th>Age</th><th>Draft</th><th>Actions</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>DOB</th>
+            <th>District</th>
+            <th>Role</th>
+            <th>CricHeroes</th>
+            <th>Payment</th>
+            <th>Age</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
         <tbody id="playersBody"></tbody>
       </table>
     </div>
+
   </section>
 </main>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="admin.js"></script>

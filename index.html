@@ -3,107 +3,598 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Tamil Nadu Youth Premier League</title>
+  <title>Tamil Nadu Youth Premier League — TNYPL</title>
+  <meta name="description" content="Tamil Nadu's premier youth cricket franchise league. U13–U14 T20 cricket. Six founding franchises. Fifteen matches. Five days.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="hero">
-  <nav>
-    <div class="brand">TNYPL</div>
-    <div class="links">
-      <a href="#about">About</a>
-      <a href="#prizes">Prizes</a>
-      <a href="#register">Register</a>
-      <a href="admin.html">Admin</a>
-    </div>
-  </nav>
+
+<!-- ── NAVIGATION ── -->
+<nav class="navbar" id="navbar">
+  <a class="nav-brand" href="#hero">
+    <span class="brand-text">TNYPL</span>
+    <span class="brand-sub">Tamil Nadu Youth Premier League</span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#vision">Vision</a>
+    <a href="#format">Format</a>
+    <a href="#prizes">Prizes</a>
+    <a href="#owners">Franchises</a>
+    <a href="#live">Watch</a>
+    <a href="#register" class="nav-cta">Register Player</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="hero-glow"></div>
+    <div class="hero-lines"></div>
+  </div>
   <div class="hero-content">
-    <p class="eyebrow">U13–U14 Youth T20 Cricket</p>
-    <h1>Tamil Nadu Youth Premier League</h1>
-    <p>Six franchise teams. Thirteen players per squad. Five days of competitive youth cricket.</p>
-    <div class="cta-row">
-      <a class="btn primary" href="#register">Register Player</a>
-      <a class="btn secondary" href="#live">Watch Live</a>
+    <p class="eyebrow animate-in" style="--delay:0.1s">U13 – U14 · T20 · Tamil Nadu</p>
+    <h1 class="hero-title animate-in" style="--delay:0.25s">
+      Tamil Nadu<br>
+      <span class="gold">Youth Premier</span><br>
+      League
+    </h1>
+    <p class="hero-sub animate-in" style="--delay:0.4s">
+      Six founding franchise teams. Thirteen players per squad.<br>
+      Fifteen T20 matches across five days of elite youth cricket.
+    </p>
+    <div class="hero-stats animate-in" style="--delay:0.55s">
+      <div class="hstat"><strong>6</strong><span>Franchises</span></div>
+      <div class="hstat-div"></div>
+      <div class="hstat"><strong>78</strong><span>Players</span></div>
+      <div class="hstat-div"></div>
+      <div class="hstat"><strong>15</strong><span>Matches</span></div>
+      <div class="hstat-div"></div>
+      <div class="hstat"><strong>5</strong><span>Days</span></div>
+    </div>
+    <div class="hero-cta animate-in" style="--delay:0.7s">
+      <a class="btn btn-gold" href="#register">Register as Player</a>
+      <a class="btn btn-outline" href="#owners">Own a Franchise</a>
+    </div>
+    <p class="hero-spectator animate-in" style="--delay:0.85s">
+      🎟 Free spectator entry for all matches
+    </p>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── LEAGUE VISION ── -->
+<section class="section" id="vision">
+  <div class="container">
+    <div class="section-label">League Vision</div>
+    <h2 class="section-title">Building Tomorrow's<br><span class="gold">Cricket Champions</span></h2>
+    <p class="section-lead">
+      TNYPL was founded on a single conviction — Tamil Nadu's youth cricket talent is exceptional
+      and deserves a structured, professionally run franchise league to develop and showcase it.
+    </p>
+    <div class="vision-grid">
+      <div class="vision-card">
+        <div class="vision-icon">🏏</div>
+        <h3>Elite Competition</h3>
+        <p>A full franchise T20 format at youth level — authentic team identities, professional matchdays, and high-stakes cricket from the first ball.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-icon">🌟</div>
+        <h3>Pathway to Excellence</h3>
+        <p>Every player who earns draft eligibility enters a scouted environment. CricHeroes profiles, stats, and match footage create a permanent career record.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-icon">🤝</div>
+        <h3>Community Ownership</h3>
+        <p>Six franchise owners invest in Tamil Nadu's cricket future. A modest ₹20,000 franchise contribution funds the league and creates a shared stake in its success.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-icon">📡</div>
+        <h3>Live & Broadcast</h3>
+        <p>All matches will be live-streamed on YouTube. Every game is documented, every player's performance is visible to selectors, academies, and family.</p>
+      </div>
     </div>
   </div>
-</header>
+</section>
 
-<main>
-  <section id="live" class="section">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow">Broadcast</p>
-        <h2>Watch TNYPL</h2>
+<!-- ── SIX FRANCHISE CONCEPT ── -->
+<section class="section section-dark" id="owners">
+  <div class="container">
+    <div class="section-label light">Founding Franchises</div>
+    <h2 class="section-title light">Six Teams.<br><span class="gold">One Championship.</span></h2>
+    <p class="section-lead light">
+      TNYPL is built on six founding franchises — each a unique team identity competing
+      across fifteen T20 matches to claim Tamil Nadu's inaugural youth league title.
+    </p>
+    <div class="franchise-grid">
+      <div class="franchise-card">
+        <div class="franchise-num">01</div>
+        <h3>Franchise Alpha</h3>
+        <p>Founding team · 13 players · Full team identity</p>
       </div>
-      <span id="liveBadge" class="badge">Latest video</span>
+      <div class="franchise-card">
+        <div class="franchise-num">02</div>
+        <h3>Franchise Beta</h3>
+        <p>Founding team · 13 players · Full team identity</p>
+      </div>
+      <div class="franchise-card">
+        <div class="franchise-num">03</div>
+        <h3>Franchise Gamma</h3>
+        <p>Founding team · 13 players · Full team identity</p>
+      </div>
+      <div class="franchise-card">
+        <div class="franchise-num">04</div>
+        <h3>Franchise Delta</h3>
+        <p>Founding team · 13 players · Full team identity</p>
+      </div>
+      <div class="franchise-card">
+        <div class="franchise-num">05</div>
+        <h3>Franchise Epsilon</h3>
+        <p>Founding team · 13 players · Full team identity</p>
+      </div>
+      <div class="franchise-card">
+        <div class="franchise-num">06</div>
+        <h3>Franchise Zeta</h3>
+        <p>Founding team · 13 players · Full team identity</p>
+      </div>
+    </div>
+    <p class="franchise-note">Team names will be announced once all six founding owners are confirmed. Secure your franchise now.</p>
+  </div>
+</section>
+
+<!-- ── TOURNAMENT FORMAT ── -->
+<section class="section" id="format">
+  <div class="container">
+    <div class="section-label">Tournament Format</div>
+    <h2 class="section-title">How the League<br><span class="gold">Works</span></h2>
+    <div class="format-grid">
+      <div class="format-block">
+        <div class="format-icon">📋</div>
+        <h3>Round Robin</h3>
+        <p>All six teams play each other once in a round-robin group stage across the first four days — 15 matches total.</p>
+      </div>
+      <div class="format-block">
+        <div class="format-icon">⚡</div>
+        <h3>T20 Format</h3>
+        <p>Every match is a 20-over T20 fixture. Fast, exciting, and packed with skill — exactly the format young players need.</p>
+      </div>
+      <div class="format-block">
+        <div class="format-icon">📅</div>
+        <h3>Five Days</h3>
+        <p>Three matches per day across four group-stage days, followed by a finals day featuring the Grand Final and Third-Place Play-off.</p>
+      </div>
+      <div class="format-block">
+        <div class="format-icon">👶</div>
+        <h3>U13 – U14 Only</h3>
+        <p>Strict date-of-birth verification ensures only eligible U13 and U14 players compete. Fair, transparent, and rigorous.</p>
+      </div>
+      <div class="format-block">
+        <div class="format-icon">👥</div>
+        <h3>13-Player Squads</h3>
+        <p>Each franchise drafts exactly 13 players — 78 young cricketers in total. Every squad spot matters.</p>
+      </div>
+      <div class="format-block">
+        <div class="format-icon">🎟</div>
+        <h3>Free Entry</h3>
+        <p>Spectators attend all matches free of charge. Families, selectors, and cricket fans are all welcome at every game.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRIZES ── -->
+<section class="section section-navy" id="prizes">
+  <div class="container">
+    <div class="section-label light">Prize Structure</div>
+    <h2 class="section-title light">Compete for<br><span class="gold">Real Recognition</span></h2>
+
+    <div class="prize-main-grid">
+      <div class="prize-hero champion">
+        <div class="prize-crown">🏆</div>
+        <div class="prize-amount">₹50,000</div>
+        <div class="prize-label">Champions</div>
+        <div class="prize-desc">Winning franchise team — shared equally among squad members</div>
+      </div>
+      <div class="prize-hero runner">
+        <div class="prize-crown">🥈</div>
+        <div class="prize-amount">₹20,000</div>
+        <div class="prize-label">Runner-Up</div>
+        <div class="prize-desc">Finalist franchise team — shared equally among squad members</div>
+      </div>
+    </div>
+
+    <div class="prize-sub-grid">
+      <div class="prize-sub">
+        <span class="prize-sub-icon">⭐</span>
+        <strong>₹500</strong>
+        <span>Man of the Match</span>
+        <small>Every league match</small>
+      </div>
+      <div class="prize-sub">
+        <span class="prize-sub-icon">🏅</span>
+        <strong>Trophy</strong>
+        <span>Tournament MVP</span>
+        <small>Best performer overall</small>
+      </div>
+      <div class="prize-sub">
+        <span class="prize-sub-icon">🏏</span>
+        <strong>Trophy</strong>
+        <span>Best Batter</span>
+        <small>Highest run-scorer</small>
+      </div>
+      <div class="prize-sub">
+        <span class="prize-sub-icon">🎳</span>
+        <strong>Trophy</strong>
+        <span>Best Bowler</span>
+        <small>Leading wicket-taker</small>
+      </div>
+      <div class="prize-sub">
+        <span class="prize-sub-icon">🧤</span>
+        <strong>Trophy</strong>
+        <span>Best Fielder</span>
+        <small>Outstanding fielding</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OWNER BENEFITS ── -->
+<section class="section" id="ownerbenefits">
+  <div class="container">
+    <div class="section-label">Franchise Ownership</div>
+    <h2 class="section-title">Why Own a<br><span class="gold">TNYPL Franchise</span></h2>
+    <div class="benefits-layout">
+      <div class="benefits-left">
+        <div class="benefit-item">
+          <div class="benefit-check">✓</div>
+          <div>
+            <h4>Founding Owner Status</h4>
+            <p>Be one of only six founding franchise owners. Your name and brand are part of TNYPL history from day one.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check">✓</div>
+          <div>
+            <h4>Draft Priority Rights</h4>
+            <p>Participate in the player draft to build your squad from the pool of verified, age-eligible players.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check">✓</div>
+          <div>
+            <h4>Team Identity &amp; Branding</h4>
+            <p>Name your team, choose your colours, and build a brand that the community rallies behind.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check">✓</div>
+          <div>
+            <h4>Matchday Recognition</h4>
+            <p>Owner visibility across matchday announcements, social media, and YouTube broadcasts.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check">✓</div>
+          <div>
+            <h4>Talent Discovery</h4>
+            <p>First access to outstanding young cricketers in your district — invest in future stars before they're stars.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check">✓</div>
+          <div>
+            <h4>Low Entry Threshold</h4>
+            <p>A ₹20,000 franchise contribution gives you full ownership rights for the inaugural season — the most accessible franchise model in Tamil Nadu cricket.</p>
+          </div>
+        </div>
+      </div>
+      <div class="benefits-right">
+        <div class="owner-cta-card">
+          <div class="owner-cta-badge">Only 6 franchises available</div>
+          <h3>Secure Your<br>Franchise Today</h3>
+          <div class="owner-price">
+            <span class="price-label">Franchise Contribution</span>
+            <span class="price-amount">₹20,000</span>
+          </div>
+          <p>Express your interest and a TNYPL representative will contact you within 24 hours to discuss the process, timeline, and next steps.</p>
+          <a class="btn btn-gold btn-full" href="#ownerinquiry">Express Interest →</a>
+          <p class="owner-cta-note">Non-binding enquiry. Slots fill in order of confirmation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PLAYER PATHWAY ── -->
+<section class="section section-light" id="pathway">
+  <div class="container">
+    <div class="section-label">Player Journey</div>
+    <h2 class="section-title">From Registration<br><span class="gold">to the Draft</span></h2>
+    <div class="pathway-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h4>Register Online</h4>
+          <p>Complete the registration form with your details, CricHeroes profile URL, and upload your age proof and ₹2,000 payment receipt.</p>
+        </div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h4>Verification</h4>
+          <p>TNYPL admins verify your age document and payment receipt. Both must be confirmed before draft eligibility is granted.</p>
+        </div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h4>Draft Pool</h4>
+          <p>Verified players enter the official draft pool. Franchise owners select their 13-player squads from eligible candidates.</p>
+        </div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h4>Play &amp; Compete</h4>
+          <p>Drafted players represent their franchise in 15 T20 matches, broadcast live on YouTube with full match statistics.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CRICHEROES ── -->
+<section class="section" id="cricheroes">
+  <div class="container narrow">
+    <div class="section-label">CricHeroes</div>
+    <h2 class="section-title">Your Cricket<br><span class="gold">Digital Profile</span></h2>
+    <p class="section-lead">
+      Every registered player is encouraged to maintain a CricHeroes profile.
+      Your stats, match history, and performance data are visible to franchise owners
+      during the draft — and to selectors and academies long after the tournament ends.
+    </p>
+    <div class="cricheroes-steps">
+      <div class="ch-step">
+        <span class="ch-num">1</span>
+        <p>Create or update your CricHeroes profile at <strong>cricheroes.com</strong></p>
+      </div>
+      <div class="ch-step">
+        <span class="ch-num">2</span>
+        <p>Log all your recent matches to build a strong performance record</p>
+      </div>
+      <div class="ch-step">
+        <span class="ch-num">3</span>
+        <p>Paste your CricHeroes profile URL into the registration form below</p>
+      </div>
+    </div>
+    <a class="btn btn-outline-navy" href="https://cricheroes.com" target="_blank" rel="noopener">
+      Visit CricHeroes →
+    </a>
+  </div>
+</section>
+
+<!-- ── LIVE / YOUTUBE ── -->
+<section class="section section-dark" id="live">
+  <div class="container">
+    <div class="live-header">
+      <div>
+        <div class="section-label light">Broadcast</div>
+        <h2 class="section-title light">Watch <span class="gold">TNYPL</span></h2>
+      </div>
+      <span id="liveBadge" class="live-badge">Latest Video</span>
     </div>
     <div class="video-wrap">
-      <iframe id="youtubeFrame" title="TNYPL YouTube" allowfullscreen></iframe>
+      <iframe id="youtubeFrame" title="TNYPL on YouTube" allowfullscreen></iframe>
     </div>
-  </section>
+    <p class="video-note">All TNYPL matches will be streamed live on YouTube. Subscribe to the channel to get notified when live coverage begins.</p>
+  </div>
+</section>
 
-  <section id="about" class="section grid-3">
-    <article class="card"><h3>6 Teams</h3><p>Founding franchise teams competing in a round-robin youth league.</p></article>
-    <article class="card"><h3>13 Players</h3><p>Each franchise carries a 13-player squad.</p></article>
-    <article class="card"><h3>U13–U14</h3><p>Only players who satisfy the official date-of-birth window are draft eligible.</p></article>
-  </section>
-
-  <section id="prizes" class="section">
-    <p class="eyebrow">Prize Pool</p>
-    <h2>Compete for Recognition</h2>
-    <div class="grid-3">
-      <article class="card prize"><strong>₹50,000</strong><span>Champions</span></article>
-      <article class="card prize"><strong>₹20,000</strong><span>Runner-up</span></article>
-      <article class="card prize"><strong>₹500</strong><span>Man of the Match</span></article>
+<!-- ── SPONSORS ── -->
+<section class="section" id="sponsors">
+  <div class="container">
+    <div class="section-label">Sponsors &amp; Partners</div>
+    <h2 class="section-title">Support Tamil Nadu<br><span class="gold">Youth Cricket</span></h2>
+    <p class="section-lead">
+      TNYPL offers sponsors direct access to engaged cricket families, coaches, and communities
+      across Tamil Nadu. Partner with us to put your brand at the centre of the state's fastest-growing
+      youth cricket movement.
+    </p>
+    <div class="sponsor-slots">
+      <div class="sponsor-slot title-slot">
+        <span class="slot-label">Title Sponsor</span>
+        <p>Exclusive branding on all match jerseys, digital content, and broadcast</p>
+        <a href="#ownerinquiry" class="btn btn-gold">Enquire Now</a>
+      </div>
+      <div class="sponsor-slot">
+        <span class="slot-label">Official Partner</span>
+        <p>Matchday branding, social media features, and digital presence</p>
+        <a href="#ownerinquiry" class="btn btn-outline-navy">Enquire</a>
+      </div>
+      <div class="sponsor-slot">
+        <span class="slot-label">Associate Sponsor</span>
+        <p>Tournament publications, website presence, and local visibility</p>
+        <a href="#ownerinquiry" class="btn btn-outline-navy">Enquire</a>
+      </div>
     </div>
-    <p class="muted">Tournament MVP, Best Batter, Best Bowler and Best Fielder awards are also included.</p>
-  </section>
+  </div>
+</section>
 
-  <section id="register" class="section">
-    <p class="eyebrow">Player Registration</p>
-    <h2>Apply for the Player Draft</h2>
-    <div class="notice">
-      Registration fee: <strong>₹2,000</strong>. A valid payment receipt and age proof are mandatory.
-      Submission does not guarantee draft entry. Only verified U13–U14 players will be marked draft eligible.
-    </div>
-
-    <form id="registrationForm" class="form-grid">
-      <label>Player full name<input name="full_name" required></label>
-      <label>Date of birth<input type="date" name="date_of_birth" id="dob" required></label>
-      <label>Calculated age<input id="ageDisplay" readonly placeholder="Calculated automatically"></label>
-      <label>Parent / guardian name<input name="parent_name" required></label>
-      <label>Parent phone<input name="parent_phone" required></label>
-      <label>Email<input type="email" name="email" required></label>
-      <label>District<input name="district" required></label>
-      <label>School<input name="school"></label>
-      <label>Academy / Club<input name="academy"></label>
-      <label>CricHeroes profile URL<input type="url" name="cricheroes_url" placeholder="https://cricheroes.com/..."></label>
-      <label>Primary role
-        <select name="primary_role" required>
-          <option value="">Select</option><option>Batter</option><option>Bowler</option>
-          <option>All-rounder</option><option>Wicketkeeper-batter</option>
-        </select>
-      </label>
-      <label>Batting style
-        <select name="batting_style" required><option value="">Select</option><option>Right-hand</option><option>Left-hand</option></select>
-      </label>
-      <label>Bowling style<input name="bowling_style" placeholder="Right-arm medium, leg-spin, etc."></label>
-      <label>T-shirt size
-        <select name="tshirt_size" required><option value="">Select</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option></select>
-      </label>
-      <label>Pant size<input name="pant_size" required></label>
-      <label>Age proof<input type="file" id="ageProof" accept=".pdf,.jpg,.jpeg,.png" required></label>
-      <label>Payment receipt<input type="file" id="paymentReceipt" accept=".pdf,.jpg,.jpeg,.png" required></label>
-      <label class="full check"><input type="checkbox" required> I confirm that all details are correct and understand that verification is required before draft eligibility.</label>
-      <button class="btn primary full" type="submit">Submit Registration</button>
-      <div id="formMessage" class="full"></div>
+<!-- ── OWNER INQUIRY ── -->
+<section class="section section-navy" id="ownerinquiry">
+  <div class="container narrow">
+    <div class="section-label light">Get Involved</div>
+    <h2 class="section-title light">Enquire About<br><span class="gold">Franchise Ownership</span></h2>
+    <p class="section-lead light">
+      Fill in your details and our team will reach out within 24 hours to walk you through
+      the franchise process, answer your questions, and reserve your slot.
+    </p>
+    <form class="inquiry-form" id="inquiryForm">
+      <div class="form-row">
+        <label>Your name <input name="owner_name" placeholder="Full name" required></label>
+        <label>Phone number <input name="owner_phone" type="tel" placeholder="+91 XXXXX XXXXX" required></label>
+      </div>
+      <label>Email address <input name="owner_email" type="email" placeholder="you@email.com" required></label>
+      <label>District / City <input name="owner_district" placeholder="Your district or city" required></label>
+      <label>Tell us why you want to own a franchise <textarea name="owner_message" rows="3" placeholder="Optional — share your cricket background, motivation, etc."></textarea></label>
+      <button class="btn btn-gold btn-full" type="submit">Submit Enquiry</button>
+      <div id="inquiryMsg" class="form-msg"></div>
     </form>
-  </section>
-</main>
+  </div>
+</section>
 
-<footer>
-  <strong>Tamil Nadu Youth Premier League</strong>
-  <span>Play • Compete • Win</span>
+<!-- ── PLAYER REGISTRATION ── -->
+<section class="section section-light" id="register">
+  <div class="container">
+    <div class="section-label">Player Registration</div>
+    <h2 class="section-title">Apply for the<br><span class="gold">Player Draft</span></h2>
+
+    <div class="reg-notice">
+      <div class="reg-notice-icon">ℹ️</div>
+      <div>
+        <strong>Registration Fee: ₹2,000</strong><br>
+        A valid payment receipt and age proof (birth certificate or school ID) are mandatory uploads.
+        Submission does not guarantee draft entry — only players who pass both payment and age verification
+        will be marked draft eligible.
+      </div>
+    </div>
+
+    <form id="registrationForm" class="reg-form">
+      <fieldset class="reg-fieldset">
+        <legend>Player Details</legend>
+        <div class="reg-grid">
+          <label>Player full name <input name="full_name" placeholder="As on birth certificate" required></label>
+          <label>Date of birth <input type="date" name="date_of_birth" id="dob" required></label>
+          <label>Calculated age <input id="ageDisplay" readonly placeholder="Auto-calculated from DOB" class="readonly"></label>
+          <label>Batting style
+            <select name="batting_style" required>
+              <option value="">Select</option>
+              <option>Right-hand</option>
+              <option>Left-hand</option>
+            </select>
+          </label>
+          <label>Primary role
+            <select name="primary_role" required>
+              <option value="">Select</option>
+              <option>Batter</option>
+              <option>Bowler</option>
+              <option>All-rounder</option>
+              <option>Wicketkeeper-batter</option>
+            </select>
+          </label>
+          <label>Bowling style <input name="bowling_style" placeholder="Right-arm medium, leg-spin, etc."></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="reg-fieldset">
+        <legend>Contact &amp; Location</legend>
+        <div class="reg-grid">
+          <label>Parent / guardian name <input name="parent_name" required></label>
+          <label>Parent phone <input name="parent_phone" type="tel" placeholder="+91 XXXXX XXXXX" required></label>
+          <label>Email address <input type="email" name="email" required></label>
+          <label>District <input name="district" required></label>
+          <label>School <input name="school" placeholder="School name (optional)"></label>
+          <label>Academy / Club <input name="academy" placeholder="Academy or club (optional)"></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="reg-fieldset">
+        <legend>Cricket Profile</legend>
+        <div class="reg-grid">
+          <label>CricHeroes profile URL <input type="url" name="cricheroes_url" placeholder="https://cricheroes.com/player-profile/..."></label>
+          <label>T-shirt size
+            <select name="tshirt_size" required>
+              <option value="">Select</option>
+              <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option>
+            </select>
+          </label>
+          <label>Pant size <input name="pant_size" placeholder="e.g. 28, 30, 32" required></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="reg-fieldset">
+        <legend>Documents &amp; Payment</legend>
+        <div class="reg-grid docs-grid">
+          <div class="upload-box">
+            <label for="ageProof">
+              <div class="upload-icon">📄</div>
+              <strong>Age Proof</strong>
+              <span>Birth certificate, school ID, or Aadhaar</span>
+              <span class="upload-types">PDF, JPG, PNG · Max 5 MB</span>
+              <input type="file" id="ageProof" accept=".pdf,.jpg,.jpeg,.png" required>
+            </label>
+            <div class="upload-filename" id="ageProofName">No file chosen</div>
+          </div>
+          <div class="upload-box">
+            <label for="paymentReceipt">
+              <div class="upload-icon">🧾</div>
+              <strong>Payment Receipt</strong>
+              <span>Screenshot or scan of ₹2,000 payment</span>
+              <span class="upload-types">PDF, JPG, PNG · Max 5 MB</span>
+              <input type="file" id="paymentReceipt" accept=".pdf,.jpg,.jpeg,.png" required>
+            </label>
+            <div class="upload-filename" id="paymentReceiptName">No file chosen</div>
+          </div>
+        </div>
+      </fieldset>
+
+      <label class="reg-consent">
+        <input type="checkbox" required>
+        <span>I confirm that all details provided are accurate and I understand that verification of both age and payment is required before draft eligibility is granted.</span>
+      </label>
+
+      <button class="btn btn-gold btn-full reg-submit" type="submit">
+        <span class="btn-text">Submit Registration</span>
+        <span class="btn-loading" hidden>Uploading… please wait</span>
+      </button>
+      <div id="formMessage" class="form-msg"></div>
+    </form>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">TNYPL</div>
+      <p>Tamil Nadu Youth Premier League<br>U13–U14 · T20 · Franchise Cricket</p>
+    </div>
+    <div class="footer-links">
+      <h5>Navigate</h5>
+      <a href="#vision">Vision</a>
+      <a href="#format">Format</a>
+      <a href="#prizes">Prizes</a>
+      <a href="#owners">Franchises</a>
+      <a href="#register">Register</a>
+    </div>
+    <div class="footer-links">
+      <h5>League</h5>
+      <a href="#live">Watch Live</a>
+      <a href="#sponsors">Sponsors</a>
+      <a href="#ownerinquiry">Own a Franchise</a>
+      <a href="admin.html">Admin</a>
+    </div>
+    <div class="footer-contact">
+      <h5>TNYPL</h5>
+      <p>Tamil Nadu's premier youth franchise cricket league.</p>
+      <p class="footer-tagline">Play · Compete · Win</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Tamil Nadu Youth Premier League. All rights reserved.</span>
+    <span>Free spectator entry · Youth cricket for Tamil Nadu</span>
+  </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
