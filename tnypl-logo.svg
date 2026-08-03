@@ -1,18 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 820">
 <defs>
-  <linearGradient id="g" x1="0" x2="1">
-    <stop offset="0" stop-color="#0b2b57"/>
-    <stop offset="1" stop-color="#06172f"/>
+  <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#102e65"/>
+    <stop offset="0.55" stop-color="#061a3a"/>
+    <stop offset="1" stop-color="#020b1b"/>
   </linearGradient>
-  <linearGradient id="gold" x1="0" x2="1">
-    <stop offset="0" stop-color="#ffd979"/>
-    <stop offset="1" stop-color="#f0b53a"/>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#fff0a4"/>
+    <stop offset="0.45" stop-color="#f5c04c"/>
+    <stop offset="1" stop-color="#c97a08"/>
   </linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+    <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity=".38"/>
+  </filter>
 </defs>
-<path d="M256 28 438 94v126c0 122-74 218-182 264C148 438 74 342 74 220V94z" fill="url(#g)" stroke="url(#gold)" stroke-width="14"/>
-<circle cx="256" cy="200" r="92" fill="#f0b53a" opacity=".18"/>
-<path d="M170 188c16-58 56-90 92-90 38 0 76 26 92 78-10-7-21-12-34-14 9 15 13 31 11 50-6 56-49 96-93 96-46 0-84-37-87-86-1-13 2-25 7-36 3 0 7 1 12 2zm48 5c8-14 21-22 37-22 16 0 30 8 38 22-8-2-15-1-22 3-7 4-12 10-16 18-4-8-10-14-17-18-6-4-13-5-20-3zm18 53c14 9 27 9 41 0-4 25-36 25-41 0z" fill="url(#gold)"/>
-<path d="M256 118c-18 0-35 8-48 20-9-22 5-46 30-51 5-1 11-1 18 0 7-1 13-1 18 0 25 5 39 29 30 51-13-12-30-20-48-20z" fill="#f0b53a"/>
-<text x="256" y="372" text-anchor="middle" font-family="Arial, sans-serif" font-size="68" font-weight="900" fill="white">TNYPL</text>
-<text x="256" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#ffd979">YOUTH PREMIER LEAGUE</text>
+<g filter="url(#shadow)">
+  <path d="M360 30 645 135v200c0 200-110 354-285 438C185 689 75 535 75 335V135z" fill="url(#navy)" stroke="url(#gold)" stroke-width="22"/>
+  <path d="M360 69 604 158v175c0 166-87 296-244 376-157-80-244-210-244-376V158z" fill="none" stroke="#ffffff" stroke-opacity=".16" stroke-width="5"/>
+  <circle cx="360" cy="285" r="174" fill="#f4bc42" opacity=".09"/>
+  <!-- Crown -->
+  <path d="M237 218 276 151l61 42 37-83 39 83 62-42 34 67-25 30H260z" fill="url(#gold)"/>
+  <circle cx="276" cy="149" r="10" fill="#fff2b0"/><circle cx="374" cy="108" r="10" fill="#fff2b0"/><circle cx="475" cy="149" r="10" fill="#fff2b0"/>
+  <!-- Lion mane -->
+  <path d="M220 313c-27-57-5-117 40-146 31-20 65-25 100-13 35-12 70-7 101 13 45 29 67 89 39 146 22 23 30 57 19 89-10 31-35 54-66 62-18 50-62 82-113 82-51 0-95-32-113-82-31-8-56-31-66-62-11-32-3-66 19-89z" fill="url(#gold)"/>
+  <!-- Lion face -->
+  <path d="M264 285c0-63 43-110 96-110s96 47 96 110v81c0 66-43 119-96 119s-96-53-96-119z" fill="#0b254e"/>
+  <path d="M292 311c18-17 39-18 60-2-20 6-35 17-45 35-8-10-13-21-15-33zm136 0c-18-17-39-18-60-2 20 6 35 17 45 35 8-10 13-21 15-33z" fill="#f5c04c"/>
+  <path d="M326 377c21 14 47 14 68 0-3 34-65 34-68 0z" fill="#f5c04c"/>
+  <path d="M337 354c16-13 31-13 46 0-7 13-16 20-23 20-8 0-16-7-23-20z" fill="#fff0a4"/>
+  <path d="M284 421c20 18 45 27 76 27s56-9 76-27c-8 47-38 78-76 78s-68-31-76-78z" fill="#071a39"/>
+  <!-- Cricket ball + stumps -->
+  <circle cx="360" cy="546" r="39" fill="#b71930" stroke="#fff" stroke-width="5"/>
+  <path d="M337 516c24 17 39 40 44 67M348 512c24 17 39 40 44 67" fill="none" stroke="#fff" stroke-width="4"/>
+  <path d="M295 512v99M330 506v105M425 512v99M390 506v105" stroke="#f7d15f" stroke-width="10" stroke-linecap="round"/>
+  <path d="M284 507h57M379 507h57" stroke="#f7d15f" stroke-width="9" stroke-linecap="round"/>
+  <!-- Type -->
+  <text x="360" y="688" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="104" font-weight="900" fill="#fff">TNYPL</text>
+  <text x="360" y="735" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="800" letter-spacing="4" fill="#f5c04c">YOUTH PREMIER LEAGUE</text>
+  <text x="360" y="773" text-anchor="middle" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="3" fill="#dbe7fa">TAMIL NADU</text>
+</g>
 </svg>
