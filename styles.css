@@ -25,3 +25,50 @@
 .founding-owner-strip strong{display:block;margin:5px 0;color:white}
 .founding-owner-strip span{font-size:.7rem;color:#bcc9dc}
 @media(max-width:700px){.founding-owner-strip{grid-template-columns:1fr}.owner-showcase-grid .owner-team-card{min-height:410px}}
+
+.draft-open-banner{background:#0b7a55;color:white;border-bottom:1px solid rgba(255,255,255,.18)}
+.draft-open-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:15px 0}
+.draft-open-inner small{display:block;font-size:.62rem;letter-spacing:.14em;font-weight:900;color:#bff4df}
+.draft-open-inner strong{display:block;margin-top:3px;font-size:.9rem}
+.refund-highlight{background:linear-gradient(135deg,#e7f8f1,#f7fffb);border:1px solid #a8dfc8;border-left:5px solid #0b7a55;border-radius:14px;padding:18px;margin:20px 0}
+.refund-highlight small{display:block;font-size:.63rem;letter-spacing:.13em;font-weight:900;color:#0b7a55}
+.refund-highlight strong{display:block;margin:7px 0;color:#075d42}
+.refund-highlight p{margin:0;color:#426055;line-height:1.6;font-size:.8rem}
+.refund-terms{margin:14px 0 18px;padding:13px 15px;border-radius:10px;background:#f6f8fb;border:1px solid #e1e6ee;color:#5f6979;font-size:.74rem;line-height:1.6}
+.refund-terms strong{color:#253247}
+@media(max-width:650px){.draft-open-inner{flex-direction:column;align-items:flex-start}.draft-open-inner .button{width:100%}}
+
+.brand-logo{width:56px;height:56px;object-fit:contain;flex:0 0 56px}
+.about-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.about-grid article{background:white;border-radius:16px;padding:24px;box-shadow:0 12px 35px rgba(20,35,65,.08)}
+.about-grid strong{display:block;font-family:"Barlow Condensed";font-size:3rem;color:#0a2d62}
+.about-grid span{font-size:.78rem;color:#687386}
+.leadership-section{background:linear-gradient(135deg,#04142f,#0b3671);color:white}
+.leadership-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.leader-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:20px;padding:28px}
+.leader-photo{width:110px;height:110px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#171717;font-family:"Barlow Condensed";font-size:2.5rem;font-weight:900;margin-bottom:20px}
+.leader-card small{color:var(--gold);font-size:.65rem;letter-spacing:.13em;font-weight:900}
+.leader-card h3{font-family:"Barlow Condensed";font-size:2.2rem;text-transform:uppercase;margin:7px 0}
+.leader-location{color:#d4dfed;font-size:.8rem}
+.leader-card>p{color:#c6d3e4;line-height:1.7}
+.leader-video{margin-top:18px;border:1px dashed rgba(255,255,255,.3);border-radius:11px;padding:13px;color:#e4ecf7;font-size:.78rem}
+.live-draft-section{background:#031128;color:white}
+.live-draft-layout{display:grid;grid-template-columns:1.5fr .5fr;gap:20px}
+.youtube-frame{aspect-ratio:16/9;background:#010712;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+.youtube-frame iframe{width:100%;height:100%;border:0}
+.youtube-placeholder{height:100%;display:grid;place-content:center;text-align:center;padding:30px}
+.youtube-placeholder span{font-size:4rem;color:#ff0033}
+.youtube-placeholder h3{font-family:"Barlow Condensed";font-size:2.2rem;text-transform:uppercase;margin:10px 0}
+.youtube-placeholder p{color:#aebbd0}
+.draft-status-card{background:white;color:#111827;border-radius:20px;padding:25px}
+.draft-status-card small{color:#a66f00;font-weight:900;letter-spacing:.13em;font-size:.65rem}
+.draft-status-card strong{display:block;font-family:"Barlow Condensed";font-size:2.2rem;text-transform:uppercase;margin:8px 0}
+.draft-status-card p,.draft-status-card li{font-size:.8rem;line-height:1.6;color:#657084}
+.payment-card{background:white;border:1px solid #dce2eb;border-radius:17px;padding:20px;text-align:center;margin:22px 0;box-shadow:0 12px 34px rgba(20,35,65,.06)}
+.payment-card small{color:#a86f00;font-size:.64rem;letter-spacing:.14em;font-weight:900}
+.payment-card h3{font-family:"Barlow Condensed";font-size:2rem;text-transform:uppercase;margin:6px 0}
+.payment-card img{width:min(240px,100%);border-radius:12px;border:1px solid #e2e6ec}
+.upi-id{font-weight:900;color:#0a2d62;font-size:1rem!important;word-break:break-all}
+.payment-note{background:#eef7f3;border-radius:9px;padding:11px;color:#0b6c4d;font-size:.75rem;font-weight:800}
+@media(max-width:850px){.leadership-grid,.live-draft-layout{grid-template-columns:1fr}.about-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.about-grid{grid-template-columns:1fr}.brand-logo{width:48px;height:48px}}

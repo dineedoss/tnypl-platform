@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TNYPL Live Player Draft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head>
+<body class="portal-body">
+<div class="portal-shell">
+<header class="portal-header"><a class="brand" href="index.html"><img class="brand-logo" src="tnypl-logo.svg" alt="TNYPL logo"><span><b>TNYPL</b><small>LIVE PLAYER DRAFT</small></span></a><a class="button outline" href="index.html">Back to Website</a></header>
+<main class="portal-card">
+<p class="eyebrow dark">OFFICIAL PLAYER DRAFT</p><h1 style="font-family:'Barlow Condensed';font-size:4rem;margin:0">WATCH LIVE</h1>
+<p>The official TNYPL draft stream will appear below once the YouTube video ID is added in <code>config.js</code>.</p>
+<div class="youtube-frame" id="draftVideoFrame"><div class="youtube-placeholder"><span>▶</span><h3>Live Draft Stream Coming Soon</h3><p>The stream will activate automatically.</p></div></div>
+</main></div>
+<script src="config.js"></script><script>
+const frame=document.getElementById('draftVideoFrame');const id=window.TNYPL_CONFIG?.YOUTUBE_DRAFT_VIDEO_ID;
+if(id&&id!=='YOUR_LIVE_DRAFT_VIDEO_ID'){frame.innerHTML=`<iframe src="https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0" title="TNYPL Live Draft" allowfullscreen></iframe>`}
+</script></body></html>

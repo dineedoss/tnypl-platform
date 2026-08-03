@@ -86,3 +86,11 @@ form.addEventListener('submit',async event=>{
     button.disabled=false;
   }
 });
+
+// Load the YouTube live draft stream when a video ID is configured.
+(function loadDraftStream(){
+  const frame=document.getElementById('draftVideoFrame');
+  const videoId=window.TNYPL_CONFIG?.YOUTUBE_DRAFT_VIDEO_ID;
+  if(!frame||!videoId||videoId==='YOUR_LIVE_DRAFT_VIDEO_ID') return;
+  frame.innerHTML=`<iframe src="https://www.youtube.com/embed/${encodeURIComponent(videoId)}?rel=0" title="TNYPL Live Player Draft" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+})();
