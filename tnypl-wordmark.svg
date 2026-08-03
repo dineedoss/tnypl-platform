@@ -1,10 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 220">
-<defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#fff1a8"/><stop offset=".48" stop-color="#f6c64e"/><stop offset="1" stop-color="#c9820b"/></linearGradient></defs>
-<path d="M105 16 188 46v59c0 55-30 96-83 123-53-27-83-68-83-123V46z" fill="#071a3a" stroke="url(#g)" stroke-width="7"/>
-<path d="M105 49 133 58 153 79 158 108 145 135 122 151 105 159 88 151 65 135 52 108 57 79 77 58z" fill="url(#g)"/>
-<path d="M78 91c10-9 20-12 32-7-10 4-18 11-23 21-5-4-8-9-9-14zm54 0c-10-9-20-12-32-7 10 4 18 11 23 21 5-4 8-9 9-14z" fill="#071a3a"/>
-<path d="M94 118c8-6 15-6 23 0-4 7-8 10-12 10s-8-3-11-10z" fill="#071a3a"/>
-<text x="225" y="115" font-family="Arial Black,Arial,sans-serif" font-size="92" font-weight="900" fill="#ffffff">TNYPL</text>
-<rect x="228" y="132" width="455" height="4" rx="2" fill="url(#g)"/>
-<text x="228" y="171" font-family="Arial,sans-serif" font-size="24" font-weight="800" letter-spacing="4" fill="#f6c64e">TAMIL NADU YOUTH PREMIER LEAGUE</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" role="img" aria-label="TNYPL — Tamil Nadu Youth Premier League">
+<defs>
+  <linearGradient id="g" x1="0" x2="1"><stop stop-color="#fff1a6"/><stop offset=".5" stop-color="#f7c84f"/><stop offset="1" stop-color="#be7507"/></linearGradient>
+</defs>
+<path d="M105 15 190 46v60c0 57-31 100-85 128-54-28-85-71-85-128V46z" fill="#071b3d" stroke="url(#g)" stroke-width="7"/>
+<path d="M105 48 133 58 154 80 159 109 146 136 122 153 105 161 88 153 64 136 51 109 56 80 77 58z" fill="url(#g)"/>
+<path d="M78 91c10-9 20-12 32-7-10 4-18 11-23 21-5-4-8-9-9-14zm54 0c-10-9-20-12-32-7 10 4 18 11 23 21 5-4 8-9 9-14z" fill="#071b3d"/>
+<path d="M94 118c8-6 15-6 23 0-4 7-8 10-12 10s-8-3-11-10z" fill="#071b3d"/>
+<text x="230" y="112" font-family="Arial Black,Arial,sans-serif" font-size="94" font-weight="900" letter-spacing="2" fill="#ffffff">TNYPL</text>
+<rect x="233" y="131" width="520" height="5" rx="2.5" fill="url(#g)"/>
+<text x="233" y="174" font-family="Arial,sans-serif" font-size="24" font-weight="800" letter-spacing="4" fill="#f7c84f">TAMIL NADU YOUTH PREMIER LEAGUE</text>
 </svg>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Tamil Nadu Youth Premier League 2026 — six franchises, 78 draft places and five days of youth T20 cricket.">
-  <title>TNYPL 2026 | Where Future Stars Rise</title>
+  <title>TNYPL 2026 | Dream. Draft. Dominate.</title>
   <link rel="icon" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,27 +12,18 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="intro" id="intro">
-    <div class="intro-rays"></div>
-    <img src="tnypl-logo-animated.svg" alt="TNYPL" class="intro-logo">
-    <p>THE LION AWAKENS · WHERE FUTURE STARS RISE</p>
-    <button id="skipIntro">Enter the League</button>
+  <div class="top-strip">
+    <div class="live-tag"><span></span> LIVE UPDATE</div>
+    <div class="ticker"><div>PLAYER DRAFT REGISTRATION IS OPEN • SIX FOUNDING FRANCHISES CONFIRMED • LIVE DRAFT COMING TO YOUTUBE • TOURNAMENT: 14–18 SEPTEMBER 2026 • ₹2,000 REFUNDED TO VERIFIED PLAYERS NOT DRAFTED •</div></div>
   </div>
 
-  <div class="newsbar">
-    <div class="newsbar-label"><span></span> LIVE UPDATE</div>
-    <div class="ticker"><div>
-      PLAYER DRAFT REGISTRATION IS OPEN • SIX FOUNDING FRANCHISES CONFIRMED • LIVE DRAFT COMING TO YOUTUBE • TOURNAMENT: 14–18 SEPTEMBER 2026 • ₹2,000 REFUNDED TO VERIFIED PLAYERS NOT DRAFTED •
-    </div></div>
-  </div>
+  <header class="premium-hero" id="home">
+    <div class="hero-lights light-one"></div>
+    <div class="hero-lights light-two"></div>
+    <div class="hero-grid-bg"></div>
 
-  <header class="hero" id="home">
-    <video class="hero-video" autoplay muted loop playsinline poster="tnypl-stadium-poster.jpg">
-      <source src="tnypl-stadium-loop.mp4" type="video/mp4">
-    </video>
-    <div class="hero-overlay"></div>
-    <nav class="nav shell">
-      <a class="brand" href="#home">
+    <nav class="premium-nav shell">
+      <a class="brand brand-clean" href="#home">
         <img class="nav-wordmark" src="tnypl-wordmark.svg" alt="TNYPL — Tamil Nadu Youth Premier League">
       </a>
       <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
@@ -47,245 +38,172 @@
       </div>
     </nav>
 
-    <div class="hero-inner shell">
-      <div class="hero-brand-lockup reveal">
-        <img src="tnypl-logo-animated.svg" alt="Animated TNYPL official logo">
-      </div>
-      <div class="hero-copy reveal delay-1">
-        <p class="kicker">INAUGURAL SEASON · 14–18 SEPTEMBER 2026</p>
-        <h1>DREAM.<br><span>DRAFT.</span><br>DOMINATE.</h1>
-        <p class="lead">Six confirmed franchises. Seventy-eight squad places. A live player draft and five days of youth T20 cricket built to showcase Tamil Nadu’s next generation.</p>
-        <div class="hero-buttons">
-          <a class="btn gold" href="#register">Register for the Draft</a>
-          <a class="btn glass" href="#draft-live">Watch Draft Arena</a>
+    <div class="hero-layout shell">
+      <div class="hero-emblem reveal">
+        <div class="crest-stage">
+          <div class="crest-ring ring-one"></div>
+          <div class="crest-ring ring-two"></div>
+          <img src="tnypl-crest-animated.svg" alt="TNYPL Golden Lion Crest">
+        </div>
+        <div class="hero-logo-text">
+          <strong>TNYPL</strong>
+          <span>TAMIL NADU YOUTH PREMIER LEAGUE</span>
         </div>
       </div>
+
+      <div class="hero-content reveal delay-1">
+        <p class="hero-kicker">INAUGURAL SEASON · 14–18 SEPTEMBER 2026</p>
+        <h1>DREAM.<br><span>DRAFT.</span><br>DOMINATE.</h1>
+        <p class="hero-copy">Six confirmed franchises. Seventy-eight squad places. A live player draft and five days of youth T20 cricket built to showcase Tamil Nadu’s next generation.</p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="#register">Register for the Draft</a>
+          <a class="btn btn-ghost" href="#draft-live">Watch Draft Arena</a>
+        </div>
+      </div>
+
+      <aside class="hero-side reveal delay-2">
+        <div class="count-card">
+          <small>TOURNAMENT BEGINS IN</small>
+          <div class="count-number" id="countDays">--</div>
+          <span>Calendar Days</span>
+          <b>14 September 2026</b>
+          <em>Chennai, India · IST</em>
+          <p>First-ball time to be confirmed</p>
+        </div>
+        <div class="quick-facts">
+          <div><strong>6</strong><span>Franchises</span></div>
+          <div><strong>78</strong><span>Draft Places</span></div>
+          <div><strong>15</strong><span>T20 Matches</span></div>
+          <div><strong>5</strong><span>Days</span></div>
+        </div>
+      </aside>
     </div>
 
-    <div class="hero-bottom shell reveal delay-2">
-      <div class="countdown countdown-date-only" id="tournamentCountdown">
-        <small>TOURNAMENT BEGINS IN</small>
-        <div class="days-block"><strong id="countDays">--</strong><span>Calendar Days</span></div>
-        <div class="countdown-context">
-          <b>14 SEPTEMBER 2026</b>
-          <span>Chennai, India · IST</span>
-          <em id="countdownTimeStatus">First-ball time to be confirmed</em>
-        </div>
-      </div>
-      <div class="hero-stats">
-        <div><strong>6</strong><span>Franchises</span></div>
-        <div><strong>78</strong><span>Draft Places</span></div>
-        <div><strong>15</strong><span>T20 Matches</span></div>
-        <div><strong>5</strong><span>Days</span></div>
-      </div>
+    <div class="hero-foot shell">
+      <div><small>ELIGIBLE DOB</small><strong>01 JAN 2010 – 01 JAN 2012</strong></div>
+      <div><small>REGISTRATION FEE</small><strong>₹2,000</strong></div>
+      <div><small>NOT DRAFTED?</small><strong>FULL REFUND*</strong></div>
+      <div><small>SPECTATOR ENTRY</small><strong>FREE</strong></div>
     </div>
   </header>
 
   <main>
-    <section class="draft-strip">
-      <div class="shell">
-        <div><span class="pulse"></span><small>PLAYER DRAFT STATUS</small><strong>REGISTRATION OPEN</strong></div>
-        <div><small>ELIGIBLE DOB</small><strong>01 JAN 2010 – 01 JAN 2012</strong></div>
-        <div><small>REGISTRATION FEE</small><strong>₹2,000</strong></div>
-        <div><small>IF NOT DRAFTED</small><strong>FULL REFUND*</strong></div>
-      </div>
-    </section>
-
-
-    <section id="live-pulse" class="section live-pulse-section">
-      <div class="shell">
-        <div class="section-head live-pulse-head">
-          <div>
-            <p class="eyebrow">LIVE WEBSITE & REGISTRATION COUNTERS</p>
-            <h2>The TNYPL audience.<br><span>Updated live.</span></h2>
-          </div>
-          <div class="pulse-copy">
-            <span class="analytics-live"><i></i> LIVE ANALYTICS</span>
-            <p>Anonymous visitor totals are grouped by country. No visitor name, email address or IP address is stored by this counter.</p>
-          </div>
+    <section class="section league-intro">
+      <div class="shell intro-grid">
+        <div>
+          <p class="eyebrow">THE LEAGUE</p>
+          <h2>Built for talent.<br>Designed for visibility.</h2>
         </div>
-
-        <div class="analytics-layout">
-          <div class="analytics-main">
-            <div class="metric-grid">
-              <article class="live-metric">
-                <small>UNIQUE VISITORS</small>
-                <strong id="metricVisitors">—</strong>
-                <span>People who opened TNYPL</span>
-              </article>
-              <article class="live-metric">
-                <small>TOTAL PAGE VIEWS</small>
-                <strong id="metricViews">—</strong>
-                <span>All website visits</span>
-              </article>
-              <article class="live-metric feature">
-                <small>PLAYER REGISTRATIONS</small>
-                <strong id="metricRegistrations">—</strong>
-                <span>Applications received</span>
-              </article>
-              <article class="live-metric">
-                <small>COUNTRIES REACHED</small>
-                <strong id="metricCountries">—</strong>
-                <span>Global TNYPL audience</span>
-              </article>
-              <article class="live-metric online">
-                <small>ONLINE NOW</small>
-                <strong id="metricOnline">—</strong>
-                <span>Active in the last 5 minutes</span>
-              </article>
-            </div>
-
-            <div class="country-panel">
-              <div class="country-panel-head">
-                <div><small>GLOBAL REACH</small><strong>Top visitor countries</strong></div>
-                <span id="statsUpdated">Waiting for live data…</span>
-              </div>
-              <div id="countryList" class="country-list">
-                <div class="analytics-empty">Run the included Supabase SQL file once to activate the live counters.</div>
-              </div>
-            </div>
+        <div class="intro-copy">
+          <p>TNYPL combines professional franchise identities, verified player registration, CricHeroes visibility, owner participation and a live YouTube draft into one premium youth-cricket platform.</p>
+          <div class="intro-badges">
+            <span>Live YouTube Draft</span>
+            <span>CricHeroes Profiles</span>
+            <span>Six Confirmed Owners</span>
+            <span>Five-Day T20 Event</span>
           </div>
-
-          <div class="globe-stage" aria-label="Animated globe representing the worldwide TNYPL audience">
-            <div class="globe">
-              <div class="globe-grid vertical"></div>
-              <div class="globe-grid horizontal one"></div>
-              <div class="globe-grid horizontal two"></div>
-              <div class="globe-grid horizontal three"></div>
-              <span class="globe-dot d1"></span><span class="globe-dot d2"></span>
-              <span class="globe-dot d3"></span><span class="globe-dot d4"></span>
-              <span class="globe-dot d5"></span><span class="globe-dot d6"></span>
-              <div class="globe-core"><img src="tnypl-logo.svg" alt=""></div>
-            </div>
-            <div class="orbit orbit-one"></div>
-            <div class="orbit orbit-two"></div>
-            <div class="global-caption"><small>GLOBAL VISION</small><strong>Dallas → Chennai → The World</strong></div>
-          </div>
-        </div>
-
-        <div id="analyticsNotice" class="analytics-notice" hidden>
-          Live counters are waiting for the Supabase setup. Open <b>SUPABASE-LIVE-COUNTERS.sql</b>, run it once in the Supabase SQL Editor, and refresh this page.
         </div>
       </div>
     </section>
 
-    <section class="section motion-section">
-      <div class="shell media-layout">
-        <div class="section-copy">
-          <p class="eyebrow">THE LEAGUE IN MOTION</p>
-          <h2>Not just a tournament.<br><span>A launch platform.</span></h2>
-          <p>TNYPL is designed as a complete franchise experience—leadership, digital profiles, live media, a transparent draft and team identities that can grow every season.</p>
-          <div class="mini-features">
-            <span>Live YouTube Draft</span><span>CricHeroes Profiles</span><span>Six Owner Portals</span><span>Media-First Coverage</span>
-          </div>
-        </div>
-        <div class="film-card">
-          <video controls muted playsinline poster="tnypl-stadium-poster.jpg">
-            <source src="tnypl-launch-film.mp4" type="video/mp4">
-          </video>
-          <div><small>TNYPL LAUNCH FILM</small><strong>Where Future Stars Rise</strong></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="leadership" class="section leadership-section">
+    <section id="leadership" class="section leadership-premium">
       <div class="shell">
         <div class="section-head light">
           <div><p class="eyebrow">LEAGUE LEADERSHIP</p><h2>Global vision.<br>Local execution.</h2></div>
-          <p>Strategy and technology are led from Dallas. Cricket operations and tournament delivery are led from Chennai.</p>
+          <p>Strategy and league development are led from Dallas. Cricket operations and tournament delivery are led from Chennai.</p>
         </div>
-        <div class="leader-grid">
-          <article class="leader-card founder">
-            <div class="portrait-placeholder"><span>DD</span><small>PHOTO COMING SOON</small></div>
-            <div class="leader-content">
+        <div class="leadership-cards">
+          <article class="leader-premium-card">
+            <div class="portrait-frame"><span>DD</span><small>PHOTO COMING SOON</small></div>
+            <div>
               <small>FOUNDER & LEAGUE CHAIRMAN</small>
               <h3>Dinesh Devadoss</h3>
               <p class="location">Dallas, Texas, USA</p>
               <blockquote>“Build a transparent, professionally managed youth franchise league that creates lasting opportunities for Tamil Nadu’s young cricketers.”</blockquote>
-              <button class="video-chip">▶ Founder video coming soon</button>
+              <button class="video-pill">▶ Founder video coming soon</button>
             </div>
           </article>
-          <article class="leader-card technical">
-            <div class="portrait-placeholder"><span>SN</span><small>PHOTO COMING SOON</small></div>
-            <div class="leader-content">
+          <article class="leader-premium-card">
+            <div class="portrait-frame"><span>SN</span><small>PHOTO COMING SOON</small></div>
+            <div>
               <small>TECHNICAL DIRECTOR</small>
               <h3>Senthil Narayanan</h3>
               <p class="location">Kingstar Academy · Chennai</p>
-              <blockquote>“Deliver fair evaluation, high cricketing standards and a player-development environment driven by discipline and performance.”</blockquote>
-              <button class="video-chip">▶ Technical Director video coming soon</button>
+              <blockquote>“Deliver fair evaluation, strong cricketing standards and a player-development environment driven by discipline and performance.”</blockquote>
+              <button class="video-pill">▶ Technical Director video coming soon</button>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="franchises" class="section franchises-section">
+    <section id="franchises" class="section franchise-premium-section">
       <div class="shell">
         <div class="section-head">
           <div><p class="eyebrow dark">THE FOUNDING SIX</p><h2>Six owners.<br>Six identities.</h2></div>
-          <p>Every franchise has a visual identity, founding owner, vision and future interview page. Real photos and YouTube interviews can be added without redesigning the cards.</p>
+          <p>Each founding franchise carries its own character, colors, owner vision and future media profile.</p>
         </div>
-        <div class="franchise-grid">
-          <article class="franchise-card chennai" data-team="Chennai Strikers" data-owner="Suresh Durairaj" data-vision="Build a fearless, disciplined franchise that gives young players a professional stage and a strong team identity.">
-            <div class="team-glow"></div><div class="team-icon">🦁</div><small>FRANCHISE 01</small><h3>Chennai Strikers</h3><p class="owner">Suresh Durairaj</p><button class="owner-view">View Vision & Interview</button>
+        <div class="franchise-premium-grid">
+          <article class="premium-team-card chennai" data-team="Chennai Strikers" data-owner="Suresh Durairaj" data-vision="Build a fearless, disciplined franchise that gives young players a professional stage and a strong team identity.">
+            <div class="team-badge">🦁</div><small>FRANCHISE 01</small><h3>Chennai Strikers</h3><p class="team-owner">Suresh Durairaj</p><button class="owner-view">View Team Vision</button>
           </article>
-          <article class="franchise-card kovai" data-team="Kovai Kings" data-owner="Gopi" data-vision="Build a disciplined and ambitious team that represents excellence, pride and opportunity for emerging players.">
-            <div class="team-glow"></div><div class="team-icon">👑</div><small>FRANCHISE 02</small><h3>Kovai Kings</h3><p class="owner">Gopi</p><button class="owner-view">View Vision & Interview</button>
+          <article class="premium-team-card kovai" data-team="Kovai Kings" data-owner="Gopi" data-vision="Build a disciplined and ambitious team that represents excellence, pride and opportunity for emerging players.">
+            <div class="team-badge">👑</div><small>FRANCHISE 02</small><h3>Kovai Kings</h3><p class="team-owner">Gopi</p><button class="owner-view">View Team Vision</button>
           </article>
-          <article class="franchise-card madurai" data-team="Madurai Warriors" data-owner="Porki Pandian" data-vision="Combine tradition, courage and competitive spirit to develop confident young cricketers.">
-            <div class="team-glow"></div><div class="team-icon">⚔️</div><small>FRANCHISE 03</small><h3>Madurai Warriors</h3><p class="owner">Porki Pandian</p><button class="owner-view">View Vision & Interview</button>
+          <article class="premium-team-card madurai" data-team="Madurai Warriors" data-owner="Porki Pandian" data-vision="Combine tradition, courage and competitive spirit to develop confident young cricketers.">
+            <div class="team-badge">⚔️</div><small>FRANCHISE 03</small><h3>Madurai Warriors</h3><p class="team-owner">Porki Pandian</p><button class="owner-view">View Team Vision</button>
           </article>
-          <article class="franchise-card trichy" data-team="Trichy Titans" data-owner="Satish Raja" data-vision="Create a resilient, team-first culture built around preparation, discipline and long-term growth.">
-            <div class="team-glow"></div><div class="team-icon">🛡️</div><small>FRANCHISE 04</small><h3>Trichy Titans</h3><p class="owner">Satish Raja</p><button class="owner-view">View Vision & Interview</button>
+          <article class="premium-team-card trichy" data-team="Trichy Titans" data-owner="Satish Raja" data-vision="Create a resilient, team-first culture built around preparation, discipline and long-term growth.">
+            <div class="team-badge">🛡️</div><small>FRANCHISE 04</small><h3>Trichy Titans</h3><p class="team-owner">Satish Raja</p><button class="owner-view">View Team Vision</button>
           </article>
-          <article class="franchise-card nellai" data-team="Nellai Falcons" data-owner="P. Ramanathan" data-vision="Give fast-rising players a stage where precision, confidence and consistent performance are rewarded.">
-            <div class="team-glow"></div><div class="team-icon">🦅</div><small>FRANCHISE 05</small><h3>Nellai Falcons</h3><p class="owner">P. Ramanathan</p><button class="owner-view">View Vision & Interview</button>
+          <article class="premium-team-card nellai" data-team="Nellai Falcons" data-owner="P. Ramanathan" data-vision="Give fast-rising players a stage where precision, confidence and consistent performance are rewarded.">
+            <div class="team-badge">🦅</div><small>FRANCHISE 05</small><h3>Nellai Falcons</h3><p class="team-owner">P. Ramanathan</p><button class="owner-view">View Team Vision</button>
           </article>
-          <article class="franchise-card tiruppur" data-team="Tiruppur Blazers" data-owner="Binny Jo" data-vision="Build an energetic, modern franchise that inspires players to compete with passion and purpose.">
-            <div class="team-glow"></div><div class="team-icon">🔥</div><small>FRANCHISE 06</small><h3>Tiruppur Blazers</h3><p class="owner">Binny Jo</p><button class="owner-view">View Vision & Interview</button>
+          <article class="premium-team-card tiruppur" data-team="Tiruppur Blazers" data-owner="Binny Jo" data-vision="Build an energetic, modern franchise that inspires players to compete with passion and purpose.">
+            <div class="team-badge">🔥</div><small>FRANCHISE 06</small><h3>Tiruppur Blazers</h3><p class="team-owner">Binny Jo</p><button class="owner-view">View Team Vision</button>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="draft-live" class="section draft-arena">
+    <section id="draft-live" class="section draft-premium">
       <div class="shell">
         <div class="section-head light">
-          <div><p class="eyebrow"><span class="live-dot"></span> LIVE DRAFT ARENA</p><h2>Watch every<br>selection live.</h2></div>
-          <p>The official YouTube draft stream will appear here. Add one YouTube video ID in config.js and the broadcast player activates automatically.</p>
+          <div><p class="eyebrow"><span class="live-dot"></span> LIVE DRAFT ARENA</p><h2>Every pick.<br>Every reaction.</h2></div>
+          <p>The official TNYPL player draft will be streamed live on YouTube. Add the video ID in config.js and the stream activates automatically.</p>
         </div>
-        <div class="arena-grid">
-          <div class="broadcast">
-            <div id="draftVideo" class="video-stage">
+        <div class="draft-premium-grid">
+          <div class="draft-video-card">
+            <div id="draftVideo" class="draft-video-stage">
               <video autoplay muted loop playsinline poster="tnypl-stadium-poster.jpg"><source src="tnypl-launch-film.mp4" type="video/mp4"></video>
-              <div class="broadcast-overlay"><span>▶</span><h3>LIVE DRAFT STREAM COMING SOON</h3><p>YouTube broadcast will replace this motion preview.</p></div>
+              <div class="draft-video-overlay"><span>▶</span><h3>LIVE DRAFT STREAM COMING SOON</h3><p>YouTube broadcast will replace this preview.</p></div>
             </div>
-            <div class="broadcast-bar"><span><i></i> TNYPL DRAFT LIVE</span><strong>0 / 78 PLAYERS SELECTED</strong></div>
+            <div class="draft-video-bar"><span><i></i> TNYPL DRAFT LIVE</span><strong>0 / 78 PLAYERS SELECTED</strong></div>
           </div>
-          <aside class="draft-board">
-            <div class="board-head"><small>TEAM SQUAD TRACKER</small><strong>0 / 78</strong></div>
-            <div class="squad-row"><span>Chennai Strikers</span><b>0 / 13</b><i></i></div>
-            <div class="squad-row"><span>Kovai Kings</span><b>0 / 13</b><i></i></div>
-            <div class="squad-row"><span>Madurai Warriors</span><b>0 / 13</b><i></i></div>
-            <div class="squad-row"><span>Trichy Titans</span><b>0 / 13</b><i></i></div>
-            <div class="squad-row"><span>Nellai Falcons</span><b>0 / 13</b><i></i></div>
-            <div class="squad-row"><span>Tiruppur Blazers</span><b>0 / 13</b><i></i></div>
-            <a class="btn gold full" href="live-draft.html">Open Full Draft Page</a>
+          <aside class="draft-board-card">
+            <div class="draft-board-head"><small>TEAM SQUAD TRACKER</small><strong>0 / 78</strong></div>
+            <div class="squad-line"><span>Chennai Strikers</span><b>0 / 13</b></div>
+            <div class="squad-line"><span>Kovai Kings</span><b>0 / 13</b></div>
+            <div class="squad-line"><span>Madurai Warriors</span><b>0 / 13</b></div>
+            <div class="squad-line"><span>Trichy Titans</span><b>0 / 13</b></div>
+            <div class="squad-line"><span>Nellai Falcons</span><b>0 / 13</b></div>
+            <div class="squad-line"><span>Tiruppur Blazers</span><b>0 / 13</b></div>
+            <a class="btn btn-gold full" href="live-draft.html">Open Full Draft Page</a>
           </aside>
         </div>
       </div>
     </section>
 
-    <section id="prizes" class="section prize-section">
+    <section id="prizes" class="section prize-premium">
       <div class="shell">
         <div class="section-head">
-          <div><p class="eyebrow dark">THE PRIZE ARENA</p><h2>Play for the trophy.<br>Perform for recognition.</h2></div>
-          <p>Team success and individual performance are celebrated across all five tournament days.</p>
+          <div><p class="eyebrow dark">PRIZE & RECOGNITION</p><h2>Play for the trophy.<br>Perform for recognition.</h2></div>
+          <p>Team success and individual excellence are celebrated across all five tournament days.</p>
         </div>
-        <div class="prize-grid">
-          <article class="champion-prize"><span>🏆</span><small>CHAMPIONS</small><strong>₹50,000</strong><p>Trophy, medals and inaugural-season history.</p></article>
-          <article class="runner-prize"><span>🥈</span><small>RUNNER-UP</small><strong>₹20,000</strong><p>Trophy and medals.</p></article>
-          <div class="award-stack">
+        <div class="prize-premium-grid">
+          <article class="prize-card gold"><span>🏆</span><small>CHAMPIONS</small><strong>₹50,000</strong><p>Winner trophy and medals.</p></article>
+          <article class="prize-card navy"><span>🥈</span><small>RUNNER-UP</small><strong>₹20,000</strong><p>Runner-up trophy and medals.</p></article>
+          <div class="award-list">
             <div><b>₹500</b><span>Man of the Match — every game</span></div>
             <div><b>🏅</b><span>Tournament MVP</span></div>
             <div><b>🏏</b><span>Best Batter</span></div>
@@ -296,18 +214,20 @@
       </div>
     </section>
 
-    <section id="register" class="section register-section">
-      <div class="shell register-grid">
-        <div class="registration-story">
+    <section id="register" class="section registration-premium">
+      <div class="shell registration-layout">
+        <div class="registration-side">
           <p class="eyebrow dark">PLAYER DRAFT REGISTRATION</p>
           <h2>Your journey<br>starts here.</h2>
-          <p>Register, complete verification and enter the official draft pool considered by all six franchises.</p>
-          <div class="refund-promise">
-            <span>REFUND PROMISE</span>
+          <p>Complete registration, pass verification and enter the official draft pool considered by all six franchises.</p>
+
+          <div class="refund-box">
+            <small>REFUND PROMISE</small>
             <strong>Not drafted? ₹2,000 refunded.</strong>
             <p>Applies to players who pass document/payment verification, enter the official draft pool and are not selected by any franchise.</p>
           </div>
-          <div class="payment-panel">
+
+          <div class="payment-premium">
             <div>
               <small>UPI PAYMENT</small>
               <h3>Scan & Pay ₹2,000</h3>
@@ -316,13 +236,13 @@
             <div>
               <small>OFFICIAL UPI ID</small>
               <strong>kingstarca@okhdfcbank</strong>
-              <a class="btn dark full" href="upi://pay?pa=kingstarca@okhdfcbank&pn=TNYPL&am=2000&cu=INR&tn=TNYPL%20Player%20Draft%20Registration">Open UPI App</a>
-              <p>Upload the transaction receipt in the form.</p>
+              <a class="btn btn-dark full" href="upi://pay?pa=kingstarca@okhdfcbank&pn=TNYPL&am=2000&cu=INR&tn=TNYPL%20Player%20Draft%20Registration">Open UPI App</a>
+              <p>Upload the payment receipt in the form.</p>
             </div>
           </div>
         </div>
 
-        <form id="registrationForm" class="registration-form">
+        <form id="registrationForm" class="registration-form premium-form">
           <div class="form-title"><small>OFFICIAL APPLICATION</small><h3>Player Draft Registration</h3><p>DOB eligibility: 01 Jan 2010 to 01 Jan 2012, inclusive.</p></div>
           <div class="form-grid">
             <label>Player full name<input name="full_name" required></label>
@@ -345,24 +265,9 @@
           </div>
           <label class="consent"><input type="checkbox" required> I confirm the information is accurate and accept the eligibility, verification and refund terms.</label>
           <div class="terms"><b>Refund terms:</b> A refund applies only when a verified player enters the official draft pool and is not selected. Ineligible applications, failed document/payment checks, inaccurate information and voluntary withdrawals may not qualify.</div>
-          <button class="btn gold full" type="submit">Submit Draft Registration</button>
+          <button class="btn btn-gold full" type="submit">Submit Draft Registration</button>
           <div id="formMessage"></div>
         </form>
-      </div>
-    </section>
-
-    <section class="section sponsor-section">
-      <div class="shell">
-        <div class="section-head">
-          <div><p class="eyebrow dark">PARTNERS & MEDIA</p><h2>A platform brands<br>can grow with.</h2></div>
-          <p>Sponsor placements are designed for the website, team kits, broadcasts, awards and tournament content.</p>
-        </div>
-        <div class="sponsor-grid">
-          <article><small>TITLE SPONSOR</small><strong>AVAILABLE</strong></article>
-          <article><small>APPAREL PARTNER</small><strong>AVAILABLE</strong></article>
-          <article><small>BROADCAST PARTNER</small><strong>AVAILABLE</strong></article>
-          <article><small>ACADEMY PARTNER</small><strong>KINGSTAR ACADEMY</strong></article>
-        </div>
       </div>
     </section>
   </main>
@@ -380,12 +285,14 @@
   </div>
 
   <div class="mobile-actions">
-    <a href="#register">Register</a><a href="#draft-live">Watch Draft</a><a href="owner-login.html">Owner Login</a>
+    <a href="#register">Register</a>
+    <a href="#draft-live">Watch Draft</a>
+    <a href="owner-login.html">Owner Login</a>
   </div>
 
-  <footer>
+  <footer class="premium-footer">
     <div class="shell footer-grid">
-      <div class="footer-brand"><img src="tnypl-logo.svg" alt="TNYPL"><div><strong>TNYPL 2026</strong><span>Where Future Stars Rise</span></div></div>
+      <div class="footer-brand"><img src="tnypl-crest.svg" alt="TNYPL"><div><strong>TNYPL 2026</strong><span>Dream. Draft. Dominate.</span></div></div>
       <div><small>TOURNAMENT</small><strong>14–18 September 2026</strong></div>
       <div><small>CONTACT</small><a href="mailto:dineedoss@gmail.com">dineedoss@gmail.com</a></div>
       <div><small>PORTALS</small><a href="owner-login.html">Owner Login</a><a href="admin.html">Admin</a></div>
