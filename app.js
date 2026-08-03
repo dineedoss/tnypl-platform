@@ -88,3 +88,37 @@ form?.addEventListener('submit',async e=>{
   }catch(err){formMessage.textContent=err.message;formMessage.className='error'}
   finally{button.disabled=false}
 });
+
+// Multi-step registration.
+(function setupSteps(){
+  const tabs=[...document.querySelectorAll('.step-tab')];
+  const panels=[...document.querySelectorAll('.form-step')];
+  if(!tabs.length)return;
+  let step=1;
+  function show(n){
+    step=Math.max(1,Math.min(4,n));
+    tabs.forEach(t=>t.classList.toggle('active',Number(t.dataset.step)===step));
+    panels.forEach(p=>p.classList.toggle('active',Number(p.dataset.stepPanel)===step));
+    document.querySelector('.premium-form')?.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>show(Number(t.dataset.step))));
+  document.querySelectorAll('.next-step').forEach(b=>b.addEventListener('click',()=>show(step+1)));
+  document.querySelectorAll('.prev-step').forEach(b=>b.addEventListener('click',()=>show(step-1)));
+})();
+
+// Optional live public stats endpoint.
+(async function loadPublicStats(){
+  try{
+    const r=await fetch('/api/public-stats',{cache:'no-store'});
+    if(!r.ok)return;
+    const data=await r.json();
+    const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=new Intl.NumberFormat('en-IN').format(Number(v||0))};
+    set('metricRegistrations',data.registrations);
+    set('metricVisitors',data.unique_visitors);
+    set('metricCountries',data.countries_reached);
+    if(data.verified_players!==undefined)set('metricVerified',data.verified_players);
+    const pct=Math.min(100,Math.round((Number(data.registrations||0)/78)*100));
+    const bar=document.getElementById('goalProgress');if(bar)bar.style.width=`${pct}%`;
+    const caption=document.getElementById('goalCaption');if(caption)caption.textContent=`${data.registrations||0} registrations received · ${pct}% of 78-player goal`;
+  }catch(e){}
+})();
