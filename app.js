@@ -13,17 +13,65 @@ if(intro){
 document.getElementById('menuToggle')?.addEventListener('click',()=>document.getElementById('navLinks')?.classList.toggle('open'));
 document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks')?.classList.remove('open')));
 
-// Countdown.
-function updateCountdown(){
-  const target=new Date(cfg.TOURNAMENT_START);
-  const diff=Math.max(0,target-new Date());
-  const days=Math.floor(diff/86400000);
-  const hours=Math.floor((diff%86400000)/3600000);
-  const mins=Math.floor((diff%3600000)/60000);
-  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=String(v).padStart(2,'0')};
-  set('countDays',days);set('countHours',hours);set('countMinutes',mins);
+// Tournament countdown.
+// Until the exact first-ball time is confirmed, show calendar days in Chennai
+// rather than misleading hours and minutes based on an assumed start time.
+function getDatePartsInTimeZone(date, timeZone){
+  const formatter=new Intl.DateTimeFormat('en-CA',{
+    timeZone,
+    year:'numeric',
+    month:'2-digit',
+    day:'2-digit'
+  });
+  const parts=Object.fromEntries(
+    formatter.formatToParts(date)
+      .filter(part=>part.type!=='literal')
+      .map(part=>[part.type,part.value])
+  );
+  return {
+    year:Number(parts.year),
+    month:Number(parts.month),
+    day:Number(parts.day)
+  };
 }
-updateCountdown();setInterval(updateCountdown,30000);
+
+function calendarDaysUntilTournament(){
+  const timeZone=cfg.TOURNAMENT_TIMEZONE||'Asia/Kolkata';
+  const today=getDatePartsInTimeZone(new Date(),timeZone);
+  const [targetYear,targetMonth,targetDay]=(cfg.TOURNAMENT_DATE||'2026-09-14')
+    .split('-').map(Number);
+
+  // UTC is used only to compare calendar-date components consistently.
+  const todayCalendar=Date.UTC(today.year,today.month-1,today.day);
+  const targetCalendar=Date.UTC(targetYear,targetMonth-1,targetDay);
+  return Math.max(0,Math.ceil((targetCalendar-todayCalendar)/86400000));
+}
+
+function updateCountdown(){
+  const daysElement=document.getElementById('countDays');
+  const statusElement=document.getElementById('countdownTimeStatus');
+  if(!daysElement)return;
+
+  if(cfg.TOURNAMENT_START_TIME_CONFIRMED){
+    const target=new Date(cfg.TOURNAMENT_START);
+    const diff=Math.max(0,target-new Date());
+    const days=Math.floor(diff/86400000);
+    const hours=Math.floor((diff%86400000)/3600000);
+    const minutes=Math.floor((diff%3600000)/60000);
+
+    daysElement.textContent=String(days).padStart(2,'0');
+    if(statusElement){
+      statusElement.textContent=`${hours}h ${minutes}m remaining after ${days} full days`;
+    }
+  }else{
+    daysElement.textContent=String(calendarDaysUntilTournament()).padStart(2,'0');
+    if(statusElement){
+      statusElement.textContent='First-ball time to be confirmed';
+    }
+  }
+}
+updateCountdown();
+setInterval(updateCountdown,60000);
 
 // Owner modal.
 const modal=document.getElementById('ownerModal');
@@ -56,7 +104,7 @@ const formMessage=document.getElementById('formMessage');
 
 function calculateAge(dateString){
   const birth=new Date(`${dateString}T00:00:00`);
-  const ref=new Date('2026-08-14T00:00:00');
+  const ref=new Date('2026-09-14T00:00:00');
   let y=ref.getFullYear()-birth.getFullYear(),m=ref.getMonth()-birth.getMonth(),d=ref.getDate()-birth.getDate();
   if(d<0){m--;d+=new Date(ref.getFullYear(),ref.getMonth(),0).getDate()}
   if(m<0){y--;m+=12}

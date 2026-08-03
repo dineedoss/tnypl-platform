@@ -1,78 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 770" role="img" aria-label="TNYPL lion shield logo">
-
-  <defs>
-    <linearGradient id="shieldFill" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#102f69"/>
-      <stop offset=".56" stop-color="#071a3a"/>
-      <stop offset="1" stop-color="#020a19"/>
-    </linearGradient>
-    <linearGradient id="goldFill" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fff1a8"/>
-      <stop offset=".45" stop-color="#f6c64e"/>
-      <stop offset="1" stop-color="#c9820b"/>
-    </linearGradient>
-    <linearGradient id="redFill" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ef3d52"/>
-      <stop offset="1" stop-color="#991329"/>
-    </linearGradient>
-    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
-      <feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="#000" flood-opacity=".36"/>
-    </filter>
-    <filter id="goldGlow" x="-80%" y="-80%" width="260%" height="260%">
-      <feGaussianBlur stdDeviation="8" result="b"/>
-      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <clipPath id="wordReveal"><rect id="wordClip" x="72" y="583" width="576" height="142" rx="10"/></clipPath>
-  </defs>
-  <g id="logoCore" filter="url(#softShadow)">
-    <path id="shield" d="M360 48 619 139v194c0 178-94 314-259 399C195 647 101 511 101 333V139z"
-      fill="url(#shieldFill)" stroke="url(#goldFill)" stroke-width="18"/>
-    <path id="innerShield" d="M360 80 585 159v170c0 151-77 267-225 346-148-79-225-195-225-346V159z"
-      fill="none" stroke="#ffffff" stroke-opacity=".16" stroke-width="4"/>
-
-    <g id="crown">
-      <path d="M246 209 284 153l58 43 38-80 39 80 58-43 37 56-25 27H271z" fill="url(#goldFill)"/>
-      <circle cx="284" cy="151" r="8" fill="#fff7ca"/>
-      <circle cx="380" cy="112" r="8" fill="#fff7ca"/>
-      <circle cx="477" cy="151" r="8" fill="#fff7ca"/>
-    </g>
-
-    <g id="mane">
-      <path d="M360 182 422 203 471 249 491 314 476 380 429 429 360 449 291 429 244 380 229 314 249 249 298 203z"
-        fill="url(#goldFill)"/>
-      <path d="M360 199 408 217 448 255 465 312 452 366 412 407 360 423 308 407 268 366 255 312 272 255 312 217z"
-        fill="#d99b1d" opacity=".48"/>
-      <path d="M360 181 384 238 336 238z" fill="#fff1a8" opacity=".62"/>
-      <path d="M468 251 423 276 411 231z" fill="#ffd96d" opacity=".38"/>
-      <path d="M472 379 414 364 445 327z" fill="#b96c07" opacity=".35"/>
-      <path d="M360 449 337 392 384 392z" fill="#b96c07" opacity=".38"/>
-      <path d="M248 379 306 364 275 327z" fill="#fff1a8" opacity=".28"/>
-      <path d="M249 251 296 276 308 231z" fill="#b96c07" opacity=".30"/>
-    </g>
-
-    <g id="face">
-      <path d="M289 276c0-56 31-94 71-94s71 38 71 94v83c0 52-31 91-71 91s-71-39-71-91z" fill="#071a3a"/>
-      <path d="M303 282c16-17 35-22 57-14-19 8-34 21-44 39-7-7-11-15-13-25z" fill="#f6c64e"/>
-      <path d="M417 282c-16-17-35-22-57-14 19 8 34 21 44 39 7-7 11-15 13-25z" fill="#f6c64e"/>
-      <path d="M337 342c16-12 31-12 46 0-7 14-15 21-23 21s-16-7-23-21z" fill="#fff1a8"/>
-      <path d="M324 385c23 16 49 16 72 0-3 37-69 37-72 0z" fill="#f6c64e"/>
-      <path d="M315 412c26 18 64 18 90 0-8 25-24 39-45 39s-37-14-45-39z" fill="#020b1b"/>
-    </g>
-
-    <g id="ballOrbit">
-      <ellipse cx="360" cy="331" rx="208" ry="122" fill="none" stroke="#f6c64e" stroke-opacity=".22" stroke-width="3" stroke-dasharray="8 15"/>
-      <g id="ball">
-        <circle cx="565" cy="331" r="24" fill="url(#redFill)" stroke="#fff" stroke-width="3"/>
-        <path d="M552 313c13 10 21 23 24 38M558 309c13 10 21 23 24 38" fill="none" stroke="#fff" stroke-width="2.5"/>
-      </g>
-    </g>
-
-    <g id="wordmark" clip-path="url(#wordReveal)">
-      <text x="360" y="615" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="104" font-weight="900" letter-spacing="3" fill="#ffffff">TNYPL</text>
-      <rect x="180" y="635" width="360" height="4" rx="2" fill="url(#goldFill)"/>
-      <text x="360" y="678" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" font-weight="800" letter-spacing="4" fill="#f6c64e">YOUTH PREMIER LEAGUE</text>
-      <text x="360" y="712" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="5" fill="#dce7f7">TAMIL NADU</text>
-    </g>
-  </g>
-
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 760">
+<defs>
+<linearGradient id="n" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#173d7d"/><stop offset=".55" stop-color="#071b3d"/><stop offset="1" stop-color="#020a18"/></linearGradient>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff1a6"/><stop offset=".45" stop-color="#f7c84f"/><stop offset="1" stop-color="#be7507"/></linearGradient>
+<filter id="s" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#000" flood-opacity=".42"/></filter>
+</defs>
+<g filter="url(#s)">
+<path d="M360 28 642 132v202c0 190-102 337-282 424C180 671 78 524 78 334V132z" fill="url(#n)" stroke="url(#g)" stroke-width="20"/>
+<path d="M360 67 605 157v172c0 158-84 282-245 361-161-79-245-203-245-361V157z" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="4"/>
+<path d="M360 125 419 165 488 175 503 242 552 293 526 356 538 427 473 457 431 517 360 499 289 517 247 457 182 427 194 356 168 293 217 242 232 175 301 165z" fill="url(#g)"/>
+<path d="M282 271c0-65 34-112 78-112s78 47 78 112v94c0 59-34 105-78 105s-78-46-78-105z" fill="#081d43"/>
+<path d="M296 281c18-20 40-25 64-15-21 9-37 24-48 44-9-7-14-17-16-29zm128 0c-18-20-40-25-64-15 21 9 37 24 48 44 9-7 14-17 16-29z" fill="#f7c84f"/>
+<path d="M334 350c18-14 35-14 52 0-8 16-17 24-26 24s-18-8-26-24z" fill="#fff1a6"/>
+<path d="M319 399c27 18 55 18 82 0-4 42-78 42-82 0z" fill="#f7c84f"/>
+<path d="M243 171 286 105l61 44 37-84 42 84 63-44 40 66-24 29H268z" fill="url(#g)"/>
+<text x="360" y="620" text-anchor="middle" font-family="Arial Black,Arial" font-size="106" font-weight="900" fill="#fff">TNYPL</text>
+<rect x="175" y="642" width="370" height="5" rx="2.5" fill="url(#g)"/>
+<text x="360" y="685" text-anchor="middle" font-family="Arial" font-size="25" font-weight="800" letter-spacing="4" fill="#f7c84f">YOUTH PREMIER LEAGUE</text>
+<text x="360" y="722" text-anchor="middle" font-family="Arial" font-size="19" font-weight="700" letter-spacing="5" fill="#dfe9f7">TAMIL NADU</text>
+</g></svg>

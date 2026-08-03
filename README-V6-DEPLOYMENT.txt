@@ -5,7 +5,7 @@ WHAT CHANGED
 - Animated opening logo reveal
 - Looping stadium hero video
 - Included 8-second TNYPL launch motion film
-- Countdown to 14 August 2026
+- Countdown to 14 September 2026
 - Animated news ticker and mobile action bar
 - Founder: Dinesh Devadoss, Dallas
 - Technical Director: Senthil Narayanan, Kingstar Academy, Chennai

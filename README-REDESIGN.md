@@ -1,7 +1,7 @@
 TNYPL REDESIGNED 2026
 
 Confirmed tournament dates:
-14 August 2026 to 18 August 2026
+14 September 2026 to 18 September 2026
 
 Eligible DOB:
 01 January 2010 through 01 January 2012, both inclusive.
