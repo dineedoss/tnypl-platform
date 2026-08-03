@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 220">
+<defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#fff1a8"/><stop offset=".48" stop-color="#f6c64e"/><stop offset="1" stop-color="#c9820b"/></linearGradient></defs>
+<path d="M105 16 188 46v59c0 55-30 96-83 123-53-27-83-68-83-123V46z" fill="#071a3a" stroke="url(#g)" stroke-width="7"/>
+<path d="M105 49 133 58 153 79 158 108 145 135 122 151 105 159 88 151 65 135 52 108 57 79 77 58z" fill="url(#g)"/>
+<path d="M78 91c10-9 20-12 32-7-10 4-18 11-23 21-5-4-8-9-9-14zm54 0c-10-9-20-12-32-7 10 4 18 11 23 21 5-4 8-9 9-14z" fill="#071a3a"/>
+<path d="M94 118c8-6 15-6 23 0-4 7-8 10-12 10s-8-3-11-10z" fill="#071a3a"/>
+<text x="225" y="115" font-family="Arial Black,Arial,sans-serif" font-size="92" font-weight="900" fill="#ffffff">TNYPL</text>
+<rect x="228" y="132" width="455" height="4" rx="2" fill="url(#g)"/>
+<text x="228" y="171" font-family="Arial,sans-serif" font-size="24" font-weight="800" letter-spacing="4" fill="#f6c64e">TAMIL NADU YOUTH PREMIER LEAGUE</text>
+</svg>

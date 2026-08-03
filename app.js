@@ -100,3 +100,104 @@ form?.addEventListener('submit',async e=>{
   }catch(err){formMessage.textContent=err.message;formMessage.className='error'}
   finally{button.disabled=false}
 });
+
+
+// Anonymous global visitor analytics and live registration counter.
+(function initLiveAnalytics(){
+  const ids={
+    visitors:document.getElementById('metricVisitors'),
+    views:document.getElementById('metricViews'),
+    registrations:document.getElementById('metricRegistrations'),
+    countries:document.getElementById('metricCountries'),
+    online:document.getElementById('metricOnline')
+  };
+  if(!ids.visitors)return;
+
+  const notice=document.getElementById('analyticsNotice');
+  const countryList=document.getElementById('countryList');
+  const updated=document.getElementById('statsUpdated');
+  const storageKey='tnypl_anonymous_visitor_id';
+
+  function getVisitorId(){
+    let id=localStorage.getItem(storageKey);
+    if(!id){
+      id=crypto.randomUUID ? crypto.randomUUID() :
+        `${Date.now()}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`;
+      localStorage.setItem(storageKey,id);
+    }
+    return id;
+  }
+
+  function number(value){return new Intl.NumberFormat('en-IN').format(Number(value||0))}
+  function flag(code){
+    if(!code||code==='XX'||code.length!==2)return '🌐';
+    return [...code.toUpperCase()].map(c=>String.fromCodePoint(127397+c.charCodeAt())).join('');
+  }
+  function animateNumber(element,target){
+    if(!element)return;
+    const end=Number(target||0),start=Number(element.dataset.value||0);
+    element.dataset.value=String(end);
+    const begin=performance.now(),duration=650;
+    function frame(now){
+      const p=Math.min(1,(now-begin)/duration);
+      const eased=1-Math.pow(1-p,3);
+      element.textContent=number(Math.round(start+(end-start)*eased));
+      if(p<1)requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function renderCountries(countries){
+    if(!Array.isArray(countries)||countries.length===0){
+      countryList.innerHTML='<div class="analytics-empty">Visitor countries will appear here as people discover the league.</div>';
+      return;
+    }
+    const max=Math.max(...countries.map(c=>Number(c.visitors||0)),1);
+    countryList.innerHTML=countries.map(c=>`
+      <div class="country-row">
+        <span class="country-flag">${flag(c.country_code)}</span>
+        <div class="country-info">
+          <strong>${escapeHtml(c.country_name||'Unknown')}</strong>
+          <span>${number(c.page_views)} page views</span>
+        </div>
+        <span class="country-number">${number(c.visitors)}</span>
+        <div class="country-bar"><i style="width:${Math.max(8,(Number(c.visitors||0)/max)*100)}%"></i></div>
+      </div>`).join('');
+  }
+  function escapeHtml(value){
+    return String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+
+  async function track(){
+    try{
+      await fetch('/api/track-visit',{
+        method:'POST',
+        headers:{'content-type':'application/json'},
+        body:JSON.stringify({visitorId:getVisitorId()})
+      });
+    }catch(error){console.warn('Visit tracking unavailable',error)}
+  }
+
+  async function refresh(){
+    try{
+      const response=await fetch('/api/public-stats',{cache:'no-store'});
+      if(!response.ok)throw new Error('Live counter setup is incomplete');
+      const data=await response.json();
+      if(data.error)throw new Error(data.error);
+      animateNumber(ids.visitors,data.unique_visitors);
+      animateNumber(ids.views,data.page_views);
+      animateNumber(ids.registrations,data.registrations);
+      animateNumber(ids.countries,data.countries_reached);
+      animateNumber(ids.online,data.online_now);
+      renderCountries(data.countries);
+      updated.textContent=`Updated ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}`;
+      notice.hidden=true;
+    }catch(error){
+      notice.hidden=false;
+      updated.textContent='Setup required';
+    }
+  }
+
+  (async()=>{await track();await refresh()})();
+  setInterval(refresh,15000);
+})();

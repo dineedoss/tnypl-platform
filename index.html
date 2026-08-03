@@ -14,8 +14,8 @@
 <body>
   <div class="intro" id="intro">
     <div class="intro-rays"></div>
-    <img src="tnypl-logo.svg" alt="TNYPL" class="intro-logo">
-    <p>WHERE FUTURE STARS RISE</p>
+    <img src="tnypl-logo-animated.svg" alt="TNYPL" class="intro-logo">
+    <p>THE LION AWAKENS · WHERE FUTURE STARS RISE</p>
     <button id="skipIntro">Enter the League</button>
   </div>
 
@@ -33,8 +33,7 @@
     <div class="hero-overlay"></div>
     <nav class="nav shell">
       <a class="brand" href="#home">
-        <img src="tnypl-logo.svg" alt="TNYPL logo">
-        <span><b>TNYPL</b><small>TAMIL NADU YOUTH PREMIER LEAGUE</small></span>
+        <img class="nav-wordmark" src="tnypl-wordmark.svg" alt="TNYPL — Tamil Nadu Youth Premier League">
       </a>
       <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
       <div class="nav-links" id="navLinks">
@@ -50,7 +49,7 @@
 
     <div class="hero-inner shell">
       <div class="hero-brand-lockup reveal">
-        <img src="tnypl-logo.svg" alt="TNYPL official logo">
+        <img src="tnypl-logo-animated.svg" alt="Animated TNYPL official logo">
       </div>
       <div class="hero-copy reveal delay-1">
         <p class="kicker">INAUGURAL SEASON · 14–18 AUGUST 2026</p>
@@ -86,6 +85,84 @@
         <div><small>ELIGIBLE DOB</small><strong>01 JAN 2010 – 01 JAN 2012</strong></div>
         <div><small>REGISTRATION FEE</small><strong>₹2,000</strong></div>
         <div><small>IF NOT DRAFTED</small><strong>FULL REFUND*</strong></div>
+      </div>
+    </section>
+
+
+    <section id="live-pulse" class="section live-pulse-section">
+      <div class="shell">
+        <div class="section-head live-pulse-head">
+          <div>
+            <p class="eyebrow">LIVE LEAGUE PULSE</p>
+            <h2>The TNYPL audience.<br><span>Updated live.</span></h2>
+          </div>
+          <div class="pulse-copy">
+            <span class="analytics-live"><i></i> LIVE ANALYTICS</span>
+            <p>Anonymous visitor totals are grouped by country. No visitor name, email address or IP address is stored by this counter.</p>
+          </div>
+        </div>
+
+        <div class="analytics-layout">
+          <div class="analytics-main">
+            <div class="metric-grid">
+              <article class="live-metric">
+                <small>UNIQUE VISITORS</small>
+                <strong id="metricVisitors">—</strong>
+                <span>People who opened TNYPL</span>
+              </article>
+              <article class="live-metric">
+                <small>TOTAL PAGE VIEWS</small>
+                <strong id="metricViews">—</strong>
+                <span>All website visits</span>
+              </article>
+              <article class="live-metric feature">
+                <small>PLAYER REGISTRATIONS</small>
+                <strong id="metricRegistrations">—</strong>
+                <span>Applications received</span>
+              </article>
+              <article class="live-metric">
+                <small>COUNTRIES REACHED</small>
+                <strong id="metricCountries">—</strong>
+                <span>Global TNYPL audience</span>
+              </article>
+              <article class="live-metric online">
+                <small>ONLINE NOW</small>
+                <strong id="metricOnline">—</strong>
+                <span>Active in the last 5 minutes</span>
+              </article>
+            </div>
+
+            <div class="country-panel">
+              <div class="country-panel-head">
+                <div><small>GLOBAL REACH</small><strong>Top visitor countries</strong></div>
+                <span id="statsUpdated">Waiting for live data…</span>
+              </div>
+              <div id="countryList" class="country-list">
+                <div class="analytics-empty">Run the included Supabase SQL file once to activate the live counters.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="globe-stage" aria-label="Animated globe representing the worldwide TNYPL audience">
+            <div class="globe">
+              <div class="globe-grid vertical"></div>
+              <div class="globe-grid horizontal one"></div>
+              <div class="globe-grid horizontal two"></div>
+              <div class="globe-grid horizontal three"></div>
+              <span class="globe-dot d1"></span><span class="globe-dot d2"></span>
+              <span class="globe-dot d3"></span><span class="globe-dot d4"></span>
+              <span class="globe-dot d5"></span><span class="globe-dot d6"></span>
+              <div class="globe-core"><img src="tnypl-logo.svg" alt=""></div>
+            </div>
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="global-caption"><small>GLOBAL VISION</small><strong>Dallas → Chennai → The World</strong></div>
+          </div>
+        </div>
+
+        <div id="analyticsNotice" class="analytics-notice" hidden>
+          Live counters are waiting for the Supabase setup. Open <b>SUPABASE-LIVE-COUNTERS.sql</b>, run it once in the Supabase SQL Editor, and refresh this page.
+        </div>
       </div>
     </section>
 
