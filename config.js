@@ -2,7 +2,7 @@ window.TNYPL_CONFIG = {
   SUPABASE_URL: "https://jjjlvsmwlffddnalighh.supabase.co",
   SUPABASE_ANON_KEY: "sb_publishable_QH0rxV2hO_O-sSd2T_CAcw_npxIhqtK",
   MIN_DOB: "2010-01-01",
-  MAX_DOB: "2012-01-01",
+  MAX_DOB: "2012-12-31",
   TOURNAMENT_DATE: "2026-09-14",
   TOURNAMENT_TIMEZONE: "Asia/Kolkata",
   TOURNAMENT_START_TIME_CONFIRMED: false,

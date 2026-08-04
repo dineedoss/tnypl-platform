@@ -64,47 +64,181 @@ async function uploadFile(file,folder){
 }
 form?.addEventListener('submit',async e=>{
   e.preventDefault();
-  const button=form.querySelector('button[type="submit"]');
-  button.disabled=true;formMessage.textContent='Submitting registration...';formMessage.className='';
+
+  const button=document.getElementById('submitRegistrationBtn') || form.querySelector('button[type="submit"]');
+  const originalText=button?.textContent || 'Submit Draft Registration';
+
+  for(let step=1;step<=4;step++){
+    if(!validateRegistrationStep(step)){
+      showRegistrationStep(step,false);
+      return;
+    }
+  }
+
+  if(button){
+    button.disabled=true;
+    button.textContent='Submitting…';
+  }
+  formMessage.textContent='Uploading documents and submitting your registration…';
+  formMessage.className='submitting';
+
   try{
-    if(!sb)throw new Error('Registration service is unavailable.');
-    if(dob.value<cfg.MIN_DOB||dob.value>cfg.MAX_DOB)throw new Error('Eligible DOB is 01 January 2010 through 01 January 2012, inclusive.');
+    if(!sb)throw new Error('Registration service is unavailable. Please refresh and try again.');
+
+    if(!dob.value)throw new Error('Please enter the player date of birth.');
+    if(dob.value<cfg.MIN_DOB||dob.value>cfg.MAX_DOB){
+      showRegistrationStep(1,false);
+      throw new Error('Eligible DOB is 01 January 2010 through 31 December 2012, inclusive.');
+    }
+
     const data=new FormData(form);
-    const ageFile=document.getElementById('ageProof').files[0];
-    const receiptFile=document.getElementById('paymentReceipt').files[0];
-    const [agePath,receiptPath]=await Promise.all([uploadFile(ageFile,'age-proofs'),uploadFile(receiptFile,'payment-receipts')]);
+    const ageFile=document.getElementById('ageProof')?.files?.[0];
+    const receiptFile=document.getElementById('paymentReceipt')?.files?.[0];
+
+    if(!ageFile || !receiptFile){
+      showRegistrationStep(3,false);
+      throw new Error('Please upload both the age proof and payment receipt.');
+    }
+
+    const [agePath,receiptPath]=await Promise.all([
+      uploadFile(ageFile,'age-proofs'),
+      uploadFile(receiptFile,'payment-receipts')
+    ]);
+
     const payload={
-      full_name:data.get('full_name'),date_of_birth:data.get('date_of_birth'),parent_name:data.get('parent_name'),
-      parent_phone:data.get('parent_phone'),email:data.get('email'),district:data.get('district'),school:data.get('school'),
-      academy:data.get('academy'),cricheroes_url:data.get('cricheroes_url'),primary_role:data.get('primary_role'),
-      batting_style:data.get('batting_style'),bowling_style:data.get('bowling_style'),tshirt_size:data.get('tshirt_size'),
-      pant_size:data.get('pant_size'),age_proof_path:agePath,payment_receipt_path:receiptPath,status:'pending'
+      full_name:data.get('full_name'),
+      date_of_birth:data.get('date_of_birth'),
+      parent_name:data.get('parent_name'),
+      parent_phone:data.get('parent_phone'),
+      email:data.get('email'),
+      district:data.get('district'),
+      school:data.get('school'),
+      academy:data.get('academy'),
+      cricheroes_url:data.get('cricheroes_url'),
+      primary_role:data.get('primary_role'),
+      batting_style:data.get('batting_style'),
+      bowling_style:data.get('bowling_style'),
+      tshirt_size:data.get('tshirt_size'),
+      pant_size:data.get('pant_size'),
+      age_proof_path:agePath,
+      payment_receipt_path:receiptPath,
+      status:'pending'
     };
+
     const {error}=await sb.from('players').insert(payload);
     if(error)throw error;
-    form.reset();ageDisplay.value='';
-    formMessage.textContent='Registration received. Verification is pending before entry into the official draft pool.';
+
+    form.reset();
+    if(ageDisplay)ageDisplay.value='';
+    formMessage.textContent='Registration submitted successfully!';
     formMessage.className='success';
-  }catch(err){formMessage.textContent=err.message;formMessage.className='error'}
-  finally{button.disabled=false}
+
+    const review=document.querySelector('.review-card');
+    if(review){
+      review.innerHTML=`
+        <span>✓</span>
+        <small>APPLICATION RECEIVED</small>
+        <h4>Registration Submitted Successfully!</h4>
+        <p>Welcome to the TNYPL 2026 player registration process.</p>
+        <div class="success-next-steps">
+          <div><b>1</b><span>Your documents will be verified.</span></div>
+          <div><b>2</b><span>Your payment will be confirmed.</span></div>
+          <div><b>3</b><span>Your cricket profile will be reviewed.</span></div>
+          <div><b>4</b><span>Verified players enter the official draft pool.</span></div>
+          <div><b>5</b><span>You will receive confirmation by email or WhatsApp.</span></div>
+        </div>`;
+    }
+    showRegistrationStep(4,false);
+
+    if(button){
+      button.textContent='✓ Registration Submitted';
+      button.disabled=true;
+    }
+  }catch(err){
+    console.error('Registration submission failed:',err);
+    formMessage.textContent=err?.message || 'Registration could not be submitted. Please try again.';
+    formMessage.className='error';
+    if(button){
+      button.disabled=false;
+      button.textContent=originalText;
+    }
+  }
 });
 
-// Multi-step registration.
-(function setupSteps(){
-  const tabs=[...document.querySelectorAll('.step-tab')];
-  const panels=[...document.querySelectorAll('.form-step')];
-  if(!tabs.length)return;
-  let step=1;
-  function show(n){
-    step=Math.max(1,Math.min(4,n));
-    tabs.forEach(t=>t.classList.toggle('active',Number(t.dataset.step)===step));
-    panels.forEach(p=>p.classList.toggle('active',Number(p.dataset.stepPanel)===step));
+// Multi-step registration with validation.
+const registrationTabs=[...document.querySelectorAll('.step-tab')];
+const registrationPanels=[...document.querySelectorAll('.form-step')];
+let currentRegistrationStep=1;
+
+function showRegistrationStep(stepNumber,scroll=true){
+  currentRegistrationStep=Math.max(1,Math.min(4,Number(stepNumber)||1));
+  registrationTabs.forEach(tab=>{
+    tab.classList.toggle('active',Number(tab.dataset.step)===currentRegistrationStep);
+  });
+  registrationPanels.forEach(panel=>{
+    panel.classList.toggle('active',Number(panel.dataset.stepPanel)===currentRegistrationStep);
+  });
+  if(scroll){
     document.querySelector('.premium-form')?.scrollIntoView({behavior:'smooth',block:'start'});
   }
-  tabs.forEach(t=>t.addEventListener('click',()=>show(Number(t.dataset.step))));
-  document.querySelectorAll('.next-step').forEach(b=>b.addEventListener('click',()=>show(step+1)));
-  document.querySelectorAll('.prev-step').forEach(b=>b.addEventListener('click',()=>show(step-1)));
-})();
+}
+
+function fieldLabel(field){
+  return field.closest('label')?.childNodes[0]?.textContent?.trim() || field.name || 'Required field';
+}
+
+function validateRegistrationStep(stepNumber){
+  const panel=document.querySelector(`[data-step-panel="${stepNumber}"]`);
+  if(!panel)return true;
+
+  const requiredFields=[...panel.querySelectorAll('[required]')];
+  for(const field of requiredFields){
+    let valid=true;
+
+    if(field.type==='checkbox'){
+      valid=field.checked;
+    }else if(field.type==='file'){
+      valid=Boolean(field.files && field.files.length);
+    }else{
+      valid=Boolean(String(field.value||'').trim());
+    }
+
+    if(valid && field.type==='email'){
+      valid=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value.trim());
+    }
+
+    if(!valid){
+      field.classList.add('field-error');
+      const message=document.getElementById('formMessage');
+      if(message){
+        message.textContent=`Please complete: ${fieldLabel(field)}.`;
+        message.className='error';
+      }
+      setTimeout(()=>{
+        field.focus({preventScroll:true});
+        field.scrollIntoView({behavior:'smooth',block:'center'});
+      },50);
+      return false;
+    }
+    field.classList.remove('field-error');
+  }
+  return true;
+}
+
+registrationTabs.forEach(tab=>tab.addEventListener('click',()=>{
+  const target=Number(tab.dataset.step);
+  if(target>currentRegistrationStep && !validateRegistrationStep(currentRegistrationStep))return;
+  showRegistrationStep(target);
+}));
+
+document.querySelectorAll('.next-step').forEach(button=>button.addEventListener('click',()=>{
+  if(!validateRegistrationStep(currentRegistrationStep))return;
+  showRegistrationStep(currentRegistrationStep+1);
+}));
+
+document.querySelectorAll('.prev-step').forEach(button=>button.addEventListener('click',()=>{
+  showRegistrationStep(currentRegistrationStep-1);
+}));
 
 // Optional live public stats endpoint.
 (async function loadPublicStats(){

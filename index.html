@@ -80,7 +80,7 @@
     </div>
 
     <div class="hero-foot shell">
-      <div><small>ELIGIBLE DOB</small><strong>01 JAN 2010 – 01 JAN 2012</strong></div>
+      <div><small>ELIGIBLE DOB</small><strong>01 JAN 2010 – 31 DEC 2012</strong><span class="eligibility-inclusive">Both dates inclusive</span></div>
       <div><small>REGISTRATION FEE</small><strong>₹2,000</strong></div>
       <div><small>NOT DRAFTED?</small><strong>FULL REFUND*</strong></div>
       <div><small>SPECTATOR ENTRY</small><strong>FREE</strong></div>
@@ -175,17 +175,17 @@
           <p>Each founding franchise carries its own character, colors, owner vision and future media profile.</p>
         </div>
         <div class="franchise-premium-grid">
-          <article class="premium-team-card chennai" data-team="Chennai Strikers" data-owner="Suresh Durairaj" data-vision="Build a fearless, disciplined franchise that gives young players a professional stage and a strong team identity.">
-            <div class="team-badge">🦁</div><small>FRANCHISE 01</small><h3>Chennai Strikers</h3><p class="team-owner">Suresh Durairaj</p><button class="owner-view">View Team Vision</button><a class="team-page-link" href="chennai-strikers.html">Visit Franchise Page</a>
+          <article class="premium-team-card chennai" data-team="Chennai Strikers" data-owner="Vimalesh Vedachalam" data-vision="Build a fearless, disciplined franchise that gives young players a professional stage and a strong team identity.">
+            <div class="owner-card-photo"><img src="vimalesh-vedachalam.jpg" alt="Vimalesh Vedachalam"></div><small>FRANCHISE 01</small><h3>Chennai Strikers</h3><p class="team-owner">Vimalesh Vedachalam</p><button class="owner-view">View Team Vision</button><a class="team-page-link" href="chennai-strikers.html">Visit Franchise Page</a>
           </article>
           <article class="premium-team-card kovai" data-team="Kovai Kings" data-owner="Gopi" data-vision="Build a disciplined and ambitious team that represents excellence, pride and opportunity for emerging players.">
             <div class="team-badge">👑</div><small>FRANCHISE 02</small><h3>Kovai Kings</h3><p class="team-owner">Gopi</p><button class="owner-view">View Team Vision</button><a class="team-page-link" href="kovai-kings.html">Visit Franchise Page</a>
           </article>
-          <article class="premium-team-card madurai" data-team="Madurai Warriors" data-owner="Porki Pandian" data-vision="Combine tradition, courage and competitive spirit to develop confident young cricketers.">
-            <div class="team-badge">⚔️</div><small>FRANCHISE 03</small><h3>Madurai Warriors</h3><p class="team-owner">Porki Pandian</p><button class="owner-view">View Team Vision</button><a class="team-page-link" href="madurai-warriors.html">Visit Franchise Page</a>
+          <article class="premium-team-card madurai" data-team="Madurai Warriors" data-owner="Porkai Pandian Gopalakrishnan" data-vision="Combine tradition, courage and competitive spirit to develop confident young cricketers.">
+            <div class="owner-card-photo"><img src="porkai-pandian.jpg" alt="Porkai Pandian Gopalakrishnan"></div><small>FRANCHISE 03</small><h3>Madurai Warriors</h3><p class="team-owner">Porkai Pandian Gopalakrishnan</p><button class="owner-view">View Team Vision</button><a class="team-page-link" href="madurai-warriors.html">Visit Franchise Page</a>
           </article>
           <article class="premium-team-card trichy" data-team="Trichy Titans" data-owner="Satish Raja" data-vision="Create a resilient, team-first culture built around preparation, discipline and long-term growth.">
-            <div class="team-badge">🛡️</div><small>FRANCHISE 04</small><h3>Trichy Titans</h3><p class="team-owner">Satish Raja</p><button class="owner-view">View Team Vision</button><a class="team-page-link" href="trichy-titans.html">Visit Franchise Page</a>
+            <div class="owner-card-photo"><img src="satish-raja-profile.jpg" alt="Satish Raja"></div><small>FRANCHISE 04</small><h3>Trichy Titans</h3><p class="team-owner">Satish Raja</p><button class="owner-view">View Team Vision</button><a class="team-page-link" href="trichy-titans.html">Visit Franchise Page</a>
           </article>
           <article class="premium-team-card nellai" data-team="Nellai Falcons" data-owner="P. Ramanathan" data-vision="Give fast-rising players a stage where precision, confidence and consistent performance are rewarded.">
             <div class="team-badge">🦅</div><small>FRANCHISE 05</small><h3>Nellai Falcons</h3><p class="team-owner">P. Ramanathan</p><button class="owner-view">View Team Vision</button><a class="team-page-link" href="nellai-falcons.html">Visit Franchise Page</a>
@@ -329,14 +329,21 @@
           </div>
         </div>
 
-        <form id="registrationForm" class="registration-form premium-form">
+        
+          <div class="eligibility-panel">
+            <small>PLAYER ELIGIBILITY</small>
+            <strong>Born between 01 January 2010 and 31 December 2012</strong>
+            <span>Both dates are inclusive. Valid age proof is mandatory.</span>
+          </div>
+
+        <form id="registrationForm" class="registration-form premium-form" novalidate>
           <div class="form-progress">
             <button type="button" class="step-tab active" data-step="1"><span>1</span>Personal</button>
             <button type="button" class="step-tab" data-step="2"><span>2</span>Cricket</button>
             <button type="button" class="step-tab" data-step="3"><span>3</span>Documents</button>
             <button type="button" class="step-tab" data-step="4"><span>4</span>Confirm</button>
           </div>
-          <div class="form-title"><small>OFFICIAL APPLICATION</small><h3>Player Draft Registration</h3><p>DOB eligibility: 01 Jan 2010 to 01 Jan 2012, inclusive.</p></div>
+          <div class="form-title"><small>OFFICIAL APPLICATION</small><h3>Player Draft Registration</h3><p>DOB eligibility: Players born from 01 January 2010 through 31 December 2012, inclusive.</p></div>
           
           <div class="form-step active" data-step-panel="1">
             <div class="form-grid"><label>Player full name<input name="full_name" required></label>
@@ -365,14 +372,26 @@
             <div class="step-actions"><button type="button" class="btn btn-ghost prev-step">Back</button><button type="button" class="btn btn-gold next-step">Review & Confirm</button></div>
           </div>
           <div class="form-step" data-step-panel="4">
-            <div class="review-card">
+            <div class="review-card final-review-card">
               <span>✓</span>
-              <h4>Ready to submit</h4>
-              <p>Review your information, confirm the policy and submit your official player draft application.</p>
+              <small>STEP 4 OF 4 · FINAL REVIEW</small>
+              <h4>You’re One Step Away!</h4>
+              <p>Review your information and submit your application to enter the inaugural TNYPL Player Draft.</p>
+              <div class="final-benefits">
+                <div>✓ Official Draft Entry</div>
+                <div>✓ CricHeroes Visibility</div>
+                <div>✓ Team Shirt & Pants if Drafted</div>
+                <div>✓ YouTube Live Draft Coverage</div>
+                <div>✓ ₹2,000 Refund if Not Drafted*</div>
+              </div>
             </div>
         <label class="consent"><input type="checkbox" required> I confirm the information is accurate and accept the eligibility, verification and refund terms.</label>
-          <div class="terms"><b>Refund terms:</b> A refund applies only when a verified player enters the official draft pool and is not selected. Ineligible applications, failed document/payment checks, inaccurate information and voluntary withdrawals may not qualify.</div>
-          <button class="btn btn-gold full" type="submit">Submit Draft Registration</button>
+          <div class="terms refund-guarantee">
+              <span>💰</span>
+              <div><b>Refund Guarantee</b><p>Verified players who enter the official draft pool but are not selected by any franchise will receive a full ₹2,000 refund in accordance with the published refund policy.</p></div>
+            </div>
+          <button class="btn btn-gold full submit-final-btn" id="submitRegistrationBtn" type="submit">🚀 Enter the TNYPL Player Draft</button>
+          <div class="trust-note">🔒 Your information is securely stored and reviewed only by the official TNYPL administration.</div>
           <div id="formMessage"></div>
           </div>
         </form>

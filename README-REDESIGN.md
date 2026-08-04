@@ -4,7 +4,7 @@ Confirmed tournament dates:
 14 September 2026 to 18 September 2026
 
 Eligible DOB:
-01 January 2010 through 01 January 2012, both inclusive.
+01 January 2010 through 31 December 2012, both inclusive.
 
 Deploy from GitHub Codespaces:
 1. Replace the existing files with the files in this ZIP.
