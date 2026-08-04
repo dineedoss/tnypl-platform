@@ -122,7 +122,7 @@ form?.addEventListener('submit',async e=>{
       pant_size:data.get('pant_size'),
       age_proof_path:agePath,
       payment_receipt_path:receiptPath,
-      status:'pending'
+      status:'pending',privacy_consent_at:new Date().toISOString()
     };
 
     const {error}=await sb.from('players').insert(payload);
