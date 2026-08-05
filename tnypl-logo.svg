@@ -1,20 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 760">
-<defs>
-<linearGradient id="n" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#173d7d"/><stop offset=".55" stop-color="#071b3d"/><stop offset="1" stop-color="#020a18"/></linearGradient>
-<linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff1a6"/><stop offset=".45" stop-color="#f7c84f"/><stop offset="1" stop-color="#be7507"/></linearGradient>
-<filter id="s" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#000" flood-opacity=".42"/></filter>
-</defs>
-<g filter="url(#s)">
-<path d="M360 28 642 132v202c0 190-102 337-282 424C180 671 78 524 78 334V132z" fill="url(#n)" stroke="url(#g)" stroke-width="20"/>
-<path d="M360 67 605 157v172c0 158-84 282-245 361-161-79-245-203-245-361V157z" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="4"/>
-<path d="M360 125 419 165 488 175 503 242 552 293 526 356 538 427 473 457 431 517 360 499 289 517 247 457 182 427 194 356 168 293 217 242 232 175 301 165z" fill="url(#g)"/>
-<path d="M282 271c0-65 34-112 78-112s78 47 78 112v94c0 59-34 105-78 105s-78-46-78-105z" fill="#081d43"/>
-<path d="M296 281c18-20 40-25 64-15-21 9-37 24-48 44-9-7-14-17-16-29zm128 0c-18-20-40-25-64-15 21 9 37 24 48 44 9-7 14-17 16-29z" fill="#f7c84f"/>
-<path d="M334 350c18-14 35-14 52 0-8 16-17 24-26 24s-18-8-26-24z" fill="#fff1a6"/>
-<path d="M319 399c27 18 55 18 82 0-4 42-78 42-82 0z" fill="#f7c84f"/>
-<path d="M243 171 286 105l61 44 37-84 42 84 63-44 40 66-24 29H268z" fill="url(#g)"/>
-<text x="360" y="620" text-anchor="middle" font-family="Arial Black,Arial" font-size="106" font-weight="900" fill="#fff">TNYPL</text>
-<rect x="175" y="642" width="370" height="5" rx="2.5" fill="url(#g)"/>
-<text x="360" y="685" text-anchor="middle" font-family="Arial" font-size="25" font-weight="800" letter-spacing="4" fill="#f7c84f">YOUTH PREMIER LEAGUE</text>
-<text x="360" y="722" text-anchor="middle" font-family="Arial" font-size="19" font-weight="700" letter-spacing="5" fill="#dfe9f7">TAMIL NADU</text>
-</g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 860" role="img" aria-labelledby="t d">
+<title id="t">TNYPL Season 1 logo</title><desc id="d">Navy and gold shield with crown, Tamil architecture and cricket batsman</desc>
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe08a"/><stop offset=".45" stop-color="#d6a733"/><stop offset="1" stop-color="#8c5d10"/></linearGradient><linearGradient id="n" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#11366b"/><stop offset="1" stop-color="#041328"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="14" stdDeviation="12" flood-opacity=".38"/></filter></defs>
+<g filter="url(#s)"><path d="M360 24l56 55 88-28-9 93 89 30-47 80 66 68-72 59 26 91-91 14-21 91-85-35-85 35-21-91-91-14 26-91-72-59 66-68-47-80 89-30-9-93 88 28z" fill="url(#g)" stroke="#fff1bd" stroke-width="7"/>
+<path d="M360 119c113 0 197 35 241 64v217c0 181-93 293-241 366C212 693 119 581 119 400V183c44-29 128-64 241-64z" fill="url(#n)" stroke="#e8bd53" stroke-width="14"/>
+<path d="M272 166h176l-18 52H290zM299 150h122l-61-75z" fill="#e8bd53"/><path d="M319 148l41-59 41 59M284 206h152M304 188h112" stroke="#082041" stroke-width="9" fill="none"/>
+<!-- gopuram --> <g fill="#d9ad46"><path d="M264 235h192l-17 29H281z"/><path d="M282 266h156l-15 26H297z"/><path d="M299 294h122l-13 23h-96z"/><path d="M319 319h82l-11 21h-60z"/></g>
+<!-- batsman --> <g fill="#f4c65a"><circle cx="371" cy="370" r="32"/><path d="M342 399c45-23 91 8 96 52l9 96-48 5-5-75-35 33-32 93-48-18 35-110-44 8-10-45z"/><path d="M424 416l35 20 86-118 20 13-78 135-58 18z"/><path d="M348 578l-48 111-43-17 37-116zM397 547l50 125-46 15-51-113z"/></g>
+<path d="M157 397c24 143 82 244 203 309 121-65 179-166 203-309" fill="none" stroke="#fff2c4" stroke-width="5" opacity=".7"/>
+</g>
+<text x="360" y="807" text-anchor="middle" font-family="Arial Black,Arial" font-size="106" font-weight="900" fill="#061a36" stroke="#e8bd53" stroke-width="8" paint-order="stroke">TNYPL</text>
+<text x="360" y="846" text-anchor="middle" font-family="Arial" font-size="21" font-weight="700" letter-spacing="5" fill="#d7aa3e">TAMIL NADU YOUTH PREMIER LEAGUE</text>
+</svg>

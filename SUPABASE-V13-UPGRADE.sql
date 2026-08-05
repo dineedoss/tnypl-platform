@@ -1,9 +1,9 @@
 -- TNYPL V13 eight-franchise upgrade. Run after V12 complete setup.
 alter table public.franchise_owner_assignments drop constraint if exists franchise_owner_assignments_franchise_slug_key;
 create index if not exists franchise_owner_assignments_slug_idx on public.franchise_owner_assignments(franchise_slug);
-update public.franchises set slug='karaikudi-kings',name='Karaikudi Kings',owner_name='Porkai Pandian Gopalakrishnan' where slug='madurai-warriors';
-update public.franchise_owner_assignments set franchise_slug='karaikudi-kings',franchise_name='Karaikudi Kings' where franchise_slug='madurai-warriors';
-update public.team_standings set franchise_slug='karaikudi-kings',team_name='Karaikudi Kings' where franchise_slug='madurai-warriors';
+update public.franchises set slug='karaikudi-kings',name='Karaikudi Kings',owner_name='Porkai Pandian Gopalakrishnan' where slug='karaikudi-kings';
+update public.franchise_owner_assignments set franchise_slug='karaikudi-kings',franchise_name='Karaikudi Kings' where franchise_slug='karaikudi-kings';
+update public.team_standings set franchise_slug='karaikudi-kings',team_name='Karaikudi Kings' where franchise_slug='karaikudi-kings';
 insert into public.franchises(slug,name,owner_name,starting_points,squad_limit) values ('thanjavur-royals','Thanjavur Royals','Saravanan Narasimhan & Santhana Krishnan',1000,13),('franchise-08','Franchise 08','Pending Confirmation',1000,13) on conflict(slug) do update set name=excluded.name,owner_name=excluded.owner_name;
 insert into public.team_standings(franchise_slug,team_name) values ('thanjavur-royals','Thanjavur Royals'),('franchise-08','Franchise 08') on conflict(franchise_slug) do update set team_name=excluded.team_name;
 insert into public.franchise_owner_assignments(user_id,franchise_slug,franchise_name,owner_name) select id,'chennai-strikers','Chennai Strikers','Vimalesh Vedachalam' from auth.users where lower(email)=lower('vim22veda@gmail.com') on conflict(user_id) do update set franchise_slug=excluded.franchise_slug,franchise_name=excluded.franchise_name,owner_name=excluded.owner_name,is_active=true,updated_at=now();

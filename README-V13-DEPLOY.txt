@@ -2,7 +2,7 @@ TNYPL V13 - EIGHT FRANCHISE + SPONSOR DEPLOYMENT
 
 Included:
 - Eight-franchise architecture and public franchise display.
-- Karaikudi Kings replaces Madurai Warriors.
+- Karaikudi Kings replaces Karaikudi Kings.
 - Thanjavur Royals joint-owner page for Saravanan Narasimhan and Santhana Krishnan.
 - Both Thanjavur owner photos and login emails.
 - Ramanathan Periyaraja approved photo.

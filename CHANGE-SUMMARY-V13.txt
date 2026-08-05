@@ -1,7 +1,7 @@
 TNYPL V13 CHANGE SUMMARY
 
 1. League expanded from six to eight franchises.
-2. Madurai Warriors renamed Karaikudi Kings.
+2. Karaikudi Kings renamed Karaikudi Kings.
 3. Thanjavur Royals added with equal joint owners Saravanan Narasimhan and Santhana Krishnan.
 4. Franchise 08 retained as a transparent pending placeholder.
 5. Owner login mappings updated for all confirmed owners.
