@@ -122,7 +122,7 @@ form?.addEventListener('submit',async e=>{
       pant_size:data.get('pant_size'),
       age_proof_path:agePath,
       payment_receipt_path:receiptPath,
-      status:'pending',privacy_consent_at:new Date().toISOString()
+      status:'pending',privacy_consent_at:new Date().toISOString(),guardian_consent_at:new Date().toISOString()
     };
 
     const {error}=await sb.from('players').insert(payload);
@@ -254,5 +254,17 @@ document.querySelectorAll('.prev-step').forEach(button=>button.addEventListener(
     const pct=Math.min(100,Math.round((Number(data.registrations||0)/78)*100));
     const bar=document.getElementById('goalProgress');if(bar)bar.style.width=`${pct}%`;
     const caption=document.getElementById('goalCaption');if(caption)caption.textContent=`${data.registrations||0} registrations received · ${pct}% of 78-player goal`;
+  }catch(e){}
+})();
+
+// V10 real visitor analytics through Netlify Functions.
+(async function v10Analytics(){
+  try{await fetch('/.netlify/functions/track-visit',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({path:location.pathname})});}catch(e){}
+  try{
+    const r=await fetch('/.netlify/functions/public-stats',{cache:'no-store'}); if(!r.ok) return;
+    const d=await r.json(), fmt=n=>new Intl.NumberFormat('en-IN').format(Number(n||0));
+    const vals={metricVisitors:d.unique_visitors,metricPageViews:d.page_views,metricRegistrations:d.registrations,metricCountries:d.countries_reached,metricOnline:d.online_now,metricVerified:d.verified_players};
+    Object.entries(vals).forEach(([id,v])=>{const el=document.getElementById(id);if(el)el.textContent=fmt(v)});
+    const list=document.getElementById('countryList'); if(list) list.innerHTML=(d.countries||[]).length?(d.countries||[]).map(c=>`<div><span>${c.country_name||c.country_code}</span><b>${fmt(c.visitors)}</b></div>`).join(''):'<p>No country data recorded yet.</p>';
   }catch(e){}
 })();
