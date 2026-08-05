@@ -130,6 +130,15 @@ form?.addEventListener('submit',async e=>{
 
     form.reset();
     if(ageDisplay)ageDisplay.value='';
+    try{
+      await client.from("email_queue").insert({
+        player_id:String(insertedPlayer?.id||submissionId),
+        recipient_email:payload.email,
+        template_key:"registration_received",
+        status:"pending",
+        payload:{player_name:payload.full_name,registration_reference:payload.registration_reference}
+      });
+    }catch(emailQueueError){console.warn("Email queue unavailable",emailQueueError);}
     formMessage.textContent='Registration submitted successfully!';
     formMessage.className='success';
 
@@ -268,3 +277,23 @@ document.querySelectorAll('.prev-step').forEach(button=>button.addEventListener(
     const list=document.getElementById('countryList'); if(list) list.innerHTML=(d.countries||[]).length?(d.countries||[]).map(c=>`<div><span>${c.country_name||c.country_code}</span><b>${fmt(c.visitors)}</b></div>`).join(''):'<p>No country data recorded yet.</p>';
   }catch(e){}
 })();
+
+// V12 live-score banner and analytics-safe state.
+(async function loadLiveScoreBanner(){
+ try{
+  const r=await fetch("/.netlify/functions/live-match",{cache:"no-store"});
+  if(!r.ok)return;
+  const d=await r.json();
+  if(!d?.is_live)return;
+  const bar=document.getElementById("liveScoreBar");if(!bar)return;
+  bar.hidden=false;
+  document.getElementById("liveMatchTeams").textContent=d.teams||"TNYPL Live";
+  document.getElementById("liveMatchScore").textContent=d.score||"";
+  document.getElementById("liveMatchSituation").textContent=d.situation||"";
+  if(d.youtube_url)document.getElementById("liveWatchLink").href=d.youtube_url;
+ }catch(e){}
+})();
+setTimeout(()=>{
+ const list=document.getElementById("countryList");
+ if(list && /loading/i.test(list.textContent))list.innerHTML="<p>No visitor-location data is available yet.</p>";
+},4000);

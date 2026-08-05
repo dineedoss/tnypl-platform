@@ -1,0 +1,1 @@
+Deploy package, run SUPABASE-V11-2-OWNER-PORTAL-ASSIGNMENT.sql, create each owner in Supabase Authentication, replace placeholder emails, and rerun the matching assignment inserts.

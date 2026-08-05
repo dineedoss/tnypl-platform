@@ -369,3 +369,220 @@
   .founder-values-grid,.roadmap-grid{grid-template-columns:1fr}
   .founder-monogram span{font-size:7rem}
 }
+
+.portal-login-shell{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:#06162f;color:white}.portal-login-brand,.portal-login-card{padding:7vw;display:flex;flex-direction:column;justify-content:center}.portal-login-card{background:#eef2f7;color:#142136}.portal-login-card input{display:block;width:100%;padding:14px;margin:8px 0 16px}.owner-portal-header{display:flex;justify-content:space-between;padding:18px 4%;background:#020817}.owner-portal-header img{width:210px}.owner-portal-main{padding:50px 0}.owner-player-panel{background:white;color:#142136;padding:24px;border-radius:18px;margin-top:25px}.table-scroll{overflow:auto}.owner-player-panel table{width:100%;border-collapse:collapse}.owner-player-panel th,.owner-player-panel td{padding:12px;border-bottom:1px solid #ddd}.leadership-profile-page{background:#eef2f7}.leadership-profile-hero{background:linear-gradient(135deg,#06162f,#0d3974);color:white;padding:70px 0}.leadership-profile-grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:55px;align-items:center}.leadership-profile-photo{background:#fff;border-radius:24px;padding:18px}.leadership-profile-photo img{width:100%;height:500px;object-fit:contain;object-position:center}.leadership-profile-grid h1{font-family:"Barlow Condensed";font-size:6rem;text-transform:uppercase}.profile-placeholder{text-align:center;font-size:7rem;color:#e6ae32}.profile-placeholder span{display:block;font-size:.7rem}@media(max-width:700px){.portal-login-shell,.leadership-profile-grid{grid-template-columns:1fr}.leadership-profile-photo img{height:auto}}
+/* V12 preview */
+.how-works-preview{background:#eef2f7;color:#142136}.process-preview-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.process-preview-grid article{background:white;border-radius:16px;padding:20px;box-shadow:0 15px 40px rgba(14,35,70,.08)}.process-preview-grid b{font-family:"Barlow Condensed";font-size:2.8rem;color:#c98a08}.process-preview-grid h3{font-family:"Barlow Condensed";font-size:2rem;text-transform:uppercase;margin:7px 0}.process-preview-grid p{font-size:.7rem;line-height:1.6;color:#627188}.center-actions{display:flex;justify-content:center;gap:12px;margin-top:25px}.tournament-center-preview{background:linear-gradient(135deg,#041127,#0b3872);color:white}.tournament-preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.tournament-preview-grid article{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:15px;padding:22px}.tournament-preview-grid small{color:var(--gold);font-weight:900;letter-spacing:.12em}.tournament-preview-grid strong{display:block;font-family:"Barlow Condensed";font-size:2.3rem;margin:8px 0}.tournament-preview-grid span{font-size:.68rem;color:#b8c8dc}.leader-profile-link{display:grid;grid-template-columns:170px 1fr;gap:24px;color:inherit;text-decoration:none}.portrait-photo img{object-fit:contain!important;object-position:center!important;background:white}.official-youtube-link{color:inherit}@media(max-width:900px){.process-preview-grid{grid-template-columns:1fr 1fr}.tournament-preview-grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.process-preview-grid,.tournament-preview-grid{grid-template-columns:1fr}.center-actions{flex-direction:column}.leader-profile-link{grid-template-columns:1fr}}
+
+/* TNYPL V12 Complete Launch */
+.btn-youtube{background:#e62117;color:#fff!important;border-color:#e62117!important}
+.live-score-bar{position:sticky;top:0;z-index:1100;background:#07162f;color:#fff;border-bottom:2px solid #ef3340}
+.live-score-inner{min-height:48px;display:flex;align-items:center;gap:16px;font-size:.72rem}
+.live-score-status{color:#6ceb7b;font-weight:900}.live-score-status i{display:inline-block;width:8px;height:8px;background:#5ee76d;border-radius:50%;margin-right:6px;animation:pulse 1.2s infinite}
+.live-score-inner a{color:#f4bf43;font-weight:900;text-decoration:none;margin-left:auto}.live-score-inner a+a{margin-left:0}
+.tournament-body{background:#eef2f7;color:#142136}.tournament-nav{background:#06162f;max-width:none;padding:0 5%}.tournament-links{display:flex;gap:18px;margin-left:auto}.tournament-links a{color:#fff;text-decoration:none;font-size:.7rem;font-weight:800}
+.tournament-hero{background:linear-gradient(135deg,#06162f,#0d3974);color:#fff;padding:80px 0}.tournament-hero h1{font-family:"Barlow Condensed";font-size:clamp(4.5rem,9vw,8rem);line-height:.8;text-transform:uppercase;margin:12px 0}
+.tournament-live-section{background:#020817}.tournament-live-grid{display:grid;grid-template-columns:1.4fr .6fr;gap:16px}.live-stream-card,.current-match-card{background:#07162f;color:#fff;border:1px solid rgba(244,191,67,.25);border-radius:17px;padding:18px}.live-heading{display:flex;justify-content:space-between;color:#f4bf43;font-weight:900}.youtube-placeholder{position:relative;min-height:470px;margin-top:14px;border-radius:12px;overflow:hidden;background:#000}.youtube-placeholder img{width:100%;height:470px;object-fit:cover;opacity:.55}.youtube-placeholder>div{position:absolute;inset:0;display:grid;place-content:center;text-align:center}.youtube-placeholder iframe{width:100%;height:470px;border:0}.current-match-card h2{font-family:"Barlow Condensed";font-size:3rem;text-transform:uppercase}.current-match-card>strong{display:block;font-family:"Barlow Condensed";font-size:4rem;color:#f4bf43}
+.league-table{width:100%;border-collapse:collapse;background:#fff}.league-table th,.league-table td{padding:14px;border-bottom:1px solid #e5e9ef;text-align:left;font-size:.72rem}.league-table.dark{background:#07162f;color:#fff}.standings-section,.results-section{background:#06162f;color:#fff}
+.status-pill{padding:5px 8px;border-radius:999px;background:#e9eef5;text-transform:uppercase;font-size:.55rem}.status-pill.live{background:#e52d45;color:#fff}.status-pill.completed{background:#dff4e7;color:#17633d}
+.leaderboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.leaderboard-grid article{background:#fff;border-radius:18px;padding:25px}.leaderboard-grid h2{font-family:"Barlow Condensed";font-size:3rem;text-transform:uppercase}.leader-list div{display:grid;grid-template-columns:30px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #e4e9f0}.leader-list span strong,.leader-list span small{display:block}.leader-list em{font-style:normal;font-weight:900}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.results-grid article{background:rgba(255,255,255,.08);padding:20px;border-radius:14px}
+.commissioner-body,.admin-body{background:#eef2f7;color:#142136}.commissioner-main,.admin-main{padding-top:50px;padding-bottom:100px}.commissioner-main>h1,.admin-title h1{font-family:"Barlow Condensed";font-size:clamp(3.5rem,7vw,6rem);text-transform:uppercase;margin:6px 0}.commissioner-grid,.admin-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:25px 0}.commissioner-grid article,.admin-stat-grid article{background:#fff;padding:20px;border-radius:16px}.commissioner-grid strong,.admin-stat-grid strong{display:block;font-family:"Barlow Condensed";font-size:3rem;color:#0c3975}.commissioner-panel{background:#fff;border-radius:18px;padding:25px;margin-top:18px}.health-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.health-grid div{display:flex;justify-content:space-between;padding:12px;background:#f2f5f9;border-radius:10px}.health-grid b{padding:5px 8px;border-radius:999px}.health-grid .on-track,.health-grid .ready{background:#dcf5e7;color:#17643f}.health-grid .needs-attention{background:#fff0d3;color:#8a5700}
+.admin-login{max-width:470px;margin:60px auto}.admin-title{display:flex;justify-content:space-between;align-items:center}.admin-status-controls{display:flex;gap:8px}.admin-toolbar{display:flex;gap:10px;margin:20px 0}.admin-toolbar input{flex:1}.admin-toolbar input,.admin-toolbar select,.admin-status-controls select{padding:12px;border:1px solid #cad4e1;border-radius:8px}.admin-table-wrap{background:#fff;border-radius:16px}.admin-table{width:100%;border-collapse:collapse;min-width:1350px}.admin-table th,.admin-table td{padding:11px;border-bottom:1px solid #e5e9ef;font-size:.67rem;text-align:left;vertical-align:top}.admin-player-photo{width:58px;height:70px;object-fit:cover;border-radius:8px}.action-stack{display:grid;gap:5px}.points-input{width:72px;padding:5px}.forgot-link{display:block;text-align:center;margin-top:12px;color:#234d82;font-weight:800}
+@media(max-width:800px){.tournament-links{display:none}.tournament-live-grid,.leaderboard-grid{grid-template-columns:1fr}.commissioner-grid,.admin-stat-grid{grid-template-columns:1fr 1fr}.admin-title{display:block}.admin-toolbar{flex-wrap:wrap}.results-grid{grid-template-columns:1fr}.live-score-inner{flex-wrap:wrap;padding:8px 0}.live-score-inner a{margin-left:0}}
+
+
+/* ==========================================================
+   TNYPL V12.1 — readable owner-page redesign
+   ========================================================== */
+.owner-page-redesign{
+  background:#f3f6fa;
+  color:#142136;
+}
+.owner-page-redesign .owner-profile-hero,
+.owner-page-redesign .owner-hero,
+.owner-page-redesign .franchise-owner-hero{
+  background:linear-gradient(180deg,#ffffff 0%,#eef3f9 100%)!important;
+  color:#142136!important;
+  padding-bottom:54px!important;
+}
+.owner-page-redesign .owner-profile-hero::before,
+.owner-page-redesign .owner-hero::before,
+.owner-page-redesign .franchise-owner-hero::before{
+  opacity:.04!important;
+}
+.owner-page-redesign .owner-name-watermark,
+.owner-page-redesign .watermark-name,
+.owner-page-redesign [class*="watermark"]{
+  display:none!important;
+}
+.owner-page-redesign .owner-profile-hero h1,
+.owner-page-redesign .owner-hero h1,
+.owner-page-redesign .franchise-owner-hero h1{
+  color:#07162f!important;
+  opacity:1!important;
+  text-shadow:none!important;
+  font-size:clamp(3.3rem,8vw,7rem)!important;
+  line-height:.88!important;
+  max-width:1050px!important;
+  overflow-wrap:anywhere;
+}
+.owner-page-redesign .owner-profile-hero h2,
+.owner-page-redesign .owner-hero h2,
+.owner-page-redesign .franchise-owner-hero h2{
+  color:#142136!important;
+}
+.owner-page-redesign .owner-profile-hero p,
+.owner-page-redesign .owner-hero p,
+.owner-page-redesign .franchise-owner-hero p,
+.owner-page-redesign .owner-profile-hero blockquote,
+.owner-page-redesign .owner-hero blockquote,
+.owner-page-redesign .franchise-owner-hero blockquote{
+  color:#43546c!important;
+  opacity:1!important;
+}
+.owner-page-redesign .owner-profile-hero .eyebrow,
+.owner-page-redesign .owner-hero .eyebrow,
+.owner-page-redesign .franchise-owner-hero .eyebrow{
+  color:#bb8100!important;
+}
+.owner-page-redesign .owner-profile-photo,
+.owner-page-redesign .owner-photo-frame,
+.owner-page-redesign .owner-portrait{
+  background:#ffffff!important;
+  border:1px solid #d8e0ea!important;
+  box-shadow:0 24px 60px rgba(21,43,77,.16)!important;
+}
+.owner-page-redesign .owner-profile-photo img,
+.owner-page-redesign .owner-photo-frame img,
+.owner-page-redesign .owner-portrait img{
+  width:100%;
+  height:100%;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:#ffffff;
+}
+.owner-page-redesign .owner-readable-section{
+  background:#ffffff!important;
+  color:#142136!important;
+  padding-top:68px!important;
+  padding-bottom:68px!important;
+}
+.owner-page-redesign .owner-readable-section h2,
+.owner-page-redesign .owner-readable-section h3,
+.owner-page-redesign .owner-readable-section strong{
+  color:#07162f!important;
+}
+.owner-page-redesign .owner-readable-section p,
+.owner-page-redesign .owner-readable-section li,
+.owner-page-redesign .owner-readable-section blockquote{
+  color:#46566c!important;
+  opacity:1!important;
+  font-size:1rem!important;
+  line-height:1.78!important;
+}
+.owner-page-redesign .owner-readable-section blockquote{
+  border-left:5px solid #f4bf43;
+  padding-left:20px;
+}
+.owner-page-redesign .owner-readable-section .eyebrow{
+  color:#a66f00!important;
+}
+.owner-page-redesign .owner-vision-section{
+  background:#07162f!important;
+  color:#ffffff!important;
+}
+.owner-page-redesign .owner-vision-section h2,
+.owner-page-redesign .owner-vision-section blockquote{
+  color:#ffffff!important;
+  opacity:1!important;
+}
+.owner-page-redesign .owner-vision-section p{
+  color:#c5d1e0!important;
+}
+.owner-video-section{
+  background:#eef3f8;
+  color:#142136;
+  padding:72px 0;
+}
+.owner-video-grid{
+  display:grid;
+  grid-template-columns:.72fr 1.28fr;
+  gap:40px;
+  align-items:center;
+}
+.owner-video-copy h2{
+  margin:10px 0 18px;
+  font-family:"Barlow Condensed",sans-serif;
+  font-size:clamp(3rem,6vw,5.2rem);
+  line-height:.9;
+  text-transform:uppercase;
+  color:#07162f;
+}
+.owner-video-copy>p{
+  color:#506177;
+  line-height:1.75;
+}
+.video-note{
+  font-size:.72rem!important;
+  color:#77869a!important;
+}
+.owner-video-player{
+  background:#020817;
+  padding:14px;
+  border-radius:22px;
+  box-shadow:0 28px 70px rgba(17,36,65,.22);
+}
+.owner-video-player video{
+  display:block;
+  width:100%;
+  max-height:720px;
+  background:#000;
+  border-radius:14px;
+}
+.owner-page-redesign .btn,
+.owner-page-redesign a[class*="button"]{
+  opacity:1!important;
+}
+@media(max-width:760px){
+  .owner-page-redesign .owner-profile-hero,
+  .owner-page-redesign .owner-hero,
+  .owner-page-redesign .franchise-owner-hero{
+    padding-top:30px!important;
+    padding-bottom:35px!important;
+  }
+  .owner-page-redesign .owner-profile-hero h1,
+  .owner-page-redesign .owner-hero h1,
+  .owner-page-redesign .franchise-owner-hero h1{
+    font-size:clamp(3rem,13vw,5rem)!important;
+    line-height:.84!important;
+  }
+  .owner-page-redesign .owner-readable-section{
+    padding-top:42px!important;
+    padding-bottom:42px!important;
+  }
+  .owner-page-redesign .owner-readable-section p,
+  .owner-page-redesign .owner-readable-section li,
+  .owner-page-redesign .owner-readable-section blockquote{
+    font-size:.96rem!important;
+    line-height:1.68!important;
+  }
+  .owner-video-grid{
+    grid-template-columns:1fr;
+    gap:25px;
+  }
+  .owner-video-section{
+    padding:48px 0;
+  }
+  .owner-video-player{
+    padding:9px;
+    border-radius:16px;
+  }
+  .owner-video-player video{
+    max-height:600px;
+    border-radius:10px;
+  }
+}
+
+/* TNYPL V13 additions */
+.thanjavur-banner,.branding-hero,.sponsor-page-hero{padding:80px 0;background:linear-gradient(135deg,#07162f,#6c1731);color:#fff}.thanjavur-banner h1,.branding-hero h1,.sponsor-page-hero h1{font-family:"Barlow Condensed";font-size:clamp(4rem,9vw,8rem);line-height:.82;text-transform:uppercase;margin:10px 0}.joint-owner-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.joint-owner-grid article{background:#fff;padding:16px;border-radius:18px;box-shadow:0 18px 50px rgba(10,30,60,.14)}.joint-owner-grid img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:13px}.joint-owner-grid h3{font-family:"Barlow Condensed";font-size:2.5rem;text-transform:uppercase;margin:12px 0 3px}.owner-copy-narrow{max-width:900px}.pending-franchise{min-height:70vh;display:grid;align-items:center;background:#07162f;color:#fff}.pending-franchise h1{font-family:"Barlow Condensed";font-size:clamp(4rem,9vw,8rem);text-transform:uppercase}.sponsor-logo-grid,.homepage-sponsor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.sponsor-logo-grid article,.homepage-sponsor-grid a{background:#fff;border-radius:18px;padding:25px;text-align:center;box-shadow:0 15px 40px rgba(10,30,60,.12);text-decoration:none;color:#07162f}.sponsor-logo-grid img,.homepage-sponsor-grid img{width:100%;height:180px;object-fit:contain}.sponsor-feature-card{display:grid;grid-template-columns:1fr 350px;gap:30px;align-items:center;background:#fff;padding:30px;border-radius:20px}.sponsor-feature-card img{width:100%;max-height:220px;object-fit:contain}.branding-board{text-align:center}.branding-board>img{width:100%;border-radius:15px;box-shadow:0 20px 60px rgba(0,0,0,.2)}.logo-file-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.logo-file-grid img{width:100%;height:240px;object-fit:contain;background:#fff;border-radius:15px;padding:20px}.premium-team-card.thanjavur{background:linear-gradient(145deg,#6b1531,#c79935)}.premium-team-card.pending-team{background:linear-gradient(145deg,#34445a,#111b2b)}.floating-command-link{position:fixed;right:16px;bottom:90px;z-index:1200;background:#f4bf43;color:#07162f;padding:11px 15px;border-radius:999px;text-decoration:none;font-weight:900;font-size:.68rem}.draft-command-body{margin:0;background:#020817;color:#fff;font-family:Inter,sans-serif}.draft-command-header{display:flex;align-items:center;gap:20px;padding:14px 24px;background:#07162f;border-bottom:2px solid #e7b742}.draft-command-header img{width:160px}.draft-command-header div{display:grid}.draft-command-header button{margin-left:auto}.draft-command-layout{display:grid;grid-template-columns:1fr 360px;min-height:calc(100vh - 74px)}.draft-stage{padding:28px;background:radial-gradient(circle at 50% 35%,#123968,#020817 65%)}.draft-stage-top{display:flex;justify-content:space-between;color:#f4bf43;font-weight:900}.draft-stage-top div{font-family:"Barlow Condensed";font-size:5rem}.current-player-panel{display:grid;grid-template-columns:minmax(250px,38%) 1fr;gap:34px;align-items:center;min-height:65vh}.current-player-photo{aspect-ratio:4/5;background:#fff;border-radius:22px;overflow:hidden;border:2px solid #e7b742}.current-player-photo img{width:100%;height:100%;object-fit:cover}.current-player-copy h1{font-family:"Barlow Condensed";font-size:clamp(4rem,8vw,8rem);line-height:.82;text-transform:uppercase;margin:12px 0}.player-facts{display:flex;gap:10px;flex-wrap:wrap}.player-facts span{padding:8px 12px;background:rgba(255,255,255,.1);border-radius:999px}.current-value{margin-top:35px}.current-value strong{display:block;color:#f4bf43;font-family:"Barlow Condensed";font-size:5rem}.draft-stage-actions{display:flex;gap:10px}.draft-stage-actions button,.draft-stage-actions a{padding:12px 17px;border-radius:8px;border:1px solid #e7b742;background:#e7b742;color:#07162f;font-weight:900;text-decoration:none}.draft-side{background:#07162f;padding:20px}.draft-side section{background:rgba(255,255,255,.05);border-radius:14px;padding:17px;margin-bottom:15px}.next-pick-card h2{font-family:"Barlow Condensed";font-size:2.7rem;text-transform:uppercase;color:#f4bf43}.purse-grid{display:grid;gap:7px}.purse-grid div{display:flex;justify-content:space-between;background:#0e294c;padding:10px;border-radius:8px}.purse-grid b{color:#f4bf43}.draft-history div{display:grid;grid-template-columns:60px 1fr auto;gap:7px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.12)}.draft-sponsor img{width:100%;max-height:100px;object-fit:contain;background:#fff;border-radius:9px}.leadership-v13{background:#eef3f8}.leadership-v13-hero{background:#07162f;color:#fff;padding:70px 0}.leadership-v13-grid{display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:center}.leadership-placeholder{aspect-ratio:4/5;border-radius:18px;background:linear-gradient(135deg,#164b88,#07162f);display:grid;place-content:center;text-align:center}.leadership-placeholder strong{font-family:"Barlow Condensed";font-size:7rem;color:#f4bf43}.leadership-v13 h1{font-family:"Barlow Condensed";font-size:clamp(4rem,8vw,8rem);line-height:.82;text-transform:uppercase}.leadership-responsibilities{display:grid;grid-template-columns:1fr 1fr;gap:20px}.leadership-responsibilities article{background:#fff;border-radius:16px;padding:25px}@media(max-width:800px){.joint-owner-grid,.sponsor-logo-grid,.homepage-sponsor-grid,.sponsor-feature-card,.logo-file-grid,.draft-command-layout,.current-player-panel,.leadership-v13-grid,.leadership-responsibilities{grid-template-columns:1fr}.draft-side{border-left:0}.current-player-photo{max-width:330px;margin:auto}.sponsor-feature-card img{max-width:300px;margin:auto}}

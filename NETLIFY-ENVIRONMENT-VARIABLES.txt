@@ -1,5 +1,16 @@
-Add in Netlify > Project configuration > Environment variables:
+TNYPL V12 NETLIFY ENVIRONMENT VARIABLES
+
+Required:
 SUPABASE_URL
 SUPABASE_SERVICE_ROLE_KEY
 
-Never put the service-role key in browser code. Redeploy after adding both values.
+For automated transactional email:
+RESEND_API_KEY
+EMAIL_FROM=TNYPL <registrations@tnypl.in>
+
+Optional:
+CRICHEROES_API_URL
+CRICHEROES_API_KEY
+
+Never place SUPABASE_SERVICE_ROLE_KEY or RESEND_API_KEY in config.js.
+After adding variables, trigger a new Netlify deployment.

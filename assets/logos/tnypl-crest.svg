@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 680" role="img" aria-label="TNYPL Golden Lion Crest">
+<defs>
+  <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#173d7d"/>
+    <stop offset=".55" stop-color="#071b3d"/>
+    <stop offset="1" stop-color="#020a18"/>
+  </linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#fff1a6"/>
+    <stop offset=".45" stop-color="#f7c84f"/>
+    <stop offset="1" stop-color="#be7507"/>
+  </linearGradient>
+  <filter id="shadow" x="-35%" y="-35%" width="170%" height="170%">
+    <feDropShadow dx="0" dy="20" stdDeviation="18" flood-color="#000" flood-opacity=".42"/>
+  </filter>
+</defs>
+<g filter="url(#shadow)">
+  <path d="M360 28 642 132v202c0 167-97 292-282 386C175 626 78 501 78 334V132z" fill="url(#navy)" stroke="url(#gold)" stroke-width="20"/>
+  <path d="M360 67 605 157v172c0 136-80 239-245 327-165-88-245-191-245-327V157z" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="4"/>
+  <path d="M360 125 419 165 488 175 503 242 552 293 526 356 538 427 473 457 431 517 360 499 289 517 247 457 182 427 194 356 168 293 217 242 232 175 301 165z" fill="url(#gold)"/>
+  <path d="M282 271c0-65 34-112 78-112s78 47 78 112v94c0 59-34 105-78 105s-78-46-78-105z" fill="#081d43"/>
+  <path d="M296 281c18-20 40-25 64-15-21 9-37 24-48 44-9-7-14-17-16-29zm128 0c-18-20-40-25-64-15 21 9 37 24 48 44 9-7 14-17 16-29z" fill="#f7c84f"/>
+  <path d="M334 350c18-14 35-14 52 0-8 16-17 24-26 24s-18-8-26-24z" fill="#fff1a6"/>
+  <path d="M319 399c27 18 55 18 82 0-4 42-78 42-82 0z" fill="#f7c84f"/>
+  <path d="M243 171 286 105l61 44 37-84 42 84 63-44 40 66-24 29H268z" fill="url(#gold)"/>
+</g>
+</svg>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TNYPL Tournament Centre</title><link rel="icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="tournament-body">
+<nav class="premium-nav tournament-nav shell">
+<a href="index.html"><img class="nav-wordmark" src="tnypl-wordmark.svg" alt="TNYPL"></a>
+<div class="tournament-links"><a href="#live">Live</a><a href="#schedule">Schedule</a><a href="#standings">Points Table</a><a href="#leaders">Orange & Purple Cap</a><a href="#results">Results</a></div>
+<a class="btn btn-youtube" href="https://youtube.com/@tamilnaduyouthpremierleague" target="_blank" rel="noopener">Official YouTube</a>
+</nav>
+
+<header class="tournament-hero">
+<div class="shell"><p class="eyebrow">TNYPL TOURNAMENT CENTRE</p><h1>Scores. Standings.<br>Every moment.</h1><p>One official venue · 15 T20 matches · 14–18 September 2026</p></div>
+</header>
+
+<main>
+<section id="live" class="section tournament-live-section"><div class="shell tournament-live-grid">
+<div class="live-stream-card"><div class="live-heading"><span><i></i> OFFICIAL LIVE STREAM</span><a href="https://youtube.com/@tamilnaduyouthpremierleague" target="_blank" rel="noopener">Open YouTube</a></div>
+<div id="youtubeEmbed" class="youtube-placeholder"><img src="tnypl-stadium-poster.jpg" alt="TNYPL live stream"><div><strong>Live YouTube link will appear here</strong><p>Add the match video ID from the Tournament Admin dashboard.</p></div></div></div>
+<aside class="current-match-card"><small>CURRENT MATCH</small><h2 id="tcMatchTeams">No live match</h2><strong id="tcScore">—</strong><p id="tcOvers">Match details will appear when scoring begins.</p><div id="tcSituation"></div></aside>
+</div></section>
+
+<section id="schedule" class="section schedule-section"><div class="shell">
+<div class="section-head"><div><p class="eyebrow dark">FIXTURES</p><h2>Tournament schedule.</h2></div><p>One venue. Fifteen matches. Schedule can be managed from the admin portal or synced from CricHeroes when a supported method is confirmed.</p></div>
+<div class="table-scroll"><table class="league-table"><thead><tr><th>Match</th><th>Date</th><th>Time</th><th>Teams</th><th>Venue</th><th>Status</th></tr></thead><tbody id="scheduleRows"><tr><td colspan="6">Schedule will be published here.</td></tr></tbody></table></div>
+</div></section>
+
+<section id="standings" class="section standings-section"><div class="shell">
+<div class="section-head light"><div><p class="eyebrow">POINTS TABLE</p><h2>League standings.</h2></div></div>
+<div class="table-scroll"><table class="league-table dark"><thead><tr><th>#</th><th>Team</th><th>P</th><th>W</th><th>L</th><th>NR</th><th>NRR</th><th>Pts</th></tr></thead><tbody id="standingsRows"><tr><td colspan="8">Standings will update after results are recorded.</td></tr></tbody></table></div>
+</div></section>
+
+<section id="leaders" class="section leaderboards-section"><div class="shell leaderboard-grid">
+<article><p class="eyebrow dark">ORANGE CAP</p><h2>Top run scorers</h2><div id="orangeCapRows" class="leader-list"><p>No batting statistics yet.</p></div></article>
+<article><p class="eyebrow dark">PURPLE CAP</p><h2>Top wicket takers</h2><div id="purpleCapRows" class="leader-list"><p>No bowling statistics yet.</p></div></article>
+</div></section>
+
+<section id="results" class="section results-section"><div class="shell">
+<div class="section-head light"><div><p class="eyebrow">MATCH RESULTS</p><h2>Completed matches.</h2></div></div>
+<div id="resultsGrid" class="results-grid"><article><strong>No results published yet.</strong></article></div>
+</div></section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script><script src="tournament-centre.js"></script>
+</body></html>

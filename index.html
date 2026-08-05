@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Tamil Nadu Youth Premier League 2026 — six franchises, 78 draft places and five days of youth T20 cricket.">
+  <meta name="description" content="Tamil Nadu Youth Premier League 2026 — eight franchises, 104 draft places and five days of youth T20 cricket.">
   <title>TNYPL 2026 | Dream. Draft. Dominate.</title>
   <link rel="icon" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,18 @@
 <body>
   <div class="top-strip">
     <div class="live-tag"><span></span> LIVE UPDATE</div>
-    <div class="ticker"><div>PLAYER DRAFT REGISTRATION IS OPEN • SIX FOUNDING FRANCHISES CONFIRMED • LIVE DRAFT COMING TO YOUTUBE • TOURNAMENT: 14–18 SEPTEMBER 2026 • ₹2,000 REFUNDED TO VERIFIED PLAYERS NOT DRAFTED •</div></div>
+    <div class="ticker"><div>PLAYER DRAFT REGISTRATION IS OPEN • SIX FOUNDING FRANCHISES CONFIRMED • PLAYER DRAFT: 25 AUGUST 2026 · LIVE ON YOUTUBE • TOURNAMENT: 14–18 SEPTEMBER 2026 • ₹2,000 REFUNDED TO VERIFIED PLAYERS NOT DRAFTED •</div></div>
+  </div>
+
+  <div id="liveScoreBar" class="live-score-bar" hidden>
+    <div class="shell live-score-inner">
+      <span class="live-score-status"><i></i> LIVE</span>
+      <strong id="liveMatchTeams">Match in progress</strong>
+      <span id="liveMatchScore">Score loading…</span>
+      <span id="liveMatchSituation"></span>
+      <a id="liveScorecardLink" href="tournament-centre.html">Scorecard</a>
+      <a id="liveWatchLink" href="https://youtube.com/@tamilnaduyouthpremierleague" target="_blank" rel="noopener">Watch Live</a>
+    </div>
   </div>
 
   <header class="premium-hero" id="home">
@@ -28,11 +39,11 @@
       </a>
       <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
       <div class="nav-links" id="navLinks">
-        <a href="founder.html">Founder</a><a href="#leadership">Leadership</a>
+        <a href="founder.html">Founder</a><a href="#leadership">Leadership</a><a href="how-it-works.html">How TNYPL Works</a>
         <a href="#franchises">Franchises</a>
-        <a href="#draft-live">Live Draft</a>
+        <a href="draft-process.html">Draft Process</a><a href="#draft-live">Live Draft</a><a href="tournament-centre.html">Tournament Centre</a>
         <a href="#prizes">Prizes</a>
-        <a href="#register">Register</a>
+        <a href="#register">Register</a><a href="sponsors.html">Sponsors</a><a href="branding-assets.html">Logos</a>
         <a href="owner-login.html">Owner Login</a>
         <a class="nav-admin" href="admin.html">Admin</a>
       </div>
@@ -54,10 +65,10 @@
       <div class="hero-content reveal delay-1">
         <p class="hero-kicker">INAUGURAL SEASON · 14–18 SEPTEMBER 2026</p>
         <h1>DREAM.<br><span>DRAFT.</span><br>DOMINATE.</h1>
-        <p class="hero-copy">Six confirmed franchises. Seventy-eight squad places. A live player draft and five days of youth T20 cricket built to showcase Tamil Nadu’s next generation.</p>
+        <p class="hero-copy">Eight planned franchises. One hundred and four squad places. A live player draft and five days of youth T20 cricket built to showcase Tamil Nadu’s next generation.</p>
         <div class="hero-actions">
           <a class="btn btn-gold" href="#register">Register for the Draft</a>
-          <a class="btn btn-ghost" href="#draft-live">Watch Draft Arena</a>
+          <a class="btn btn-ghost" href="#draft-live">Watch Draft Arena</a><a class="btn btn-youtube" href="https://youtube.com/@tamilnaduyouthpremierleague" target="_blank" rel="noopener">YouTube Channel</a><a class="btn btn-ghost" href="draft-process.html">How the Draft Works</a>
         </div>
       </div>
 
@@ -112,7 +123,7 @@
         <article><small>COUNTRIES REACHED</small><strong id="metricCountries">—</strong><span>Approximate location</span></article>
         <article><small>ONLINE NOW</small><strong id="metricOnline">—</strong><span>Last five minutes</span></article>
         <article><small>PRIZE MONEY</small><strong>₹78,000+</strong><span>Team and player awards</span></article>
-      <div class="live-country-card"><div><small>TOP COUNTRIES</small><div id="countryList"><p>Live analytics loading…</p></div></div><div class="map-icon">🌍</div></div><p class="analytics-note">Visitor locations are approximate and may be affected by VPNs, mobile networks or privacy services.</p></div>
+      <div class="live-country-card"><div><small>TOP COUNTRIES</small><div id="countryList"><p>Visitor statistics will appear automatically after analytics is connected.</p></div></div><div class="map-icon">🌍</div></div><p class="analytics-note">Visitor locations are approximate and may be affected by VPNs, mobile networks or privacy services.</p></div>
       <div class="registration-goal">
         <div><small>REGISTRATION GOAL</small><strong>78 verified players</strong></div>
         <div class="goal-track"><i id="goalProgress" style="width:0%"></i></div>
@@ -156,26 +167,26 @@
               </div>
             </a>
           </article>
-          <article class="leader-premium-card">
+          <article class="leader-premium-card"><a class="leader-profile-link" href="senthil-narayanan.html">
             <div class="portrait-frame portrait-photo"><img src="senthil-narayanan.jpg" alt="Senthil Narayanan"></div>
             <div><small>TECHNICAL DIRECTOR</small><h3>Senthil Narayanan</h3>
               <p class="location">Kingstar Academy · Chennai</p>
-              <blockquote>Leads cricket operations, player evaluation standards, technical decisions and the live draft process.</blockquote>
-            </div>
+              <blockquote>Leads cricket operations, player evaluation standards, technical decisions and the live draft process.</blockquote><span class="leader-page-action">View Profile →</span>
+            </div></a>
           </article>
-          <article class="leader-premium-card">
+          <article class="leader-premium-card"><a class="leader-profile-link" href="ranjith-janagiraman.html">
             <div class="portrait-frame portrait-photo"><img src="ranjith-janagiraman.jpg" alt="Ranjith Janagiraman"></div>
             <div><small>DIRECTOR OF TOURNAMENT OPERATIONS</small><h3>Ranjith Janagiraman</h3>
               <p class="location">TNYPL Organising Committee</p>
-              <blockquote>Supports Senthil and coordinates tournament execution, match operations, ground activity and team logistics.</blockquote>
-            </div>
+              <blockquote>Supports Senthil and coordinates tournament execution, match operations, ground activity and team logistics.</blockquote><span class="leader-page-action">View Profile →</span>
+            </div></a>
           </article>
-          <article class="leader-premium-card">
+          <article class="leader-premium-card"><a class="leader-profile-link" href="ajay.html">
             <div class="portrait-frame"><span>AJ</span><small>PHOTO COMING SOON</small></div>
             <div><small>OPERATIONS COORDINATOR</small><h3>Ajay</h3>
               <p class="location">TNYPL Organising Committee</p>
-              <blockquote>Supports daily administration, player assistance, volunteer coordination and match-day operations.</blockquote>
-            </div>
+              <blockquote>Supports daily administration, player assistance, volunteer coordination and match-day operations.</blockquote><span class="leader-page-action">View Profile →</span>
+            </div></a>
           </article>
         </div>
       </div>
@@ -191,33 +202,35 @@
           <a class="premium-team-card chennai" href="chennai-strikers.html" aria-label="Open Chennai Strikers franchise page">
             <div class="team-badge">🦁</div><small>FRANCHISE 01</small><h3>Chennai Strikers</h3>
             <p class="team-owner">Vimalesh Vedachalam</p><span class="owner-role">Founding Owner</span>
-            <span class="card-action">View Franchise Page →</span><span class="bio-action">Owner Biography</span>
+            <span class="card-action">View Team & Owner Profile →</span>
           </a>
           <a class="premium-team-card kovai" href="kovai-kings.html" aria-label="Open Kovai Kings franchise page">
             <div class="team-badge">👑</div><small>FRANCHISE 02</small><h3>Kovai Kings</h3>
             <p class="team-owner">Gopi Ramadoss</p><span class="owner-role">Founding Owner</span>
-            <span class="card-action">View Franchise Page →</span><span class="bio-action">Owner Biography</span>
+            <span class="card-action">View Team & Owner Profile →</span>
           </a>
-          <a class="premium-team-card madurai" href="madurai-warriors.html" aria-label="Open Madurai Warriors franchise page">
-            <div class="team-badge">⚔️</div><small>FRANCHISE 03</small><h3>Madurai Warriors</h3>
+          <a class="premium-team-card madurai" href="karaikudi-kings.html" aria-label="Open Karaikudi Kings franchise page">
+            <div class="team-badge">⚔️</div><small>FRANCHISE 03</small><h3>Karaikudi Kings</h3>
             <p class="team-owner">Porkai Pandian Gopalakrishnan</p><span class="owner-role">Founding Owner</span>
-            <span class="card-action">View Franchise Page →</span><span class="bio-action">Owner Biography</span>
+            <span class="card-action">View Team & Owner Profile →</span>
           </a>
           <a class="premium-team-card trichy" href="trichy-titans.html" aria-label="Open Trichy Titans franchise page">
             <div class="team-badge">🛡️</div><small>FRANCHISE 04</small><h3>Trichy Titans</h3>
             <p class="team-owner">Satish Raja</p><span class="owner-role">Founding Owner</span>
-            <span class="card-action">View Franchise Page →</span><span class="bio-action">Owner Biography</span>
+            <span class="card-action">View Team & Owner Profile →</span>
           </a>
           <a class="premium-team-card nellai" href="nellai-falcons.html" aria-label="Open Nellai Falcons franchise page">
             <div class="team-badge">🦅</div><small>FRANCHISE 05</small><h3>Nellai Falcons</h3>
             <p class="team-owner">Ramanathan Periyaraja</p><span class="owner-role">Founding Owner</span>
-            <span class="card-action">View Franchise Page →</span><span class="bio-action">Owner Biography</span>
+            <span class="card-action">View Team & Owner Profile →</span>
           </a>
           <a class="premium-team-card tiruppur" href="tiruppur-blazers.html" aria-label="Open Tiruppur Blazers franchise page">
             <div class="team-badge">🔥</div><small>FRANCHISE 06</small><h3>Tiruppur Blazers</h3>
             <p class="team-owner">P. C. Binny Jo</p><span class="owner-role">Founding Owner</span>
-            <span class="card-action">View Franchise Page →</span><span class="bio-action">Owner Biography</span>
+            <span class="card-action">View Team & Owner Profile →</span>
           </a>
+          <a class="premium-team-card thanjavur" href="thanjavur-royals.html" aria-label="Open Thanjavur Royals franchise page"><span class="team-number">07</span><strong>THANJAVUR ROYALS</strong><small>Saravanan Narasimhan &amp; Santhana Krishnan</small><em>Founding Joint Owners</em></a>
+          <a class="premium-team-card pending-team" href="franchise-08.html" aria-label="Open Franchise 08 status"><span class="team-number">08</span><strong>NEW FRANCHISE</strong><small>Announcement Pending</small><em>Branding to be confirmed</em></a>
         </div>
       </div>
     </section>
@@ -227,7 +240,7 @@
       <div class="shell">
         <div class="section-head"><div><p class="eyebrow dark">WHY REGISTER FOR TNYPL?</p><h2>More than a place<br>in the draft.</h2></div><p>Every registration is designed to give players a professional pathway, stronger visibility and a meaningful tournament experience.</p></div>
         <div class="benefit-grid">
-          <article><span>🎯</span><strong>Official Draft Entry</strong><p>Verified players enter the official TNYPL player draft considered by all six franchises.</p></article>
+          <article><span>🎯</span><strong>Official Draft Entry</strong><p>Verified players enter the official TNYPL player draft considered by all eight franchises.</p></article>
           <article><span>👤</span><strong>Digital Player Profile</strong><p>Player role, district, academy and CricHeroes information are reviewed by owners.</p></article>
           <article><span>📺</span><strong>YouTube Visibility</strong><p>The player draft, interviews and selected league content can be featured online.</p></article>
           <article><span>📊</span><strong>CricHeroes Records</strong><p>Match performances and tournament statistics contribute to the player’s cricket record.</p></article>
@@ -246,7 +259,9 @@
       </div>
     </section>
 
-    <section id="draft-live" class="section draft-premium">
+    <section class="section how-works-preview" id="how-it-works-preview"><div class="shell"><div class="section-head"><div><p class="eyebrow dark">HOW TNYPL WORKS</p><h2>Register. Verify.<br>Draft. Compete.</h2></div><p>A clear pathway from player application to franchise selection and tournament participation.</p></div><div class="process-preview-grid"><article><b>01</b><h3>Register</h3><p>Submit player details, profile photo, age proof, CricHeroes profile and payment.</p></article><article><b>02</b><h3>Verify</h3><p>Admin validates age, payment, consent and registration information.</p></article><article><b>03</b><h3>Evaluate</h3><p>Technical committee assigns Platinum, Gold or Silver category.</p></article><article><b>04</b><h3>Live Draft</h3><p>25 August 2026. Owners use equal points budgets to build balanced squads.</p></article><article><b>05</b><h3>Compete</h3><p>Selected players join their franchise for the September tournament.</p></article></div><div class="center-actions"><a class="btn btn-gold" href="draft-process.html">Read the Full Draft Process</a><a class="btn btn-dark" href="how-it-works.html">How TNYPL Works</a></div></div></section>
+
+<section id="draft-live" class="section draft-premium">
       <div class="shell">
         <div class="section-head light">
           <div><p class="eyebrow"><span class="live-dot"></span> LIVE DRAFT ARENA</p><h2>Every pick.<br>Every reaction.</h2></div>
@@ -264,7 +279,7 @@
             <div class="draft-board-head"><small>TEAM SQUAD TRACKER</small><strong>0 / 78</strong></div>
             <div class="squad-line"><span>Chennai Strikers</span><b>0 / 13</b></div>
             <div class="squad-line"><span>Kovai Kings</span><b>0 / 13</b></div>
-            <div class="squad-line"><span>Madurai Warriors</span><b>0 / 13</b></div>
+            <div class="squad-line"><span>Karaikudi Kings</span><b>0 / 13</b></div>
             <div class="squad-line"><span>Trichy Titans</span><b>0 / 13</b></div>
             <div class="squad-line"><span>Nellai Falcons</span><b>0 / 13</b></div>
             <div class="squad-line"><span>Tiruppur Blazers</span><b>0 / 13</b></div>
@@ -277,7 +292,7 @@
 
     <section class="section owner-benefits-section">
       <div class="shell owner-benefits-layout">
-        <div class="owner-benefits-copy"><p class="eyebrow">FOUNDING OWNER VALUE</p><h2>Own a team.<br>Build a legacy.</h2><p>All six franchise owners are confirmed. This section explains the recognition and value attached to being part of the inaugural season.</p></div>
+        <div class="owner-benefits-copy"><p class="eyebrow">FOUNDING OWNER VALUE</p><h2>Own a team.<br>Build a legacy.</h2><p>Eight franchise positions are planned for the inaugural season. This section explains the recognition and value attached to being part of the inaugural season.</p></div>
         <div class="owner-benefit-list">
           <article><span>🏆</span><div><strong>Founding Owner Status & Certificate</strong><p>Permanent recognition and a founding owner certificate for the inaugural season.</p></div></article>
           <article><span>🎨</span><div><strong>Franchise Identity</strong><p>Team name, colors, branding and a long-term franchise profile.</p></div></article>
@@ -326,12 +341,14 @@
       </div>
     </section>
 
-    <section id="register" class="section registration-premium">
+    <section class="section tournament-center-preview" id="tournament-centre"><div class="shell"><div class="section-head light"><div><p class="eyebrow">TOURNAMENT CENTRE</p><h2>Everything live.<br>One official home.</h2></div><p>Once matches begin, the website will surface the live YouTube stream, score banner, schedule, points table, Orange Cap and Purple Cap.</p></div><div class="tournament-preview-grid"><article><small>LIVE SCORE</small><strong>Sticky match banner</strong><span>Score · overs · target · result</span></article><article><small>SCHEDULE</small><strong>15 T20 matches</strong><span>One official venue</span></article><article><small>POINTS TABLE</small><strong>Live standings</strong><span>Played · won · NRR · points</span></article><article><small>ORANGE CAP</small><strong>Top run scorer</strong><span>Runs · average · strike rate</span></article><article><small>PURPLE CAP</small><strong>Top wicket taker</strong><span>Wickets · economy · best</span></article><article><small>WATCH LIVE</small><strong>Official YouTube</strong><span>@tamilnaduyouthpremierleague</span></article></div></div></section>
+
+<section id="register" class="section registration-premium">
       <div class="shell registration-layout">
         <div class="registration-side">
           <p class="eyebrow dark">PLAYER DRAFT REGISTRATION</p>
           <h2>Your journey<br>starts here.</h2>
-          <p>Complete registration, pass verification and enter the official draft pool considered by all six franchises.</p>
+          <p>Complete registration, pass verification and enter the official draft pool considered by all eight franchises.</p>
 
           <div class="refund-box">
             <small>REFUND PROMISE</small>
@@ -421,7 +438,7 @@
             </div>
             <label class="privacy-consent"><input type="checkbox" name="privacy_consent" required> I am the parent/guardian or authorized applicant, I have read the Privacy &amp; Verification Notice, and I consent to the processing of the submitted information for TNYPL tournament administration.</label>
             <label class="privacy-consent"><input type="checkbox" name="guardian_consent" required> I confirm that I am the player’s parent/legal guardian or am authorized to submit this application, and I consent to TNYPL processing the player’s information and age-proof document for eligibility verification, payment verification, tournament administration and the official player draft.</label>
-            <label class="consent"><input type="checkbox" required> I confirm the information is accurate and accept the eligibility, verification and refund terms.</label>
+            <label class="privacy-consent"><input type="checkbox" name="media_consent" required> I consent to TNYPL displaying the verified player’s name, profile photo, district, cricket role, approved statistics and franchise information for the draft, tournament, website and official media coverage.</label><label class="consent"><input type="checkbox" required> I confirm the information is accurate and accept the eligibility, verification and refund terms.</label>
           <div class="terms refund-guarantee">
               <span>💰</span>
               <div><b>Refund Guarantee</b><p>Verified players who enter the official draft pool but are not selected by any franchise will receive a full ₹2,000 refund in accordance with the published refund policy.</p></div>
@@ -443,7 +460,7 @@
         <div class="media-grid">
           <article class="media-feature"><span>▶</span><small>FEATURE VIDEO</small><strong>Official TNYPL Launch Film</strong><p>Video coming soon</p></article>
           <article><small>LEAGUE NEWS</small><strong>Player Draft Registration Open</strong><p>Verified players can now apply for the inaugural draft.</p></article>
-          <article><small>OWNER STORIES</small><strong>Meet the Founding Six</strong><p>Owner interviews and franchise visions coming soon.</p></article>
+          <article><small>OWNER STORIES</small><strong>Meet the Founding Eight</strong><p>Owner interviews and franchise visions coming soon.</p></article>
           <article><small>LIVE COVERAGE</small><strong>YouTube Draft Arena</strong><p>Watch every franchise selection live.</p></article>
         </div>
       </div>
@@ -461,7 +478,7 @@
       </div>
     </section>
 
-  </main>
+  <section class="section homepage-sponsor-v13"><div class="shell"><p class="eyebrow dark">OFFICIAL SPONSORS</p><h2>Partners supporting TNYPL.</h2><div class="homepage-sponsor-grid"><a href="sponsors.html"><img src="assets/sponsors/the-cake-point.png" alt="The Cake Point"><span>Official Sponsor</span></a><a href="sponsors.html"><img src="assets/sponsors/vedapile-logo.png" alt="Vedapile"><span>Category to be confirmed</span></a></div></div></section></main>
 
   <div class="owner-modal" id="ownerModal" aria-hidden="true">
     <div class="owner-modal-card">
@@ -476,7 +493,7 @@
   </div>
 
   <div class="mobile-actions">
-    <a href="#register">Register</a>
+    <a href="#register">Register</a><a href="sponsors.html">Sponsors</a><a href="branding-assets.html">Logos</a>
     <a href="#draft-live">Watch Draft</a>
     <a href="owner-login.html">Owner Login</a>
   </div>
@@ -485,7 +502,7 @@
     <div class="shell footer-grid">
       <div class="footer-brand"><img src="tnypl-crest.svg" alt="TNYPL"><div><strong>TNYPL 2026</strong><span>Dream. Draft. Dominate.</span></div></div>
       <div><small>TOURNAMENT</small><strong>14–18 September 2026</strong></div>
-      <div><small>CONTACT</small><a href="mailto:dineedoss@gmail.com">dineedoss@gmail.com</a></div>
+      <div><small>CONTACT</small><a href="mailto:ttnypl@gmail.com">ttnypl@gmail.com</a></div>
       <div><small>PORTALS</small><a href="owner-login.html">Owner Login</a><a href="admin.html">Admin</a></div>
     </div>
     <div class="shell legal-footer-links">
@@ -499,5 +516,5 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <script src="app.js"></script>
-</body>
+<a class="floating-command-link" href="draft-command-centre.html">Draft Command Centre</a></body>
 </html>

@@ -12,7 +12,7 @@ COMPLETED IN THIS PREVIEW
 - Owner names corrected:
   Chennai — Vimalesh Vedachalam
   Kovai — Gopi Ramadoss
-  Madurai — Porkai Pandian Gopalakrishnan
+  Karaikudi — Porkai Pandian Gopalakrishnan
   Trichy — Satish Raja
   Nellai — Ramanathan Periyaraja
   Tiruppur — P. C. Binny Jo

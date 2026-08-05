@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TNYPL Commissioner Dashboard</title><link rel="stylesheet" href="styles.css"></head>
+<body class="commissioner-body"><header class="owner-portal-header"><a href="index.html"><img src="tnypl-wordmark.svg" alt="TNYPL"></a><div><a href="admin.html">Admin Portal</a><a href="index.html">Public Site</a></div></header>
+<main class="shell commissioner-main"><p class="eyebrow dark">FOUNDER & LEAGUE CHAIRMAN</p><h1>League Command Centre</h1><p>Executive overview for TNYPL operations.</p>
+<div id="commissionerCards" class="commissioner-grid">
+<article><small>LEAGUE STATUS</small><strong id="ccStatus">Loading…</strong></article>
+<article><small>REGISTRATIONS</small><strong id="ccRegistrations">—</strong></article>
+<article><small>VERIFIED</small><strong id="ccVerified">—</strong></article>
+<article><small>DRAFT ELIGIBLE</small><strong id="ccEligible">—</strong></article>
+<article><small>DRAFTED</small><strong id="ccDrafted">—</strong></article>
+<article><small>REFUNDS PAID</small><strong id="ccRefunds">—</strong></article>
+<article><small>UNIQUE VISITORS</small><strong id="ccVisitors">—</strong></article>
+<article><small>COUNTRIES</small><strong id="ccCountries">—</strong></article>
+</div>
+<section class="commissioner-panel"><h2>League Health</h2><div id="healthRows" class="health-grid"></div></section>
+<section class="commissioner-panel"><h2>Recent Activity</h2><div id="activityRows">Activity will appear after administrators begin processing registrations.</div></section>
+</main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="commissioner.js"></script></body></html>

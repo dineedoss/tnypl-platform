@@ -1,0 +1,17 @@
+TNYPL V13 CHANGE SUMMARY
+
+1. League expanded from six to eight franchises.
+2. Madurai Warriors renamed Karaikudi Kings.
+3. Thanjavur Royals added with equal joint owners Saravanan Narasimhan and Santhana Krishnan.
+4. Franchise 08 retained as a transparent pending placeholder.
+5. Owner login mappings updated for all confirmed owners.
+6. Ramanathan Periyaraja's approved portrait added.
+7. Ajay Manohar finalized as Tournament Administration & Player Services Coordinator.
+8. Owner pages retain the high-contrast readable redesign.
+9. Porkai Pandian's owner video remains embedded on the Karaikudi page.
+10. Eight-team Draft Command Centre added.
+11. Sponsor system added without award naming rights.
+12. The Cake Point and Vedapile sponsor logos included.
+13. Official TNYPL logo files and team-logo approval boards included.
+14. Venue information held back from public display.
+15. Supabase V13 upgrade script included.

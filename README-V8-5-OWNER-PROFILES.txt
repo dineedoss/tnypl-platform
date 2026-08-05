@@ -4,7 +4,7 @@ Included:
 - Chennai Strikers owner updated to Vimalesh Vedachalam
 - Chennai professional portrait and premium owner page
 - Trichy Titans profile for Satish Raja
-- Madurai Warriors profile for Porkai Pandian Gopalakrishnan
+- Karaikudi Kings profile for Porkai Pandian Gopalakrishnan
 - Owner photos on homepage cards
 - Existing V8 registration, DOB, prizes, statistics, admin and owner portals preserved
 
