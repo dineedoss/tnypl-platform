@@ -1,0 +1,20 @@
+OWNER PHOTO NOTE
+
+The V9 layout includes a dedicated image file for every leadership member and franchise:
+assets/owners/<slug>.jpg
+
+Initial-based placeholders are included to avoid assigning an uploaded photo to the wrong person.
+Replace these files with the correct portrait while keeping the same filename:
+
+dinesh-devadoss.jpg
+senthil-narayanan.jpg
+ranjith-janagiraman.jpg
+ajay-manohar.jpg
+chennai-strikers.jpg
+kovai-kings.jpg
+karaikudi-kings.jpg
+trichy-titans.jpg
+nellai-falcons.jpg
+tiruppur-blazers.jpg
+thanjavur-royals.jpg
+tuticorin-sharks.jpg
