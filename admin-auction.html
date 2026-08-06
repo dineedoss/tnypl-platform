@@ -1,28 +1,120 @@
-<!doctype html><html lang="en"><head>
+<!doctype html>
+<html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TNYPL Admin Auction Control Room</title><link rel="icon" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="auction.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+<style>
+.commissioner-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.danger-btn{background:#7a2032!important;color:#fff!important}
+.secondary-btn{background:#174c86!important;color:#fff!important}
+.wait-btn{background:#58687b!important;color:#fff!important}
+.broadcast-grid{display:grid;grid-template-columns:1.4fr .6fr;gap:14px}
+.control-help{color:#91a5bf;font-size:.68rem;line-height:1.5;margin-top:6px}
+.wallet-state-btn{border:0;border-radius:999px;padding:7px 11px;font-weight:900;cursor:pointer}
+.wallet-open{background:#174c86;color:#fff}.wallet-locked{background:#7a2032;color:#fff}
+@media(max-width:900px){.commissioner-grid{grid-template-columns:1fr 1fr}.broadcast-grid{grid-template-columns:1fr}}
+</style>
 </head><body class="auction-app">
 <header class="auction-topbar"><div class="auction-shell">
-<a class="auction-brand" href="admin.html"><img src="tnypl-official-logo.png"><div><strong>AUCTION CONTROL ROOM</strong><span>ADMIN OPERATIONS · TNYPL 2026</span></div></a>
+<a class="auction-brand" href="admin.html"><img src="tnypl-official-logo.png"><div><strong>AUCTION CONTROL ROOM</strong><span>COMMISSIONER OPERATIONS · TNYPL 2026</span></div></a>
 <nav class="auction-nav"><a href="admin.html">Registrations</a><a href="admin-owners.html">Owner Access</a><a href="draft-room.html" target="_blank">Public Screen</a><button id="adminAuctionLogout">Logout</button></nav>
 </div></header>
+
 <main class="auction-shell">
 <div id="adminAuctionMessage" class="auction-alert" hidden></div>
+
 <section class="admin-layout">
- <aside class="panel-card"><h3>Approved Players</h3><input id="adminPlayerSearch" class="control-input" placeholder="Search player"><div id="adminPlayerList" class="admin-list"></div></aside>
- <section>
-  <div class="panel-card">
-   <h3>Player Presentation</h3>
-   <input type="hidden" id="adminSelectedPlayerId">
-   <div class="form-row"><div><label class="control-label">Selected player</label><input id="adminSelectedName" class="control-input" readonly></div><div><label class="control-label">Category</label><select id="adminCategory" class="control-input"><option>Platinum</option><option>Gold</option><option>Silver</option></select></div></div>
-   <div class="form-row"><div><label class="control-label">Base points</label><input id="adminBasePoints" class="control-input" type="number" value="300"></div><div><label class="control-label">Timer seconds</label><input id="adminTimerSeconds" class="control-input" type="number" value="45"></div></div>
-   <div class="control-grid"><button class="btn-open" id="adminOpenAuction">OPEN AUCTION</button><button class="btn-pause" id="adminPauseAuction">PAUSE</button><button class="btn-sold" id="adminMarkSold">SOLD</button><button class="btn-unsold" id="adminMarkUnsold">UNSOLD</button></div>
-  </div>
-  <div class="panel-card" style="margin-top:18px"><h3>Current Auction</h3><div class="form-row"><div class="wallet-line total"><span>Player</span><strong id="adminCurrentPlayer">—</strong></div><div class="wallet-line total"><span>Highest bid</span><strong id="adminCurrentBid">—</strong></div></div><div class="form-row"><div class="wallet-line"><span>Leading franchise</span><strong id="adminCurrentLeader">—</strong></div><div class="wallet-line"><span>Status</span><strong id="adminCurrentStatus">—</strong></div></div></div>
-  <div class="panel-card" style="margin-top:18px"><h3>Franchise Points & Settlement</h3><div class="table-wrap"><table class="auction-table"><thead><tr><th>Franchise</th><th>Allocated</th><th>Spent</th><th>Balance</th><th>Credit</th><th>Squad</th><th>Excess Payable</th><th>Lock</th></tr></thead><tbody id="adminWalletTable"></tbody></table></div><button class="auction-btn" id="adminGenerateSettlement" style="margin-top:15px">GENERATE SETTLEMENTS</button></div>
-  <div class="panel-card" style="margin-top:18px"><h3>Accepted Bid Audit</h3><div id="adminBidHistory" class="bid-history"></div></div>
- </section>
-</section></main><script src="auction-admin.js"></script></body></html>
+<aside class="panel-card">
+<h3>Approved Players</h3>
+<input id="adminPlayerSearch" class="control-input" placeholder="Search player">
+<div id="adminPlayerList" class="admin-list"></div>
+</aside>
+
+<section>
+<div class="panel-card">
+<h3>Commissioner's Live Controls</h3>
+<div class="commissioner-grid">
+<button class="btn-open" id="adminStartPublic">START PUBLIC AUCTION</button>
+<button class="btn-pause" id="adminPauseAuction">PAUSE</button>
+<button class="secondary-btn auction-btn" id="adminResumeAuction">RESUME</button>
+<button class="wait-btn auction-btn" id="adminResetCurrent">RESET CURRENT PLAYER</button>
+<button class="danger-btn auction-btn" id="adminClearBids">CLEAR CURRENT BIDS</button>
+<button class="danger-btn auction-btn" id="adminEndAuction">END AUCTION</button>
+</div>
+<p class="control-help">Reset Current Player clears the public player presentation and current bids without deleting the player registration. Complete Reset below is only for test data before the real auction.</p>
+</div>
+
+<div class="panel-card" style="margin-top:18px">
+<h3>Player Presentation</h3>
+<input type="hidden" id="adminSelectedPlayerId">
+<div class="form-row">
+<div><label class="control-label">Selected player</label><input id="adminSelectedName" class="control-input" readonly></div>
+<div><label class="control-label">Category</label><select id="adminCategory" class="control-input"><option>Platinum</option><option>Gold</option><option>Silver</option></select></div>
+</div>
+<div class="form-row">
+<div><label class="control-label">Base points</label><input id="adminBasePoints" class="control-input" type="number" value="300"></div>
+<div><label class="control-label">Timer seconds</label><input id="adminTimerSeconds" class="control-input" type="number" value="45"></div>
+</div>
+<div class="control-grid">
+<button class="btn-open" id="adminOpenAuction">OPEN SELECTED PLAYER</button>
+<button class="btn-sold" id="adminMarkSold">SOLD</button>
+<button class="btn-unsold" id="adminMarkUnsold">UNSOLD</button>
+</div>
+</div>
+
+<div class="panel-card" style="margin-top:18px">
+<h3>Live Stream & Public Message</h3>
+<div class="broadcast-grid">
+<div>
+<label class="control-label">YouTube / Facebook / Vimeo / other stream URL</label>
+<input id="adminStreamUrl" class="control-input" placeholder="https://youtube.com/live/...">
+</div>
+<div>
+<label class="control-label">Broadcast</label>
+<select id="adminStreamEnabled" class="control-input"><option value="false">Disabled</option><option value="true">Live / Replay available</option></select>
+</div>
+</div>
+<label class="control-label" style="margin-top:12px">Stream button label</label>
+<input id="adminStreamLabel" class="control-input" value="Watch the TNYPL Live Auction">
+<label class="control-label" style="margin-top:12px">Public waiting / commissioner message</label>
+<textarea id="adminPublicMessage" class="control-input" rows="3">The TNYPL player auction has not started yet. Please stay tuned.</textarea>
+<button class="auction-btn" id="adminSaveBroadcast" style="margin-top:14px">SAVE PUBLIC BROADCAST SETTINGS</button>
+</div>
+
+<div class="panel-card" style="margin-top:18px">
+<h3>Current Auction</h3>
+<div class="form-row">
+<div class="wallet-line total"><span>Player</span><strong id="adminCurrentPlayer">No active player</strong></div>
+<div class="wallet-line total"><span>Highest bid</span><strong id="adminCurrentBid">—</strong></div>
+</div>
+<div class="form-row">
+<div class="wallet-line"><span>Leading franchise</span><strong id="adminCurrentLeader">—</strong></div>
+<div class="wallet-line"><span>Status</span><strong id="adminCurrentStatus">SETUP</strong></div>
+</div>
+</div>
+
+<div class="panel-card" style="margin-top:18px">
+<h3>Franchise Points & Settlement</h3>
+<div class="table-wrap"><table class="auction-table">
+<thead><tr><th>Franchise</th><th>Allocated</th><th>Spent</th><th>Balance</th><th>Credit</th><th>Squad</th><th>Excess Payable</th><th>Access</th></tr></thead>
+<tbody id="adminWalletTable"></tbody>
+</table></div>
+<button class="auction-btn" id="adminGenerateSettlement" style="margin-top:15px">GENERATE FINAL SETTLEMENTS</button>
+</div>
+
+<div class="panel-card" style="margin-top:18px">
+<h3>Accepted Bid Audit</h3><div id="adminBidHistory" class="bid-history"></div>
+</div>
+
+<div class="panel-card" style="margin-top:18px;border-color:#7a2032">
+<h3>Test Data Reset</h3>
+<p class="control-help">This removes all bids, auction results, wallet spending and drafted assignments. It does not delete player registrations or owner accounts.</p>
+<button class="danger-btn auction-btn" id="adminResetComplete">RESET COMPLETE TEST AUCTION</button>
+</div>
+</section>
+</section>
+</main>
+<script src="auction-admin.js"></script>
+</body></html>

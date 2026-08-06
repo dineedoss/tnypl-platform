@@ -1,36 +1,68 @@
-<!doctype html><html lang="en"><head>
+<!doctype html>
+<html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TNYPL Live Auction Draft Room</title><link rel="icon" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="auction.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+<style>
+.broadcast-card{margin:24px 0;background:linear-gradient(145deg,#0a2d61,#031329);border:1px solid rgba(227,184,70,.28);border-radius:20px;padding:22px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.broadcast-card strong{font-family:Barlow Condensed;font-size:2rem;text-transform:uppercase}.live-dot{color:#ff4e61}.stream-button{display:inline-flex;padding:13px 20px;background:#d9ad43;color:#06132a;border-radius:10px;text-decoration:none;font-weight:900}
+.waiting-stage{padding:70px 24px;text-align:center;background:linear-gradient(145deg,#082653,#020d20);border:1px solid rgba(227,184,70,.2);border-radius:24px;margin:24px 0}
+.waiting-stage h2{font-family:Barlow Condensed;font-size:clamp(3rem,8vw,6rem);line-height:.9;text-transform:uppercase;margin:12px 0}.waiting-stage p{max-width:680px;margin:auto;color:#afbed1;line-height:1.8}
+.stream-frame{position:relative;padding-top:56.25%;overflow:hidden;border-radius:16px;margin-top:18px;background:#000}.stream-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media(max-width:720px){.broadcast-card{align-items:flex-start;flex-direction:column}}
+</style>
 </head><body class="auction-app">
 <header class="auction-topbar"><div class="auction-shell">
 <a class="auction-brand" href="index.html"><img src="tnypl-official-logo.png"><div><strong>TNYPL LIVE AUCTION</strong><span>PLAYER DRAFT ROOM · SEASON 1</span></div></a>
-<nav class="auction-nav"><a href="index.html">League</a><a href="owner-login.html">Owner Login</a><a href="admin-auction.html">Admin</a></nav>
+<nav class="auction-nav"><a href="index.html">League</a><a href="owner-login.html">Owner Login</a><a href="contact.html">Contact</a></nav>
 </div></header>
-<section class="draft-hero"><div class="auction-shell draft-heading"><small>LIVE FROM THE TNYPL DRAFT FLOOR</small><h1>Every bid.<br>Every decision.<br>Live.</h1><p>The official public auction screen updates in real time as owners compete for Platinum, Gold and Silver category players.</p></div></section>
+
+<section class="draft-hero"><div class="auction-shell draft-heading">
+<small>LIVE FROM THE TNYPL DRAFT FLOOR</small>
+<h1>Every bid.<br>Every decision.<br>Live.</h1>
+<p>The official public auction screen updates in real time as owners compete for Platinum, Gold and Silver category players.</p>
+</div></section>
+
 <main class="auction-shell">
 <div id="publicMessage" class="auction-alert" hidden></div>
+
+<section id="publicBroadcast" class="broadcast-card" hidden>
+<div><span class="live-dot">● LIVE / REPLAY</span><br><strong id="publicStreamLabel">Watch the TNYPL Live Auction</strong></div>
+<a id="publicStreamButton" class="stream-button" href="#" target="_blank" rel="noopener">WATCH STREAM</a>
+</section>
+<div id="publicStreamEmbed"></div>
+
+<section id="publicWaiting" class="waiting-stage">
+<small style="color:#d9ad43;font-weight:900;letter-spacing:.16em">TNYPL SEASON 1</small>
+<h2 id="publicWaitingTitle">Auction Not Started</h2>
+<p id="publicWaitingMessage">The TNYPL player auction has not started yet. Please stay tuned. This screen will update automatically when the Auction Commissioner presents the first player.</p>
+</section>
+
+<section id="publicLiveContent" hidden>
 <section class="live-grid">
- <article class="live-card current-player-card">
-  <div class="player-photo" id="publicPhoto"><span class="initials" id="publicInitials">TNYPL</span></div>
-  <div class="player-copy">
-   <span id="publicCategory" class="category-pill category-silver">WAITING</span>
-   <h2 id="publicPlayerName">Auction has not started</h2>
-   <div class="player-meta"><span id="publicRole">—</span><span id="publicDistrict">—</span><span id="publicAge">—</span><span id="publicRating">—</span></div>
-   <div class="bid-stage">
-    <small>CURRENT HIGHEST BID</small><strong class="bid-amount"><span id="publicBid">0</span> PTS</strong>
-    <div class="leading-team">Leading franchise: <span id="publicLeader">No bids yet</span></div>
-    <div class="timer" id="publicTimer">--:--</div>
-   </div>
-  </div>
- </article>
- <aside class="side-stack">
-  <div class="panel-card"><h3>Auction Status</h3><div class="wallet-line total"><span>Status</span><strong id="publicStatus">SETUP</strong></div><div class="wallet-line"><span>Opening points</span><strong id="publicBase">—</strong></div><div class="wallet-line"><span>Bid increment</span><strong id="publicIncrement">—</strong></div></div>
-  <div class="panel-card"><h3>Latest Bids</h3><div id="publicBidHistory" class="bid-history"><div class="empty-state">No bids yet.</div></div></div>
- </aside>
+<article class="live-card current-player-card">
+<div class="player-photo" id="publicPhoto"><span class="initials" id="publicInitials">TNYPL</span></div>
+<div class="player-copy">
+<span id="publicCategory" class="category-pill category-silver">WAITING</span>
+<h2 id="publicPlayerName">Auction has not started</h2>
+<div class="player-meta"><span id="publicRole">—</span><span id="publicDistrict">—</span><span id="publicAge">—</span><span id="publicRating">—</span></div>
+<div class="bid-stage">
+<small>CURRENT HIGHEST BID</small><strong class="bid-amount"><span id="publicBid">0</span> PTS</strong>
+<div class="leading-team">Leading franchise: <span id="publicLeader">No bids yet</span></div>
+<div class="timer" id="publicTimer">--:--</div>
+</div>
+</div>
+</article>
+<aside class="side-stack">
+<div class="panel-card"><h3>Auction Status</h3><div class="wallet-line total"><span>Status</span><strong id="publicStatus">SETUP</strong></div><div class="wallet-line"><span>Opening points</span><strong id="publicBase">—</strong></div><div class="wallet-line"><span>Bid increment</span><strong id="publicIncrement">—</strong></div></div>
+<div class="panel-card"><h3>Latest Bids</h3><div id="publicBidHistory" class="bid-history"><div class="empty-state">No bids yet.</div></div></div>
+</aside>
 </section>
 <h2 style="font-family:Barlow Condensed;font-size:3rem;text-transform:uppercase">Franchise Position</h2>
 <section id="publicWalletBoard" class="franchise-board"></section>
-</main><script src="auction-public.js"></script></body></html>
+</section>
+</main>
+<script src="auction-public.js"></script>
+</body></html>
