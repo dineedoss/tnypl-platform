@@ -63,7 +63,13 @@ window.addEventListener("load",()=>{
    startTimer(publicTimer,lot.closes_at);
    await renderBids(lot.id);
    await renderWallets(leader?.id);
-  }catch(e){showAuctionMessage("publicMessage",e.message)}
+  }catch(e){
+          console.error(e);
+          publicLiveContent.hidden=true;
+          publicWaiting.hidden=false;
+          publicWaitingTitle.textContent="Auction Not Started";
+          publicWaitingMessage.textContent="The official TNYPL player auction has not started yet. Please stay tuned.";
+        }
  }
 
  async function renderBids(lotId){

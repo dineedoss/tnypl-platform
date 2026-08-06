@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TNYPL Commissioner Dashboard</title><link rel="icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="v26-polish.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+<style>
+body{margin:0;background:radial-gradient(circle at 20% 0,rgba(217,173,67,.14),transparent 28rem),#020b18;color:#fff;font-family:Inter,Arial,sans-serif}
+.shell{width:min(1180px,calc(100% - 28px));margin:auto}
+header{background:#020914;border-bottom:1px solid rgba(255,255,255,.08)}
+header .shell{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
+.brand{display:flex;align-items:center;gap:12px}.brand img{width:60px}.brand strong{font-family:"Barlow Condensed";font-size:2.1rem}.brand span{display:block;color:#d9ad43;font-size:.64rem;letter-spacing:.12em}
+.hero{padding:52px 0 28px}.hero small{color:#d9ad43;font-weight:900;letter-spacing:.15em}.hero h1{font-family:"Barlow Condensed";font-size:clamp(4rem,9vw,7rem);line-height:.83;text-transform:uppercase;margin:12px 0}.hero p{max-width:760px;color:#9fb0c5;line-height:1.7}
+.status-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}.status-card{background:#071a38;border:1px solid rgba(217,173,67,.17);border-radius:15px;padding:17px}.status-card span{display:block;color:#9fb0c5;font-size:.66rem}.status-card strong{display:block;font-family:"Barlow Condensed";font-size:2.2rem;color:#d9ad43}
+@media(max-width:800px){.status-strip{grid-template-columns:1fr 1fr}}@media(max-width:520px){.status-strip{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header><div class="shell"><div class="brand"><img src="tnypl-official-logo.png"><div><strong>COMMISSIONER CONTROL CENTER</strong><span>TNYPL SEASON 1 OPERATIONS</span></div></div><a href="admin.html" style="color:#d9ad43;text-decoration:none;font-weight:900">CLASSIC ADMIN</a></div></header>
+<main class="shell">
+<section class="hero"><small>FINAL PRODUCTION CONTROL</small><h1>Run the entire league<br>from one screen.</h1><p>Access registrations, owner accounts, the live auction, the official group draw, fixtures, scores, streams, DLS calculations, legal pages and public experiences.</p></section>
+
+<section class="status-strip">
+<div class="status-card"><span>Registrations</span><strong id="statusRegistrations">—</strong></div>
+<div class="status-card"><span>Active Owners</span><strong id="statusOwners">—</strong></div>
+<div class="status-card"><span>Published Matches</span><strong id="statusMatches">—</strong></div>
+<div class="status-card"><span>Official Draw</span><strong id="statusDraw">—</strong></div>
+</section>
+
+<section class="tnypl-admin-grid">
+<a class="tnypl-admin-card" href="admin.html"><small>PLAYERS</small><strong>Registration Control</strong><span>Review registrations, documents, payment, age and draft eligibility.</span></a>
+<a class="tnypl-admin-card" href="admin-owners.html"><small>FRANCHISES</small><strong>Owner Access</strong><span>Send invitations, monitor owner activation and manage franchise access.</span></a>
+<a class="tnypl-admin-card" href="admin-auction.html"><small>AUCTION</small><strong>Commissioner Auction Room</strong><span>Present players, manage bids, reset tests, control public display and livestream.</span></a>
+<a class="tnypl-admin-card" href="official-draw-admin.html"><small>DRAW CEREMONY</small><strong>Wheel of Fortune</strong><span>Assign Group A/B, positions A1–B4 and generate the tournament schedule.</span></a>
+<a class="tnypl-admin-card" href="admin-match-center.html"><small>MATCHES</small><strong>Match Center Admin</strong><span>Create fixtures, add CricHeroes scorecards, YouTube streams, results and MVP.</span></a>
+<a class="tnypl-admin-card" href="dls-calculator.html"><small>RAIN</small><strong>DLS Calculator</strong><span>Calculate provisional revised targets for rain-affected T20 and T30 matches.</span></a>
+<a class="tnypl-admin-card" href="draft-room.html" target="_blank"><small>PUBLIC</small><strong>Live Draft Screen</strong><span>Preview the audience-facing live auction display.</span></a>
+<a class="tnypl-admin-card" href="official-draw-public.html" target="_blank"><small>PUBLIC</small><strong>Official Draw Screen</strong><span>Preview the live public group and position draw.</span></a>
+<a class="tnypl-admin-card" href="match-center.html" target="_blank"><small>PUBLIC</small><strong>Schedule & Scores</strong><span>Preview published fixtures, score links, results, streams and points table.</span></a>
+<a class="tnypl-admin-card" href="owners.html" target="_blank"><small>PUBLIC</small><strong>Founding Owners</strong><span>Review founding-owner stories, photographs and franchise profiles.</span></a>
+<a class="tnypl-admin-card" href="privacy.html" target="_blank"><small>LEGAL</small><strong>Privacy Policy</strong><span>Review public data-handling and youth-player privacy information.</span></a>
+<a class="tnypl-admin-card" href="contact.html" target="_blank"><small>SUPPORT</small><strong>Contact TNYPL</strong><span>Official enquiries route to ttnypl@gmail.com.</span></a>
+</section>
+</main>
+<footer class="tnypl-footer"><strong>Tamil Nadu Youth Premier League</strong><br>Commissioner Control Center · Season 1</footer>
+<script src="commissioner-dashboard.js"></script>
+</body></html>

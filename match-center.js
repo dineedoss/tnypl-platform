@@ -34,7 +34,17 @@ async function loadMatchCenter(){
   away:franchises!matches_away_franchise_id_fkey(id,name,slug),
   winner:franchises!matches_winner_franchise_id_fkey(id,name)
  `).eq("is_published",true).order("match_date").order("start_time");
- if(error){matchCenterMessage.hidden=false;matchCenterMessage.textContent=error.message;return}
+ if(error){
+          console.error(error);
+          TNYPL_PUBLIC_SAFE.empty(
+            matchCards,
+            "📅",
+            "Fixtures Coming Soon",
+            "The official schedule will be published after the TNYPL group draw. Please check back after the ceremony."
+          );
+          pointsTableRows.innerHTML='<tr><td colspan="7">Points table will be available after Match 1.</td></tr>';
+          return;
+        }
  const matches=data||[];
  const shown=mcFilter==="all"?matches:matches.filter(m=>m.status===mcFilter);
  matchCards.innerHTML=shown.map(m=>{
@@ -53,7 +63,7 @@ async function loadMatchCenter(){
    ${m.player_of_match?`<p style="color:#d9ad43;font-weight:800">Player of the Match: ${m.player_of_match}</p>`:""}
    <div class="match-actions">${scoreUrl}${watch}${replay}</div>
   </article>`;
- }).join("")||'<div class="panel"><h3>No matches published yet</h3><p style="color:#9fb0c5">The official schedule will appear here once published by TNYPL.</p></div>';
+ }).join("")||`<div style="grid-column:1/-1"><div class="tnypl-empty"><div class="icon">📅</div><h2>Fixtures Coming Soon</h2><p>The official tournament schedule will be published after the TNYPL group draw.</p></div></div>`;
 
  renderPoints(matches);
 }
@@ -73,7 +83,7 @@ function renderPoints(matches){
    if(teams[loser])teams[loser].l++;
   }
  });
- pointsTableRows.innerHTML=Object.values(teams).sort((a,b)=>b.pts-a.pts||b.w-a.w).map(t=>`<tr><td><strong>${t.name}</strong></td><td>${t.p}</td><td>${t.w}</td><td>${t.l}</td><td>${t.nr}</td><td><strong>${t.pts}</strong></td><td>${t.nrr}</td></tr>`).join("")||'<tr><td colspan="7">No completed matches yet.</td></tr>';
+ pointsTableRows.innerHTML=Object.values(teams).sort((a,b)=>b.pts-a.pts||b.w-a.w).map(t=>`<tr><td><strong>${t.name}</strong></td><td>${t.p}</td><td>${t.w}</td><td>${t.l}</td><td>${t.nr}</td><td><strong>${t.pts}</strong></td><td>${t.nrr}</td></tr>`).join("")||'<tr><td colspan="7">Points table will be available after Match 1.</td></tr>';
 }
 document.querySelectorAll("[data-filter]").forEach(btn=>btn.onclick=()=>{
  document.querySelectorAll("[data-filter]").forEach(b=>b.classList.remove("active"));btn.classList.add("active");mcFilter=btn.dataset.filter;loadMatchCenter();
