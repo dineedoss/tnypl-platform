@@ -1,1 +1,42 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TNYPL Owner Dashboard</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"></head><body class="portal-body"><div class="portal-shell"><header class="portal-header"><div class="brand"><img class="brand-logo" src="tnypl-crest.svg" alt="TNYPL logo"><span><b>TNYPL</b><small>FRANCHISE OWNER PORTAL</small></span></div><div><a class="button outline" href="index.html">Public Site</a> <button id="ownerLogout" class="button gold">Logout</button></div></header><main id="ownerDashboard" class="portal-card" hidden><p class="eyebrow dark">FOUNDING FRANCHISE OWNER</p><h1 id="welcomeOwner">Welcome</h1><p id="teamIdentity"></p><div class="owner-dashboard-grid"><article class="owner-stat"><small>SQUAD SIZE</small><strong id="squadCount">0 / 13</strong></article><article class="owner-stat"><small>SHORTLISTED</small><strong id="shortlistCount">0</strong></article><article class="owner-stat"><small>FIXTURES</small><strong>15</strong></article><article class="owner-stat"><small>TOURNAMENT</small><strong>14 SEP</strong></article></div><div class="owner-panel-grid"><section class="owner-panel"><h3>Franchise Profile</h3><p><b>Team:</b> <span id="teamName"></span></p><p><b>Owner:</b> <span id="ownerName"></span></p><p><b>Motto:</b> <span id="teamMotto"></span></p><p><b>Interview:</b> <span id="interviewStatus">Coming soon</span></p></section><section class="owner-panel"><h3>Owner Tools</h3><p>✓ View assigned franchise</p><p>✓ Review squad and future draft shortlist</p><p>✓ View fixtures and announcements</p><p>✓ Add owner interview once enabled</p></section></div><section class="owner-panel" style="margin-top:18px"><h3>Current Squad</h3><table class="owner-table"><thead><tr><th>Player</th><th>Role</th><th>District</th><th>CricHeroes</th></tr></thead><tbody id="ownerSquadBody"><tr><td colspan="4">No players assigned yet.</td></tr></tbody></table></section></main><section id="ownerError" class="portal-card" hidden></section></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="owner-dashboard.js"></script></body></html>
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TNYPL Owner Auction Console</title><link rel="icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="auction.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+</head><body class="auction-app">
+<header class="auction-topbar"><div class="auction-shell">
+<a class="auction-brand" href="index.html"><img src="tnypl-official-logo.png"><div><strong>OWNER AUCTION CONSOLE</strong><span>SECURE FRANCHISE BIDDING</span></div></a>
+<nav class="auction-nav"><a href="draft-room.html" target="_blank">Public Draft Screen</a><button id="ownerLogout">Logout</button></nav>
+</div></header>
+<main class="auction-shell">
+<div id="ownerMessage" class="auction-alert" hidden></div>
+<section class="owner-layout">
+ <aside class="panel-card owner-summary">
+  <div class="owner-franchise"><img id="ownerLogo" src="tnypl-official-logo.png"><div><small id="ownerWelcome">SIGNED IN OWNER</small><h2 id="ownerTeam">Loading…</h2></div></div>
+  <div class="wallet-line"><span>Starting allocation</span><strong id="ownerAllocated">—</strong></div>
+  <div class="wallet-line"><span>Points spent</span><strong id="ownerSpent">—</strong></div>
+  <div class="wallet-line total"><span>Allocation left</span><strong id="ownerBalance">—</strong></div>
+  <div class="wallet-line"><span>Excess credit available</span><strong id="ownerCredit">—</strong></div>
+  <div class="wallet-line total"><span>Maximum bidding power</span><strong id="ownerPower">—</strong></div>
+  <div class="wallet-line"><span>Players selected</span><strong><span id="ownerSquad">0</span> / 13</strong></div>
+  <div class="wallet-line danger"><span>Projected excess payment</span><strong id="ownerPayable">₹0</strong></div>
+  <div class="points-meter" id="ownerMeter"><span></span></div>
+  <p style="font-size:.65rem;color:#9cafc4;line-height:1.6">Unused allocated points are forfeited after the draft. Points above the allocation create a payment obligation at the league conversion rate.</p>
+ </aside>
+ <section>
+  <article class="live-card current-player-card">
+   <div class="player-photo" id="ownerPhoto"><span class="initials" id="ownerInitials">TNYPL</span></div>
+   <div class="player-copy">
+    <span id="ownerCategory" class="category-pill category-silver">WAITING</span>
+    <h2 id="ownerPlayerName">Waiting for admin</h2>
+    <div class="player-meta"><span id="ownerRole">—</span><span id="ownerDistrict">—</span><span id="ownerRating">—</span><a id="ownerCricHeroes" href="#" target="_blank" style="color:#e1b84d">CricHeroes</a></div>
+    <div class="bid-stage"><small>CURRENT BID</small><strong class="bid-amount"><span id="ownerCurrentBid">0</span> PTS</strong><div class="leading-team">Leader: <span id="ownerLeader">No bids</span></div><div class="timer" id="ownerTimer">--:--</div></div>
+    <div class="bid-controls"><input class="control-input" type="number" id="ownerBidInput" placeholder="Bid points"><button id="ownerBidButton">PLACE BID</button></div>
+    <div class="bid-presets"><button data-bid-plus="50">+50</button><button data-bid-plus="100">+100</button><button data-bid-plus="250">+250</button></div>
+    <div id="ownerBidWarning" class="bid-warning" hidden></div>
+   </div>
+  </article>
+  <div class="panel-card" style="margin-top:18px"><h3>Live Bid History</h3><div id="ownerBidHistory" class="bid-history"></div></div>
+ </section>
+</section></main><script src="auction-owner.js"></script></body></html>

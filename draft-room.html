@@ -1,0 +1,36 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TNYPL Live Auction Draft Room</title><link rel="icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="auction.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+</head><body class="auction-app">
+<header class="auction-topbar"><div class="auction-shell">
+<a class="auction-brand" href="index.html"><img src="tnypl-official-logo.png"><div><strong>TNYPL LIVE AUCTION</strong><span>PLAYER DRAFT ROOM · SEASON 1</span></div></a>
+<nav class="auction-nav"><a href="index.html">League</a><a href="owner-login.html">Owner Login</a><a href="admin-auction.html">Admin</a></nav>
+</div></header>
+<section class="draft-hero"><div class="auction-shell draft-heading"><small>LIVE FROM THE TNYPL DRAFT FLOOR</small><h1>Every bid.<br>Every decision.<br>Live.</h1><p>The official public auction screen updates in real time as owners compete for Platinum, Gold and Silver category players.</p></div></section>
+<main class="auction-shell">
+<div id="publicMessage" class="auction-alert" hidden></div>
+<section class="live-grid">
+ <article class="live-card current-player-card">
+  <div class="player-photo" id="publicPhoto"><span class="initials" id="publicInitials">TNYPL</span></div>
+  <div class="player-copy">
+   <span id="publicCategory" class="category-pill category-silver">WAITING</span>
+   <h2 id="publicPlayerName">Auction has not started</h2>
+   <div class="player-meta"><span id="publicRole">—</span><span id="publicDistrict">—</span><span id="publicAge">—</span><span id="publicRating">—</span></div>
+   <div class="bid-stage">
+    <small>CURRENT HIGHEST BID</small><strong class="bid-amount"><span id="publicBid">0</span> PTS</strong>
+    <div class="leading-team">Leading franchise: <span id="publicLeader">No bids yet</span></div>
+    <div class="timer" id="publicTimer">--:--</div>
+   </div>
+  </div>
+ </article>
+ <aside class="side-stack">
+  <div class="panel-card"><h3>Auction Status</h3><div class="wallet-line total"><span>Status</span><strong id="publicStatus">SETUP</strong></div><div class="wallet-line"><span>Opening points</span><strong id="publicBase">—</strong></div><div class="wallet-line"><span>Bid increment</span><strong id="publicIncrement">—</strong></div></div>
+  <div class="panel-card"><h3>Latest Bids</h3><div id="publicBidHistory" class="bid-history"><div class="empty-state">No bids yet.</div></div></div>
+ </aside>
+</section>
+<h2 style="font-family:Barlow Condensed;font-size:3rem;text-transform:uppercase">Franchise Position</h2>
+<section id="publicWalletBoard" class="franchise-board"></section>
+</main><script src="auction-public.js"></script></body></html>
