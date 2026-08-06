@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TNYPL Match Center</title><link rel="icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="match-center.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+</head><body class="match-app">
+<header class="match-topbar"><div class="match-shell">
+<a class="match-brand" href="index.html"><img src="tnypl-official-logo.png"><div><strong>MATCH CENTER</strong><span>SCHEDULE · SCORES · STREAMS</span></div></a>
+<nav class="match-nav"><a href="index.html">Home</a><a href="draft-room.html">Live Draft</a><a href="dls-calculator.html">DLS Calculator</a><a href="contact.html">Contact</a></nav>
+</div></header>
+
+<main class="match-shell">
+<section class="match-hero"><small>TNYPL SEASON 1</small><h1>Every match.<br>One destination.</h1><p>View fixtures, results, CricHeroes scorecards, YouTube live streams and match replays from the Tamil Nadu Youth Premier League.</p></section>
+
+<div class="match-tabs">
+<button class="active" data-filter="all">All Matches</button>
+<button data-filter="live">Live</button>
+<button data-filter="scheduled">Upcoming</button>
+<button data-filter="completed">Results</button>
+</div>
+
+<div id="matchCenterMessage" class="notice" hidden></div>
+<section id="matchCards" class="match-grid"></section>
+
+<section class="panel" style="margin-top:28px">
+<h2>Points Table</h2>
+<div style="overflow:auto"><table class="points-table">
+<thead><tr><th>Team</th><th>P</th><th>W</th><th>L</th><th>NR</th><th>Pts</th><th>NRR</th></tr></thead>
+<tbody id="pointsTableRows"></tbody>
+</table></div>
+<p style="color:#9fb0c5;font-size:.68rem">Points table values are based on published completed matches. Net run rate can be entered by the league administrator.</p>
+</section>
+</main>
+<script src="match-center.js"></script>
+</body></html>

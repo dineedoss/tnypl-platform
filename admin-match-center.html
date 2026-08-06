@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TNYPL Admin Match Center</title><link rel="icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="match-center.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+</head><body class="match-app">
+<header class="match-topbar"><div class="match-shell">
+<a class="match-brand" href="admin.html"><img src="tnypl-official-logo.png"><div><strong>ADMIN MATCH CENTER</strong><span>FIXTURES · SCORES · STREAMS · RESULTS</span></div></a>
+<nav class="match-nav"><a href="admin.html">Registrations</a><a href="admin-auction.html">Auction</a><a href="match-center.html" target="_blank">Public Match Center</a><a href="dls-calculator.html">DLS</a><button id="matchAdminLogout">Logout</button></nav>
+</div></header>
+
+<main class="match-shell">
+<section class="match-hero"><small>TNYPL OPERATIONS</small><h1>Match control.</h1><p>Create fixtures, publish schedules, add CricHeroes score links, manage YouTube streams and publish match results.</p></section>
+<div id="adminMatchMessage" class="notice" hidden></div>
+<section style="display:grid;grid-template-columns:410px 1fr;gap:18px">
+<aside class="panel">
+<h2 id="matchFormTitle">Create Match</h2>
+<input type="hidden" id="matchId">
+<div class="mc-form-grid">
+<div class="mc-field"><label>Match Number</label><input id="matchNumber" type="number"></div>
+<div class="mc-field"><label>Match Day</label><input id="matchDay" placeholder="Day 1"></div>
+<div class="mc-field"><label>Date</label><input id="matchDate" type="date"></div>
+<div class="mc-field"><label>Start Time</label><input id="matchTime" type="time"></div>
+<div class="mc-field"><label>Format</label><select id="matchFormat"><option>T30</option><option>T20</option><option>T40</option><option>ODI</option><option>Other</option></select></div>
+<div class="mc-field"><label>Status</label><select id="matchStatus"><option value="scheduled">Scheduled</option><option value="live">Live</option><option value="completed">Completed</option><option value="abandoned">Abandoned</option><option value="cancelled">Cancelled</option></select></div>
+</div>
+<div class="mc-field"><label>Venue</label><input id="matchVenue"></div>
+<div class="mc-field"><label>Ground</label><input id="matchGround"></div>
+<div class="mc-field"><label>Home Franchise</label><select id="matchHome"></select></div>
+<div class="mc-field"><label>Away Franchise</label><select id="matchAway"></select></div>
+<div class="mc-form-grid">
+<div class="mc-field"><label>Home Score</label><input id="matchHomeScore" placeholder="182/5 (30)"></div>
+<div class="mc-field"><label>Away Score</label><input id="matchAwayScore" placeholder="176/8 (30)"></div>
+</div>
+<div class="mc-field"><label>Result Summary</label><input id="matchResult" placeholder="Won by 6 runs"></div>
+<div class="mc-field"><label>Winner</label><select id="matchWinner"></select></div>
+<div class="mc-field"><label>Player of Match</label><input id="matchPom"></div>
+<div class="mc-field"><label>CricHeroes Scorecard URL</label><input id="matchCricHeroes" placeholder="https://cricheroes.com/..."></div>
+<div class="mc-field"><label>YouTube Live URL</label><input id="matchYoutube" placeholder="https://youtube.com/live/..."></div>
+<div class="mc-field"><label>YouTube Replay URL</label><input id="matchReplay"></div>
+<div class="mc-form-grid">
+<div class="mc-field"><label>Stream Enabled</label><select id="matchStream"><option value="false">No</option><option value="true">Yes</option></select></div>
+<div class="mc-field"><label>Publicly Published</label><select id="matchPublished"><option value="false">Draft</option><option value="true">Published</option></select></div>
+</div>
+<div class="mc-field"><label>Notes</label><textarea id="matchNotes" rows="3"></textarea></div>
+<button id="saveMatch" class="mc-button full">SAVE MATCH</button>
+<button id="resetMatchForm" class="mc-button secondary full" style="margin-top:8px">NEW / CLEAR FORM</button>
+</aside>
+<section class="panel"><h2>Fixtures & Results</h2><div id="adminMatchRows"></div></section>
+</section>
+</main>
+<script src="admin-match-center.js"></script>
+</body></html>

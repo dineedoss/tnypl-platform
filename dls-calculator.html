@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TNYPL DLS Calculator</title><link rel="icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="match-center.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+</head><body class="match-app">
+<header class="match-topbar"><div class="match-shell">
+<a class="match-brand" href="match-center.html"><img src="tnypl-official-logo.png"><div><strong>DLS CALCULATOR</strong><span>RAIN-AFFECTED MATCH SUPPORT</span></div></a>
+<nav class="match-nav"><a href="match-center.html">Match Center</a><a href="admin-match-center.html">Admin Matches</a><a href="contact.html">Contact</a></nav>
+</div></header>
+<main class="match-shell">
+<section class="match-hero"><small>TNYPL MATCH OPERATIONS</small><h1>Revised target<br>calculator.</h1><p>Calculate a provisional Duckworth–Lewis–Stern Standard Edition target using resource percentages for the two innings.</p></section>
+
+<section class="panel">
+<h2>DLS Standard Edition</h2>
+<div class="notice"><strong>Match-official warning:</strong> This is a provisional operational aid. The official scorer, umpire or match referee must confirm every revised target before play resumes. The Professional Edition is not reproduced here.</div>
+<div class="mc-form-grid">
+<div class="mc-field"><label>Match Format</label><select id="dlsFormat"><option value="20">T20</option><option value="30" selected>T30</option><option value="50">50 Overs</option></select></div>
+<div class="mc-field"><label>First Innings Score</label><input id="dlsScore" type="number" min="0" value="180"></div>
+<div class="mc-field"><label>Team 1 Resource Used (%)</label><input id="dlsR1" type="number" step=".1" min="0.1" max="100" value="100"></div>
+<div class="mc-field"><label>Team 2 Resource Available (%)</label><input id="dlsR2" type="number" step=".1" min="0.1" max="100" value="75"></div>
+<div class="mc-field"><label>Revised Overs for Team 2</label><input id="dlsOvers" type="number" step=".1" value="20"></div>
+<div class="mc-field"><label>Wickets Already Lost</label><input id="dlsWickets" type="number" min="0" max="9" value="0"></div>
+</div>
+<button id="calculateDls" class="mc-button" style="margin-top:16px">CALCULATE REVISED TARGET</button>
+<div id="dlsResults" class="dls-result">
+<div class="dls-stat"><span>Par Score</span><strong id="dlsPar">—</strong></div>
+<div class="dls-stat"><span>Target to Win</span><strong id="dlsTarget">—</strong></div>
+<div class="dls-stat"><span>Resource Difference</span><strong id="dlsDifference">—</strong></div>
+</div>
+<p id="dlsExplanation" style="color:#9fb0c5;line-height:1.7"></p>
+</section>
+
+<section class="panel">
+<h3>Resource Percentage Assistant</h3>
+<p style="color:#9fb0c5;line-height:1.7">Use the assistant for a provisional estimate when the official Standard Edition table is not immediately available. Enter overs remaining and wickets lost, then transfer the estimate into the Team 1 or Team 2 resource field above.</p>
+<div class="mc-form-grid">
+<div class="mc-field"><label>Overs Remaining</label><input id="resourceOvers" type="number" step=".1" value="20"></div>
+<div class="mc-field"><label>Wickets Lost</label><input id="resourceWickets" type="number" min="0" max="9" value="0"></div>
+</div>
+<button id="estimateResource" class="mc-button secondary" style="margin-top:16px">ESTIMATE RESOURCE</button>
+<div class="dls-result"><div class="dls-stat"><span>Estimated Resources Remaining</span><strong id="resourceResult">—</strong></div></div>
+<div class="notice">The assistant uses a smooth approximation for convenience and is not a substitute for the official ICC Standard Edition resource table.</div>
+</section>
+</main>
+<script src="dls-calculator.js"></script>
+</body></html>
