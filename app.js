@@ -49,12 +49,15 @@ function normalizeCricHeroes(value){
 function validCricHeroes(value){
   try{
     const u=new URL(normalizeCricHeroes(value));
-    return /(^|\.)cricheroes\.com$/i.test(u.hostname) && u.pathname.length>1;
+    const host=u.hostname.toLowerCase().replace(/^www\./,'');
+    const isCricHeroes=host==='cricheroes.com'||host.endsWith('.cricheroes.com');
+    const isShareLink=host==='chshare.link'||host.endsWith('.chshare.link');
+    return (isCricHeroes||isShareLink) && u.pathname.length>1;
   }catch{return false}
 }
 cric?.addEventListener('blur',()=>{
   cric.value=normalizeCricHeroes(cric.value);
-  cric.setCustomValidity(validCricHeroes(cric.value)?'':'Enter a complete CricHeroes profile URL from cricheroes.com.');
+  cric.setCustomValidity(validCricHeroes(cric.value)?'':'Enter a valid CricHeroes profile or chshare.link URL.');
 });
 
 function panelError(panel,message=''){
@@ -68,7 +71,7 @@ function validatePanel(step){
   for(const el of controls){
     if(el.id==='cricheroesUrl'){
       el.value=normalizeCricHeroes(el.value);
-      el.setCustomValidity(validCricHeroes(el.value)?'':'Enter a valid public CricHeroes profile URL.');
+      el.setCustomValidity(validCricHeroes(el.value)?'':'Enter a valid CricHeroes profile or chshare.link URL.');
     }
     if(el.id==='dob' && el.value && (el.value<minDob||el.value>maxDob)){
       el.setCustomValidity('Player is outside the eligible DOB range.');

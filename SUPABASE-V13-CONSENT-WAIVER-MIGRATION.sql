@@ -19,7 +19,7 @@ check (date_of_birth between date '2010-01-01' and date '2012-12-31');
 
 alter table public.players drop constraint if exists players_cricheroes_url_check;
 alter table public.players add constraint players_cricheroes_url_check
-check (cricheroes_url ~* '^https?://([a-z0-9-]+\.)?cricheroes\.com/.+');
+check (cricheroes_url ~* '^https?://(([a-z0-9-]+\.)?cricheroes\.com|([a-z0-9-]+\.)?chshare\.link)/.+');
 
 -- Replace public insert policy so consent and waiver are mandatory server-side.
 drop policy if exists "public can submit registrations" on public.players;
