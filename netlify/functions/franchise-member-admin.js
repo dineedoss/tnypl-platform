@@ -2,7 +2,7 @@
 const { createClient } = require("@supabase/supabase-js");
 const URL=process.env.SUPABASE_URL;
 const KEY=process.env.SUPABASE_SERVICE_ROLE_KEY;
-const SITE=(process.env.SITE_URL||"https://tnypl.in").replace(/\/+$/,"");
+const SITE="https://tnypl.in";
 const reply=(statusCode,body)=>({statusCode,headers:{"Content-Type":"application/json","Cache-Control":"no-store"},body:JSON.stringify(body)});
 
 const roleDefaults=(role)=>({

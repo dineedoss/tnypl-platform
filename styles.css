@@ -229,3 +229,191 @@ footer img{width:110px;height:90px;object-fit:contain}
 .legal-note{font-size:.62rem;color:#aab8ca}
 @media(max-width:900px){.tournament-dates-v13>.shell,.major-prize-grid,.cap-prize-grid,.individual-prize-grid{grid-template-columns:1fr}.date-card-grid{grid-template-columns:repeat(5,1fr)}.cap-card{grid-template-columns:160px 1fr}}
 @media(max-width:620px){.date-card-grid{grid-template-columns:repeat(2,1fr)}.form-progress{grid-template-columns:1fr 1fr}.cap-card{grid-template-columns:1fr}.cap-visual{height:155px}.prize-spotlight>strong{font-size:5.4rem}}
+
+
+/* V22.2 Owner Portal mobile and desktop presentation */
+.portal-body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(213, 166, 55, .18), transparent 28rem),
+    linear-gradient(145deg, #031126, #010712 72%);
+  color: #f8fafc;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.portal-shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0 60px;
+}
+
+.portal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 24px;
+}
+
+.portal-header .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.portal-header .brand-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.portal-header .brand span {
+  display: grid;
+}
+
+.portal-header .brand b {
+  font-family: "Barlow Condensed", Arial, sans-serif;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.portal-header .brand small {
+  color: #d4aa43;
+  font-weight: 800;
+  letter-spacing: .08em;
+  font-size: .65rem;
+}
+
+.portal-card {
+  width: min(520px, 100%);
+  margin: 5vh auto 0;
+  box-sizing: border-box;
+  padding: 34px;
+  border: 1px solid rgba(212, 170, 67, .25);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(9, 38, 82, .97), rgba(2, 12, 30, .98));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, .38);
+}
+
+.portal-card h1 {
+  margin: 4px 0 10px;
+  font-family: "Barlow Condensed", Arial, sans-serif;
+  font-size: clamp(3rem, 10vw, 4.6rem);
+  line-height: .9;
+  text-transform: uppercase;
+}
+
+.portal-card > p {
+  color: #b7c4d6;
+  line-height: 1.6;
+}
+
+.portal-card form {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.portal-card label {
+  display: grid;
+  gap: 7px;
+  color: #dbe5f2;
+  font-size: .72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.portal-card input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 10px;
+  outline: none;
+  background: #06172f;
+  color: #fff;
+  font-size: 16px;
+}
+
+.portal-card input:focus {
+  border-color: #d4aa43;
+  box-shadow: 0 0 0 3px rgba(212, 170, 67, .14);
+}
+
+.portal-body .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 11px 18px;
+  border: 1px solid #d4aa43;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.portal-body .button.gold {
+  background: linear-gradient(180deg, #e8c35f, #b98c2d);
+  color: #06132a;
+}
+
+.portal-body .button.outline {
+  color: #f4d77f;
+  background: transparent;
+}
+
+.portal-body .button.full {
+  width: 100%;
+}
+
+.portal-body .eyebrow.dark {
+  margin: 0 0 12px;
+  color: #d4aa43;
+  font-size: .7rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+#ownerLoginMessage {
+  min-height: 20px;
+  color: #ffb8c3;
+  font-size: .75rem;
+}
+
+@media (max-width: 600px) {
+  .portal-shell {
+    width: min(100% - 24px, 1120px);
+    padding-top: 14px;
+  }
+
+  .portal-header {
+    align-items: flex-start;
+  }
+
+  .portal-header .brand-logo {
+    width: 52px;
+    height: 52px;
+  }
+
+  .portal-header .brand b {
+    font-size: 1.65rem;
+  }
+
+  .portal-header .button.outline {
+    padding: 9px 11px;
+    font-size: .72rem;
+  }
+
+  .portal-card {
+    margin-top: 3vh;
+    padding: 25px 20px;
+    border-radius: 18px;
+  }
+}

@@ -2,7 +2,7 @@ const { createClient } = require("@supabase/supabase-js");
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const SITE_URL = (process.env.SITE_URL || "https://tnypl.in").replace(/\/+$/, "");
+const SITE_URL = "https://tnypl.in";
 
 const json = (statusCode, body) => ({
   statusCode,
