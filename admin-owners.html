@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TNYPL Owner Access Manager</title>
+<link rel="icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="auction.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<style>
+.owner-admin-grid{display:grid;grid-template-columns:430px 1fr;gap:22px;padding:30px 0 70px}
+.invite-card{background:linear-gradient(145deg,#082553,#020d20);border:1px solid rgba(225,184,77,.22);border-radius:23px;padding:26px}
+.invite-card h2{font-family:"Barlow Condensed";font-size:2.7rem;text-transform:uppercase;margin:0 0 8px}
+.invite-card p{color:#9fb0c8;font-size:.72rem;line-height:1.6}
+.invite-card label{display:block;margin:16px 0 6px;color:#aab9cc;font-size:.67rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.invite-card input,.invite-card select{width:100%;padding:13px;background:#06172f;border:1px solid rgba(255,255,255,.13);color:#fff;border-radius:10px}
+.invite-card button{width:100%;margin-top:20px;padding:15px;border:0;border-radius:11px;background:linear-gradient(180deg,#e7c15f,#b98a2f);color:#071329;font-weight:900;cursor:pointer}
+.invite-card button:disabled{opacity:.45;cursor:not-allowed}
+.owner-table-card{background:linear-gradient(145deg,#082553,#020d20);border:1px solid rgba(225,184,77,.22);border-radius:23px;padding:24px;overflow:auto}
+.owner-table-card h2{font-family:"Barlow Condensed";font-size:2.7rem;text-transform:uppercase;margin:0 0 14px}
+.owner-access-table{width:100%;border-collapse:collapse;min-width:780px}
+.owner-access-table th,.owner-access-table td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;font-size:.72rem}
+.owner-access-table th{color:#e1b84d;text-transform:uppercase;letter-spacing:.05em}
+.status-chip{display:inline-block;padding:6px 9px;border-radius:999px;background:#123962;color:#dce9fa;font-size:.6rem;font-weight:900}
+.status-chip.active{background:#0b432f;color:#bff4dc}
+.status-chip.pending{background:#4a3410;color:#ffe2a0}
+.inline-actions{display:flex;gap:7px}
+.inline-actions button{padding:8px 10px;border:0;border-radius:8px;font-weight:800;cursor:pointer}
+.copy-btn{background:#164b88;color:#fff}
+.refresh-btn{background:#e1b84d;color:#071329}
+@media(max-width:950px){.owner-admin-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body class="auction-app">
+<header class="auction-topbar"><div class="auction-shell">
+<a class="auction-brand" href="admin.html"><img src="tnypl-official-logo.png"><div><strong>OWNER ACCESS MANAGER</strong><span>INVITATIONS · LOGIN ACCESS · FRANCHISE LINKING</span></div></a>
+<nav class="auction-nav"><a href="admin.html">Registrations</a><a href="admin-auction.html">Auction Control</a><a href="draft-room.html" target="_blank">Public Draft</a><button id="ownerAdminLogout">Logout</button></nav>
+</div></header>
+
+<main class="auction-shell">
+<div id="ownerAdminMessage" class="auction-alert" hidden></div>
+
+<section class="owner-admin-grid">
+  <article class="invite-card">
+    <h2>Send Owner Invite</h2>
+    <p>The owner receives a secure Supabase invitation. Their account is automatically linked to the selected franchise and its auction wallet.</p>
+
+    <label for="inviteOwnerName">Owner full name</label>
+    <input id="inviteOwnerName" placeholder="Example: Vimalesh Vedachalam">
+
+    <label for="inviteOwnerEmail">Owner email</label>
+    <input id="inviteOwnerEmail" type="email" placeholder="owner@example.com">
+
+    <label for="inviteFranchise">Franchise</label>
+    <select id="inviteFranchise"><option value="">Loading franchises…</option></select>
+
+    <button id="sendOwnerInvite">SEND SECURE INVITATION</button>
+  </article>
+
+  <article class="owner-table-card">
+    <div style="display:flex;justify-content:space-between;gap:20px;align-items:center">
+      <h2>Owner Access</h2>
+      <button class="auction-btn" id="refreshOwnerAccess">REFRESH</button>
+    </div>
+    <table class="owner-access-table">
+      <thead><tr><th>Owner</th><th>Email</th><th>Franchise</th><th>Status</th><th>Created</th><th>Login URL</th></tr></thead>
+      <tbody id="ownerAccessRows"></tbody>
+    </table>
+  </article>
+</section>
+</main>
+<script src="admin-owners.js"></script>
+</body></html>
