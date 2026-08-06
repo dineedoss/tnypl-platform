@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TNYPL Owner Demo — Chennai Strikers</title>
+<link rel="icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="auction.css">
+<style>
+.demo-banner{background:#4b3410;color:#ffe2a0;padding:11px;text-align:center;font-weight:900;font-size:.72rem}
+.demo-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+.demo-tabs button{padding:10px 14px;border-radius:9px;border:1px solid rgba(225,184,77,.25);background:#082553;color:#fff;font-weight:800;cursor:pointer}
+.demo-tabs button.active{background:#e1b84d;color:#071329}
+.demo-panel{display:none}.demo-panel.active{display:block}
+.squad-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.squad-card{background:#071a38;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:15px}
+.squad-card strong{display:block;font-family:"Barlow Condensed";font-size:1.5rem}
+.squad-card span{color:#9fb0c8;font-size:.68rem}
+@media(max-width:850px){.squad-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body class="auction-app">
+<div class="demo-banner">DEMO MODE — no real bids, points or player records will be changed</div>
+<header class="auction-topbar"><div class="auction-shell">
+<a class="auction-brand" href="admin-owners.html"><img src="tnypl-official-logo.png"><div><strong>CHENNAI STRIKERS</strong><span>OWNER CONSOLE PREVIEW · VIMALESH VEDACHALAM</span></div></a>
+<nav class="auction-nav"><a href="draft-room.html" target="_blank">Public Draft</a><a href="admin-owners.html">Back to Admin</a></nav>
+</div></header>
+<main class="auction-shell">
+<div class="demo-tabs">
+<button class="active" data-tab="live">Live Auction</button>
+<button data-tab="squad">My Squad</button>
+<button data-tab="watchlist">Watchlist</button>
+<button data-tab="history">Bid History</button>
+<button data-tab="settlement">Settlement</button>
+</div>
+
+<section id="tab-live" class="demo-panel active">
+<div class="owner-layout">
+<aside class="panel-card owner-summary">
+<div class="owner-franchise"><img src="assets/franchise-logos/chennai-strikers.svg"><div><small>WELCOME, VIMALESH</small><h2>Chennai Strikers</h2></div></div>
+<div class="wallet-line"><span>Starting allocation</span><strong>10,000 pts</strong></div>
+<div class="wallet-line"><span>Points spent</span><strong>3,450 pts</strong></div>
+<div class="wallet-line total"><span>Allocation left</span><strong>6,550 pts</strong></div>
+<div class="wallet-line"><span>Excess credit available</span><strong>2,500 pts</strong></div>
+<div class="wallet-line total"><span>Maximum bidding power</span><strong>9,050 pts</strong></div>
+<div class="wallet-line"><span>Players selected</span><strong>4 / 13</strong></div>
+<div class="wallet-line danger"><span>Projected excess payment</span><strong>₹0</strong></div>
+<div class="points-meter"><span style="width:34.5%"></span></div>
+</aside>
+<section>
+<article class="live-card current-player-card">
+<div class="player-photo"><span class="initials">AR</span></div>
+<div class="player-copy">
+<span class="category-pill category-platinum">PLATINUM</span>
+<h2>Arjun Raj</h2>
+<div class="player-meta"><span>Opening Batter</span><span>Chennai</span><span>Age 15</span><span>Coach rating 9.1/10</span></div>
+<div class="bid-stage"><small>CURRENT BID</small><strong class="bid-amount">1,400 PTS</strong><div class="leading-team">Leader: Kovai Kings</div><div class="timer">00:24</div></div>
+<div class="bid-controls"><input class="control-input" value="1500"><button onclick="alert('Demo only — a real owner would place a secure bid here.')">PLACE BID</button></div>
+<div class="bid-presets"><button>+50</button><button>+100</button><button>+250</button></div>
+</div>
+</article>
+<div class="panel-card" style="margin-top:18px"><h3>Live Bid History</h3>
+<div class="bid-row"><div><strong>Kovai Kings</strong><span>10:01:12 AM</span></div><strong>1,400 pts</strong></div>
+<div class="bid-row"><div><strong>Chennai Strikers · YOU</strong><span>10:01:05 AM</span></div><strong>1,300 pts</strong></div>
+<div class="bid-row"><div><strong>Trichy Titans</strong><span>10:00:58 AM</span></div><strong>1,200 pts</strong></div>
+</div>
+</section>
+</div>
+</section>
+
+<section id="tab-squad" class="demo-panel panel-card"><h3>My Current Squad</h3><div class="squad-grid">
+<div class="squad-card"><strong>Kavin Kumar</strong><span>Wicketkeeper-Batter · 900 pts</span></div>
+<div class="squad-card"><strong>Hari Prasad</strong><span>Fast Bowler · 750 pts</span></div>
+<div class="squad-card"><strong>Vishal Anand</strong><span>All-rounder · 1,100 pts</span></div>
+<div class="squad-card"><strong>Rohit Selvan</strong><span>Top-order Batter · 700 pts</span></div>
+</div></section>
+
+<section id="tab-watchlist" class="demo-panel panel-card"><h3>Owner Watchlist</h3><p style="color:#9fb0c8">Owners can shortlist players before the auction and filter them by category, role, district, batting style and bowling style.</p>
+<div class="squad-grid"><div class="squad-card"><strong>Arjun Raj</strong><span>Platinum · Opening Batter</span></div><div class="squad-card"><strong>Mohamed Irfan</strong><span>Gold · Leg Spinner</span></div></div></section>
+
+<section id="tab-history" class="demo-panel panel-card"><h3>Franchise Bid History</h3><div class="bid-row"><div><strong>Arjun Raj</strong><span>Current auction · Outbid</span></div><strong>1,300 pts</strong></div><div class="bid-row"><div><strong>Vishal Anand</strong><span>Sold to Chennai Strikers</span></div><strong>1,100 pts</strong></div></section>
+
+<section id="tab-settlement" class="demo-panel panel-card"><h3>Projected Settlement</h3>
+<div class="wallet-line"><span>Allocated points</span><strong>10,000</strong></div>
+<div class="wallet-line"><span>Points spent</span><strong>3,450</strong></div>
+<div class="wallet-line"><span>Unused points if auction ended now</span><strong>6,550 — forfeited</strong></div>
+<div class="wallet-line danger"><span>Additional amount payable</span><strong>₹0</strong></div>
+</section>
+</main>
+<script>
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{
+ document.querySelectorAll("[data-tab]").forEach(x=>x.classList.remove("active"));
+ document.querySelectorAll(".demo-panel").forEach(x=>x.classList.remove("active"));
+ b.classList.add("active");document.getElementById("tab-"+b.dataset.tab).classList.add("active");
+});
+</script>
+</body></html>

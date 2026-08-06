@@ -92,7 +92,7 @@ exports.handler = async (event) => {
     } else {
       const { data: inviteData, error: inviteError } =
         await adminClient.auth.admin.inviteUserByEmail(email, {
-          redirectTo: `${SITE_URL}/owner-login.html`,
+          redirectTo: `${SITE_URL}/owner-setup-password.html`,
           data: {
             owner_name: ownerName,
             franchise_id: franchise.id,
