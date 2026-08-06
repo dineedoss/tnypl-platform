@@ -1,52 +1,81 @@
-window.addEventListener("load",()=>{
- const form=document.getElementById("registrationForm");
- if(!form)return;
+window.addEventListener("load", () => {
+  const params = new URLSearchParams(window.location.search);
+  const isDummyMode = params.get("dummy") === "1";
 
- const params=new URLSearchParams(location.search);
- const isDummy=params.get("dummy")==="1";
+  // Never expose developer/test controls on the normal public registration page.
+  if (!isDummyMode) return;
 
- const button=document.createElement("button");
- button.type="button";
- button.textContent="LOAD SAFE DUMMY REGISTRATION";
- button.style.cssText="margin:0 0 18px;padding:12px 18px;border:0;border-radius:9px;background:#174c86;color:white;font-weight:900;cursor:pointer";
- form.parentNode.insertBefore(button,form);
+  const form = document.getElementById("registrationForm");
+  if (!form) return;
 
- function set(name,value){
-  const el=form.elements[name];
-  if(!el)return;
-  if(el.type==="checkbox")el.checked=!!value;
-  else el.value=value;
-  el.dispatchEvent(new Event("change",{bubbles:true}));
- }
+  const panel = document.createElement("div");
+  panel.setAttribute("role", "status");
+  panel.style.cssText = [
+    "box-sizing:border-box",
+    "width:100%",
+    "margin:0 0 18px",
+    "padding:14px 16px",
+    "border:1px solid #b98c2d",
+    "border-radius:10px",
+    "background:#fff6d9",
+    "color:#06132a",
+    "font-family:Arial,sans-serif",
+    "font-size:14px",
+    "line-height:1.5"
+  ].join(";");
 
- function loadDummy(){
-  const stamp=Date.now().toString().slice(-6);
-  set("full_name",`TNYPL Dummy Player ${stamp}`);
-  set("date_of_birth","2011-06-15");
-  set("district","Chennai");
-  set("parent_name","Dummy Parent");
-  set("parent_phone","9000000000");
-  set("email",`tnypl.dummy.${stamp}@example.com`);
-  set("school","TNYPL Test School");
-  set("academy","TNYPL Test Cricket Academy");
-  set("cricheroes_url","https://chshare.link/player/nfujyU");
-  set("primary_role","All-rounder");
-  set("batting_style","Right-hand");
-  set("bowling_style","Right-arm medium");
-  set("tshirt_size","M");
-  set("pant_size","30");
-  set("guardian_relationship","Father");
-  set("emergency_contact_name","Dummy Parent");
-  set("emergency_contact_phone","9000000000");
-  set("parent_signature","Dummy Parent");
-  set("parent_consent",true);
-  set("waiver_acceptance",true);
-  set("information_accuracy",true);
-  set("waiver_signature","Dummy Parent");
-  alert("Dummy information loaded. Upload any required test files, review all fields, then submit normally. Delete the dummy record from Admin after testing.");
-  form.scrollIntoView({behavior:"smooth",block:"start"});
- }
+  panel.innerHTML = `
+    <strong style="display:block;margin-bottom:5px">
+      TNYPL TEST MODE
+    </strong>
+    Safe dummy information will be loaded into the registration form.
+    Required files must still be uploaded manually.
+  `;
 
- button.onclick=loadDummy;
- if(isDummy)setTimeout(loadDummy,300);
+  form.parentNode.insertBefore(panel, form);
+
+  function setField(name, value) {
+    const field = form.elements[name];
+    if (!field) return;
+
+    if (field.type === "checkbox") {
+      field.checked = Boolean(value);
+    } else {
+      field.value = value;
+    }
+
+    field.dispatchEvent(new Event("input", { bubbles: true }));
+    field.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+
+  function loadDummyRegistration() {
+    const stamp = Date.now().toString().slice(-6);
+
+    setField("full_name", `TNYPL Dummy Player ${stamp}`);
+    setField("date_of_birth", "2011-06-15");
+    setField("district", "Chennai");
+    setField("parent_name", "Dummy Parent");
+    setField("parent_phone", "9000000000");
+    setField("email", `tnypl.dummy.${stamp}@example.com`);
+    setField("school", "TNYPL Test School");
+    setField("academy", "TNYPL Test Cricket Academy");
+    setField("cricheroes_url", "https://chshare.link/player/nfujyU");
+    setField("primary_role", "All-rounder");
+    setField("batting_style", "Right-hand");
+    setField("bowling_style", "Right-arm medium");
+    setField("tshirt_size", "M");
+    setField("pant_size", "30");
+    setField("guardian_relationship", "Father");
+    setField("emergency_contact_name", "Dummy Parent");
+    setField("emergency_contact_phone", "9000000000");
+    setField("parent_signature", "Dummy Parent");
+    setField("parent_consent", true);
+    setField("waiver_acceptance", true);
+    setField("information_accuracy", true);
+    setField("waiver_signature", "Dummy Parent");
+
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  loadDummyRegistration();
 });
