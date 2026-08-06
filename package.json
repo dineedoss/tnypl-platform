@@ -1,1 +1,16 @@
-{"name":"tnypl","version":"6.0.0","description":"TNYPL cinematic league platform","main":"server.js","scripts":{"start":"node server.js","dev":"node server.js"},"engines":{"node":">=18"}}
+{
+  "name": "tnypl",
+  "version": "6.0.0",
+  "description": "TNYPL cinematic league platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.4"
+  }
+}
