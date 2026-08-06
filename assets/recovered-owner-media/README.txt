@@ -1,0 +1,24 @@
+TNYPL RECOVERED OWNER / LEADERSHIP MEDIA
+
+Recovered files: 15
+
+These are the recent owner/leadership images recovered from the conversation and library.
+The original filenames were UUID-style names, so they are not yet safely mapped to individual owners.
+No actual owner interview video files were found in this recovered set; the website used video placeholders / future YouTube links.
+
+FILES:
+- 1419A34C-9778-47AA-9239-E8F4DDB7DCD8.jpeg
+- 18863A0B-1E48-4A21-BF87-AB8701B75425.jpeg
+- 48B34552-E38C-4F58-8813-3D9CEDC7DB5D.png
+- 581EDC24-438B-4663-951B-BE1A503548E5.jpeg
+- 5F6CBD70-15CC-4A14-BEDB-57DD7A88982B.jpeg
+- 847893E8-338C-4F2A-9E3B-7BD448E86AB4.jpeg
+- 86D8FF74-4EE1-419D-BE6A-83FA2D3F449C.png
+- 8A76FDCA-DBB6-4D34-8DD1-AAC97DBF6805.jpeg
+- A9E730B7-5D55-4946-97D5-83D23D22086C.png
+- BDB7963E-6509-4D18-8E4C-02AD82906C99.png
+- D4F985AC-2990-4D7D-9984-1B1795523E38.png
+- DF2D3C2B-A060-465C-A3F7-5A2E066D0FF5.png
+- E078493D-B855-4CDD-8DC3-5F53A2DF1E6A.png
+- EAC209B6-7F53-4957-AEAD-C6C4122C1EF2.jpeg
+- EC11F7E7-3642-4C94-B94A-839AD5BDA780.jpeg

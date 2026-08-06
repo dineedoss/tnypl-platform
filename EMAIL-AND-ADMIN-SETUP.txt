@@ -1,0 +1,51 @@
+TNYPL NETLIFY ENVIRONMENT VARIABLES
+
+Set these in:
+Netlify > Site configuration > Environment variables
+
+SUPABASE_URL
+Your Supabase project URL.
+
+SUPABASE_SERVICE_ROLE_KEY
+Supabase Settings > API > service_role key.
+Never place this value in config.js or browser code.
+
+RESEND_API_KEY
+API key from Resend.
+
+EMAIL_FROM
+Example: TNYPL <registrations@yourverifieddomain.com>
+
+ADMIN_NOTIFICATION_EMAIL
+Address that receives a copy of new registrations.
+
+SITE_URL
+Example: https://tnypl.in
+
+After adding variables, choose:
+Deploys > Trigger deploy > Clear cache and deploy site.
+
+
+CREATE THE ADMIN USER
+
+1. In Supabase, open Authentication > Users.
+2. Create the admin email and password.
+3. Copy the user's UUID.
+4. Run:
+
+insert into public.admin_users(user_id,email)
+values ('PASTE_USER_UUID','PASTE_ADMIN_EMAIL')
+on conflict (user_id) do update set email=excluded.email;
+
+ADMIN URL AFTER DEPLOYMENT
+https://tnypl.in/admin.html
+
+The dashboard will provide:
+- Player registration records
+- Age proof links
+- Payment receipt links
+- Verification controls
+- Eligible/rejected status
+- Franchise drafting controls
+- Drafted congratulations email
+- CSV export

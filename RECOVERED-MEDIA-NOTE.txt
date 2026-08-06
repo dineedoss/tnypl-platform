@@ -1,0 +1,8 @@
+RECOVERED OWNER MEDIA
+
+The folder assets/recovered-owner-media contains the recovered image attachments.
+They are intentionally not assigned to named owners because their original filenames do not identify the person.
+This prevents a wrong person's image from appearing under an owner name.
+
+Once mapped, replace the matching image in assets/owners/ while keeping the expected filename.
+No actual owner-interview video files were recovered. Add YouTube URLs when available.
