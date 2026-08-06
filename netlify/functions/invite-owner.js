@@ -122,6 +122,27 @@ exports.handler = async (event) => {
 
     if (profileError) throw profileError;
 
+    const { error: memberError } = await adminClient
+      .from("franchise_members")
+      .upsert({
+        user_id: invitedUser.id,
+        franchise_id: franchise.id,
+        full_name: ownerName,
+        email,
+        member_role: "primary_owner",
+        can_bid: true,
+        can_manage_watchlist: true,
+        can_manage_players: true,
+        can_view_settlement: true,
+        can_manage_members: true,
+        is_primary_owner: true,
+        is_active: true,
+        invited_by: authData.user.id,
+        updated_at: new Date().toISOString()
+      }, { onConflict: "user_id,franchise_id" });
+
+    if (memberError) throw memberError;
+
     const { error: walletError } = await adminClient
       .from("franchise_wallets")
       .upsert({

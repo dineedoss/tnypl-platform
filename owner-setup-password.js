@@ -38,6 +38,12 @@ activateOwner.onclick=async()=>{
   await establishInviteSession();
   const {error}=await sb.auth.updateUser({password});
   if(error)throw error;
+  const {data:{user}}=await sb.auth.getUser();
+  if(user){
+    await sb.from("franchise_members")
+      .update({accepted_at:new Date().toISOString(),updated_at:new Date().toISOString()})
+      .eq("user_id",user.id);
+  }
   msg("Account activated. Opening your franchise dashboard…",true);
   setTimeout(()=>location.href="owner-dashboard.html",1200);
  }catch(e){

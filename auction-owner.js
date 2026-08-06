@@ -5,7 +5,7 @@ window.addEventListener("load",async()=>{
  if(!session){location.href="owner-login.html";return}
  ownerLogout.onclick=async()=>{await auctionSb.auth.signOut();location.href="owner-login.html"};
  async function loadIdentity(){
-  const {data,error}=await auctionSb.from("franchise_members").select("full_name,franchise_id,member_role,can_bid,can_view_settlement,franchises(id,name,slug)").eq("user_id",session.user.id).eq("is_active",true).single();
+  const {data,error}=await auctionSb.from("franchise_members").select("full_name,franchise_id,member_role,can_bid,can_view_settlement,franchises(id,name,slug)").eq("user_id",session.user.id).eq("is_active",true).order("is_primary_owner",{ascending:false}).limit(1).single();
   if(error)throw error;profile=data;franchise=data.franchises;
   ownerWelcome.textContent=`WELCOME, ${profile.full_name||session.user.email}`;ownerTeam.textContent=franchise.name;ownerLogo.src=teamLogoMap[franchise.slug]||"tnypl-official-logo.png";
  }
