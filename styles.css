@@ -99,3 +99,133 @@ footer img{width:110px;height:90px;object-fit:contain}
   .hero-message h1{font-size:4.25rem}
   .official-tagline{font-size:1.15rem}
 }
+
+/* V12 FRANCHISE LOGOS AND FULL OWNER BIOGRAPHIES */
+.team-logo-stage{
+  display:grid!important;
+  place-items:center;
+  background:
+    radial-gradient(circle at 50% 38%,color-mix(in srgb,var(--accent) 34%,transparent),transparent 54%),
+    linear-gradient(180deg,#071a38,#030a17)!important;
+  padding:28px
+}
+.franchise-logo{
+  width:86%!important;
+  height:86%!important;
+  object-fit:contain!important;
+  mix-blend-mode:normal!important;
+  opacity:1!important;
+  filter:drop-shadow(0 18px 24px rgba(0,0,0,.38))
+}
+.team-logo-stage:after{display:none!important}
+.team-detail-hero{
+  min-height:760px;
+  color:white;
+  background:
+    radial-gradient(circle at 20% 22%,color-mix(in srgb,var(--team-primary) 55%,transparent),transparent 36%),
+    linear-gradient(135deg,var(--team-secondary),#001126 64%)
+}
+.team-detail-grid{
+  display:grid;
+  grid-template-columns:.72fr 1.28fr;
+  gap:70px;
+  align-items:center;
+  padding:70px 0 100px
+}
+.team-logo-display{
+  display:grid;
+  place-items:center;
+  min-height:520px;
+  border-radius:30px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(244,199,91,.2)
+}
+.team-logo-display img{
+  width:min(90%,480px);
+  max-height:520px;
+  filter:drop-shadow(0 30px 45px rgba(0,0,0,.44))
+}
+.team-detail-grid small{color:#f4c75b;font-weight:900;letter-spacing:.15em}
+.team-detail-grid h1{
+  font-family:"Barlow Condensed";
+  font-size:clamp(5rem,8vw,8rem);
+  line-height:.82;
+  text-transform:uppercase;
+  margin:18px 0
+}
+.team-detail-grid p{max-width:680px;color:#d2ddeb;line-height:1.75}
+.team-motto{
+  color:#f4c75b;
+  font-family:"Barlow Condensed";
+  font-size:1.8rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:20px
+}
+.bio-section{
+  background:white;
+  border:1px solid #e0e6ef;
+  border-radius:17px;
+  padding:23px;
+  margin-bottom:17px
+}
+.bio-section h2{
+  margin:0 0 10px!important;
+  font-size:2.15rem!important;
+  color:#09244d
+}
+.bio-section p{color:#536176;line-height:1.75;margin:0}
+@media(max-width:900px){
+  .team-detail-grid{grid-template-columns:1fr;padding-top:35px}
+  .team-logo-display{min-height:360px}
+  .team-detail-grid h1{font-size:4.5rem}
+}
+
+/* V13 PRIZES, TOURNAMENT DATES, CONSENT AND WAIVER */
+.tournament-dates-v13{padding:90px 0;background:#001126;color:white}
+.tournament-dates-v13>.shell{display:grid;grid-template-columns:.62fr 1.38fr;gap:45px;align-items:center}
+.tournament-dates-v13 small,.prizes-v13 small{color:#e7b843;font-weight:900;letter-spacing:.15em;font-size:.65rem}
+.tournament-dates-v13 h2{font-family:"Barlow Condensed";font-size:4.6rem;line-height:.88;text-transform:uppercase;margin:13px 0}
+.date-card-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.date-card-grid article{background:#08234f;border:1px solid rgba(231,184,67,.33);border-radius:16px;padding:20px;text-align:center}
+.date-card-grid strong{display:block;font-family:"Barlow Condensed";font-size:3.7rem;color:#e7b843}
+.date-card-grid span{font-size:.66rem;text-transform:uppercase;line-height:1.5;color:#d6e0ee}
+.prizes-v13{padding:105px 0;background:radial-gradient(circle at 50% 0,#193d75,#001126 56%);color:white}
+.prize-spotlight{text-align:center;max-width:850px;margin:0 auto 45px}
+.prize-spotlight>strong{display:block;font-family:"Barlow Condensed";font-size:clamp(6rem,10vw,10rem);line-height:.9;color:#e7b843;text-shadow:0 15px 45px rgba(231,184,67,.22)}
+.prize-spotlight h2{font-family:"Barlow Condensed";font-size:3.5rem;text-transform:uppercase;margin:12px 0}
+.prize-spotlight p{color:#bac8db}
+.major-prize-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px}
+.award-card{min-height:260px;border-radius:21px;padding:28px;background:linear-gradient(145deg,#0c2a5a,#031127);border:1px solid rgba(231,184,67,.28);display:flex;flex-direction:column;justify-content:center}
+.champion-card{background:linear-gradient(145deg,#815709,#e0b449);color:#071329}
+.award-symbol{font-size:3rem}.award-card>strong,.cap-card strong,.individual-prize-grid strong{font-family:"Barlow Condensed";font-size:3.8rem;line-height:1;color:#e7b843}
+.champion-card>strong,.champion-card small{color:#071329}.award-card p{font-size:.72rem;color:#bfcce0}.champion-card p{color:#24324b}
+.cap-prize-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.cap-card{display:grid;grid-template-columns:230px 1fr;gap:22px;align-items:center;padding:24px;border-radius:21px;background:#061a38;border:1px solid rgba(255,255,255,.12)}
+.cap-card h3{font-family:"Barlow Condensed";font-size:3.3rem;text-transform:uppercase;margin:5px 0}
+.cap-card p{color:#aebdd1;font-size:.7rem}
+.cap-visual{height:190px;position:relative;display:grid;place-items:center}
+.cap-visual:before{content:"";width:145px;height:105px;border-radius:75% 75% 35% 35%;box-shadow:inset 0 -14px 24px rgba(0,0,0,.25),0 18px 28px rgba(0,0,0,.3)}
+.cap-visual:after{content:"";position:absolute;width:110px;height:38px;border-radius:0 100% 100% 100%;bottom:27px;right:19px;transform:rotate(8deg)}
+.orange-cap:before,.orange-cap:after{background:#f47b20}.purple-cap:before,.purple-cap:after{background:#7629a8}
+.cap-visual span:before{content:"TNYPL";position:absolute;z-index:2;top:75px;left:50%;transform:translateX(-50%);font-family:"Barlow Condensed";font-weight:900;color:white}
+.individual-prize-grid{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:16px}
+.individual-prize-grid article{padding:22px;border-radius:17px;background:#09234c;border:1px solid rgba(231,184,67,.22)}
+.individual-prize-grid span{font-size:2rem;display:block}.individual-prize-grid small{display:block;margin:8px 0}
+.mom-highlight{background:linear-gradient(145deg,#8b5f0c,#d6aa43)!important;color:#071329}
+.mom-highlight strong,.mom-highlight small{color:#071329}.mom-highlight b{display:block;font-size:.64rem;margin-top:7px}
+.prize-value-banner{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin-top:20px;padding:18px;border:1px solid rgba(231,184,67,.33);border-radius:14px;background:rgba(231,184,67,.08)}
+.prize-value-banner b{color:#e7b843}.prize-value-banner span{color:#c6d1df}
+.form-progress{grid-template-columns:repeat(5,1fr)}
+.field-help{font-size:.58rem!important;color:#9eb0c8!important;line-height:1.45}
+.step-error{min-height:22px;color:#fca5a5;font-size:.68rem;margin-top:12px}
+.consent-document,.waiver-document{background:#f7f2e6;color:#172033;border-radius:15px;padding:22px;margin-bottom:18px;border:1px solid #dec98e}
+.consent-document small,.waiver-document small{color:#8b620e!important}.consent-document h4,.waiver-document h4{font-family:"Barlow Condensed";font-size:2rem;text-transform:uppercase;margin:8px 0}
+.consent-document p,.waiver-document p{font-size:.7rem;line-height:1.7}
+.waiver-scroll{max-height:310px;overflow:auto;padding-right:10px}
+.legal-check{display:grid!important;grid-template-columns:22px 1fr!important;align-items:start;gap:10px!important;margin:14px 0;padding:15px;border:1px solid rgba(255,255,255,.15);border-radius:10px;background:rgba(255,255,255,.045)}
+.legal-check input{margin-top:3px;accent-color:#e7b843}.legal-check span{font-size:.7rem;line-height:1.55}
+.legal-note{font-size:.62rem;color:#aab8ca}
+@media(max-width:900px){.tournament-dates-v13>.shell,.major-prize-grid,.cap-prize-grid,.individual-prize-grid{grid-template-columns:1fr}.date-card-grid{grid-template-columns:repeat(5,1fr)}.cap-card{grid-template-columns:160px 1fr}}
+@media(max-width:620px){.date-card-grid{grid-template-columns:repeat(2,1fr)}.form-progress{grid-template-columns:1fr 1fr}.cap-card{grid-template-columns:1fr}.cap-visual{height:155px}.prize-spotlight>strong{font-size:5.4rem}}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="720" viewBox="0 0 280 336">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#b53668"/>
+          <stop offset="1" stop-color="#3b071d"/>
+        </linearGradient>
+        <filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="6" flood-opacity=".35"/></filter>
+      </defs>
+      <path d="M140 12 L258 55 L246 202 Q228 285 140 323 Q52 285 34 202 L22 55 Z" fill="url(#bg)" stroke="#f4c75b" stroke-width="9" filter="url(#shadow)"/>
+      <path d="M140 29 L239 66 L228 196 Q212 263 140 296 Q68 263 52 196 L41 66 Z" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="3"/>
+      
+        <g fill="#f4c75b">
+          <path d="M82 76 L126 120 L111 135 L66 91 Z"/><path d="M198 76 L154 120 L169 135 L214 91 Z"/>
+          <path d="M103 126 L188 211 L206 193 L121 108 Z"/><path d="M177 108 L92 193 L110 211 L195 126 Z"/>
+        </g>
+        <circle cx="140" cy="143" r="20" fill="#ffffff"/>
+        
+      <rect x="26" y="225" width="228" height="70" rx="12" fill="#07152e" stroke="#f4c75b" stroke-width="4"/>
+      <text x="140" y="250" text-anchor="middle" fill="#f4c75b" font-family="Arial Black,Arial" font-size="23" font-weight="900">KARAIKUDI</text>
+      <text x="140" y="278" text-anchor="middle" fill="#ffffff" font-family="Arial Black,Arial" font-size="24" font-weight="900">KINGS</text>
+      <text x="140" y="314" text-anchor="middle" fill="#f4c75b" font-family="Arial, sans-serif" font-size="10" font-weight="700">TNYPL · SEASON 1</text>
+    </svg>
