@@ -1,0 +1,34 @@
+
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TNYPL Franchise Team Access</title><link rel="icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="auction.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+<style>
+.team-access-layout{display:grid;grid-template-columns:390px 1fr;gap:22px;padding:30px 0 70px}
+.team-form,.team-list{background:linear-gradient(145deg,#082553,#020d20);border:1px solid rgba(225,184,77,.22);border-radius:22px;padding:24px}
+.team-form h1,.team-list h2{font-family:"Barlow Condensed";text-transform:uppercase;margin:0}.team-form h1{font-size:3.1rem;line-height:.9}.team-list h2{font-size:2.5rem}
+.team-form p{color:#9fb0c8;font-size:.7rem;line-height:1.6}.team-form label{display:block;margin:14px 0 5px;color:#b8c6d9;font-size:.65rem;font-weight:900;text-transform:uppercase}
+.team-form input,.team-form select{width:100%;padding:12px;background:#06172f;border:1px solid rgba(255,255,255,.13);color:#fff;border-radius:9px}
+.permission-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.permission-box{display:flex!important;align-items:center;gap:8px;padding:10px;background:#06172f;border-radius:9px;font-size:.68rem!important;color:#cdd8e7}.permission-box input{width:auto}
+.team-form button{width:100%;margin-top:18px;padding:14px;border:0;border-radius:10px;background:linear-gradient(180deg,#e7c15f,#b98a2f);color:#071329;font-weight:900;cursor:pointer}
+.member-card{display:grid;grid-template-columns:1fr auto;gap:15px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08)}.member-card h3{font-family:"Barlow Condensed";font-size:1.7rem;margin:0;text-transform:uppercase}.member-card p{margin:3px 0;color:#9fb0c8;font-size:.68rem}
+.member-badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.member-badge{padding:5px 8px;border-radius:999px;background:#123962;color:#d7e6f8;font-size:.57rem;font-weight:900}.member-badge.primary{background:#5d4612;color:#ffe49b}.member-badge.inactive{background:#401823;color:#ffd1d8}
+.member-actions{display:flex;gap:7px;align-items:center}.member-actions button{border:0;border-radius:8px;padding:9px 11px;font-weight:800;cursor:pointer}.edit-member{background:#1f5796;color:#fff}.remove-member{background:#712536;color:#fff}
+@media(max-width:950px){.team-access-layout{grid-template-columns:1fr}}
+</style></head>
+<body class="auction-app"><header class="auction-topbar"><div class="auction-shell">
+<a class="auction-brand" href="owner-dashboard.html"><img src="tnypl-official-logo.png"><div><strong>FRANCHISE TEAM ACCESS</strong><span>CO-OWNERS · COACHES · MANAGERS · ANALYSTS</span></div></a>
+<nav class="auction-nav"><a href="owner-dashboard.html">Auction Console</a><a href="draft-room.html" target="_blank">Public Draft</a><button id="teamLogout">Logout</button></nav>
+</div></header>
+<main class="auction-shell"><div id="teamMessage" class="auction-alert" hidden></div>
+<section class="team-access-layout">
+<aside class="team-form"><h1>Add a<br>team member</h1><p>The primary owner controls each member’s access and can disable it at any time.</p>
+<label>Full name</label><input id="memberName" placeholder="Team member name">
+<label>Email address</label><input id="memberEmail" type="email" placeholder="member@example.com">
+<label>Franchise role</label><select id="memberRole"><option value="co_owner">Co-Owner</option><option value="coach">Coach</option><option value="manager">Manager</option><option value="analyst">Analyst</option><option value="viewer">Viewer</option></select>
+<div class="permission-grid"><label class="permission-box"><input id="permBid" type="checkbox"> Can bid</label><label class="permission-box"><input id="permWatchlist" type="checkbox"> Watchlist</label><label class="permission-box"><input id="permPlayers" type="checkbox"> Player notes</label><label class="permission-box"><input id="permSettlement" type="checkbox"> Settlement</label></div>
+<button id="inviteMember">SEND TEAM INVITATION</button></aside>
+<section class="team-list"><div style="display:flex;justify-content:space-between;gap:15px;align-items:center"><div><small id="teamFranchise" style="color:#e1b84d;font-weight:900"></small><h2>Franchise Members</h2></div><button class="auction-btn" id="refreshMembers">REFRESH</button></div><div id="memberRows"></div></section>
+</section></main><script src="franchise-team.js"></script></body></html>
