@@ -10,6 +10,7 @@ let winner = null;
 let randomValue = null;
 let wheelRotation = 0;
 let wheelAnimating = false;
+const SLOT_SEQUENCE=["A1","A2","A3","A4","B1","B2","B3","B4"];
 
 function showMessage(text, success = false) {
   drawMessage.hidden = false;
@@ -20,10 +21,12 @@ function clearMessage(){drawMessage.hidden=true;drawMessage.textContent=""}
 function hasDraw(){if(drawId===null){showMessage("Create or load an official draw first.");return false}return true}
 
 function currentPool(){
-  const stage = drawStage.value;
-  if(stage==="group") return entries.filter(x=>!x.group_code);
-  if(stage==="positionA") return entries.filter(x=>x.group_code==="A"&&!x.position_code);
-  return entries.filter(x=>x.group_code==="B"&&!x.position_code);
+  return entries.filter(x=>!x.position_code);
+}
+
+function currentSlot(){
+  const assigned=entries.filter(x=>x.position_code).length;
+  return SLOT_SEQUENCE[assigned] || null;
 }
 
 function setButtons(){
@@ -34,7 +37,7 @@ function setButtons(){
   lockDraw.disabled = !hasValidDraw || !idle || isLive;
   undoSpin.disabled = !hasValidDraw || !idle;
   resetDraw.disabled = !hasValidDraw || !idle;
-  spinWheel.disabled = !isLive || !idle || currentPool().length===0;
+  spinWheel.disabled = !isLive || !idle || currentPool().length===0 || !currentSlot();
   acceptWinner.disabled = !isLive || !idle || !winner;
   generateFixtures.disabled = !hasValidDraw || !idle;
 }
@@ -50,16 +53,13 @@ function renderGroups(){
 
 function renderFranchiseList(){
   const pool=currentPool();
-  allFranchises.innerHTML = pool.map(x=>{
-    const status = drawStage.value==="group"
-      ? "Awaiting group"
-      : (x.group_code==="A" ? "Awaiting A position" : "Awaiting B position");
-    return `<div class="franchise-row"><strong>${x.franchises?.name||"Franchise"}</strong><span>${status}</span></div>`;
-  }).join("") || "<p>No eligible franchises remain for this stage.</p>";
+  allFranchises.innerHTML = pool.map(x=>
+    `<div class="franchise-row"><strong>${x.franchises?.name||"Franchise"}</strong><span>Available</span></div>`
+  ).join("") || "<p>All eight positions have been assigned.</p>";
 
   franchiseSummary.textContent = pool.length
-    ? `${pool.length} eligible franchise${pool.length===1?"":"s"} remaining`
-    : "Stage complete.";
+    ? `${pool.length} franchise${pool.length===1?"":"s"} remaining · next ${currentSlot()}`
+    : "Draw complete.";
 }
 
 function drawWheel(rotation = wheelRotation){
@@ -121,6 +121,7 @@ function renderAll(){
   drawStatus.textContent = drawRecord
     ? `Draw #${drawId} · ${drawRecord.status||"draft"} · ${entries.length} franchises`
     : "No draw loaded";
+  if(window.nextSlot) nextSlot.textContent=currentSlot()||"COMPLETE";
   setButtons();
 }
 
@@ -217,51 +218,35 @@ spinWheel.onclick=()=>{
 acceptWinner.onclick=async()=>{
   if(drawRecord?.status!=="live")return showMessage("Lock the draw before accepting a result.");
   if(!winner)return showMessage("Spin first.");
-  const stage=drawStage.value==="group"?"group":"position";
-  if(stage==="position"){
-    const expectedPrefix=drawStage.value==="positionA"?"A":"B";
-    if(!nextPosition.value.startsWith(expectedPrefix)){
-      return showMessage(`Choose a ${expectedPrefix} position.`);
-    }
-  }
-  const result=await db.rpc("admin_accept_draw_result",{
+
+  const slot=currentSlot();
+  if(!slot)return showMessage("All eight positions are already assigned.");
+
+  const result=await db.rpc("admin_accept_draw_slot",{
     p_draw_id:Number(drawId),
     p_franchise_id:winner.franchise_id,
-    p_stage:stage,
-    p_group_code:stage==="group"?nextGroup.value:winner.group_code,
-    p_position_code:stage==="position"?nextPosition.value:null,
+    p_position_code:slot,
     p_random_value:randomValue
   });
-  if(result.error){showMessage(result.error.message);return}
-  showMessage(`${winner.franchises?.name||"Franchise"} accepted.`,true);winner=null;await loadDraw();
+
+  if(result.error){
+    showMessage(result.error.message);
+    return;
+  }
+
+  showMessage(`${winner.franchises?.name||"Franchise"} assigned to ${slot}.`,true);
+  winner=null;
+  randomValue=null;
+  wheelRotation=0;
+  await loadDraw();
 };
 undoSpin.onclick=async()=>{if(!hasDraw())return;const result=await db.rpc("admin_undo_last_draw_spin",{p_draw_id:Number(drawId)});if(result.error){showMessage(result.error.message);return}showMessage("Last result undone.",true);await loadDraw()};
 resetDraw.onclick=async()=>{if(!hasDraw())return;if(!confirm("Reset all assignments?"))return;const result=await db.rpc("admin_reset_tournament_draw",{p_draw_id:Number(drawId)});if(result.error){showMessage(result.error.message);return}showMessage("Draw reset.",true);await loadDraw()};
 generateFixtures.onclick=async()=>{if(!hasDraw())return;if(!fixtureStartDate.value)return showMessage("Choose start date.");const result=await db.rpc("admin_generate_group_fixtures",{p_draw_id:Number(drawId),p_start_date:fixtureStartDate.value,p_venue:fixtureVenue.value.trim()||"TNYPL Official Venue",p_ground:fixtureGround.value.trim()||"Ground 1",p_first_time:fixtureTime1.value||"09:00",p_second_time:fixtureTime2.value||"13:30"});if(result.error){showMessage(result.error.message);return}showMessage(`${result.data} matches generated.`,true);await loadDraw()};
-function updateStageControls(){
-  const stage=drawStage.value;
 
-  if(stage==="group"){
-    nextGroup.hidden=false;
-    nextPosition.hidden=true;
-  }else{
-    nextGroup.hidden=true;
-    nextPosition.hidden=false;
-    const prefix=stage==="positionA"?"A":"B";
-    const current=nextPosition.value;
-    nextPosition.innerHTML=[1,2,3,4]
-      .map(n=>`<option value="${prefix}${n}">${prefix}${n}</option>`)
-      .join("");
-    if(current.startsWith(prefix)) nextPosition.value=current;
-  }
-}
-
-drawStage.onchange=()=>{
-  winner=null;
   randomValue=null;
   wheelRotation=0;
   winnerText.textContent="Press Spin to select an eligible franchise.";
-  updateStageControls();
   renderAll();
 };
 drawLogout.onclick=async()=>{await db.auth.signOut();location.href="admin.html"};
@@ -270,6 +255,5 @@ drawLogout.onclick=async()=>{await db.auth.signOut();location.href="admin.html"}
   const s=(await db.auth.getSession()).data.session;if(!s)return location.href="admin.html";
   const a=await db.from("admin_users").select("user_id").eq("user_id",s.user.id).maybeSingle();
   if(!a.data)return location.href="admin.html";
-  updateStageControls();
   await loadDraw();
 })();

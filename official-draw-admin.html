@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>TNYPL Official Draw Control</title>
-  <link rel="stylesheet" href="official-draw.css?v=R1.5">
+  <link rel="stylesheet" href="official-draw.css?v=R1.6">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <style>
@@ -17,7 +17,7 @@
     .group-box{background:#03142d;padding:14px;border-radius:12px}
     .draw-status{margin:10px 0;color:#9fb1c8}
     @media(max-width:900px){.draw-layout{grid-template-columns:1fr}.group-columns{grid-template-columns:1fr}}
-  </style>
+  .next-slot-box{display:inline-flex;align-items:center;gap:6px;background:#03142d;border:1px solid rgba(255,255,255,.12);padding:10px 14px;border-radius:9px;color:#fff}.next-slot-box strong{color:#d9ad43;font-size:1.15rem}</style>
 </head>
 <body>
 <main>
@@ -32,21 +32,7 @@
     <button id="createDraw">Create Draw</button>
     <button id="lockDraw" disabled>Lock Draw</button>
 
-    <select id="drawStage">
-      <option value="group">Group Allocation</option>
-      <option value="positionA">Group A Positions</option>
-      <option value="positionB">Group B Positions</option>
-    </select>
-
-    <select id="nextGroup">
-      <option value="A">Group A</option>
-      <option value="B">Group B</option>
-    </select>
-
-    <select id="nextPosition">
-      <option>A1</option><option>A2</option><option>A3</option><option>A4</option>
-      <option>B1</option><option>B2</option><option>B3</option><option>B4</option>
-    </select>
+    <div class="next-slot-box">Next position: <strong id="nextSlot">A1</strong></div>
 
     <button id="spinWheel" disabled>Spin</button>
     <button id="acceptWinner" disabled>Accept</button>
@@ -68,7 +54,7 @@
     </section>
 
     <aside class="franchise-panel">
-      <h2>Eligible Franchises</h2>
+      <h2>Remaining Franchises</h2>
       <p id="franchiseSummary">No draw loaded.</p>
       <div id="allFranchises" class="franchise-grid"></div>
     </aside>
@@ -86,6 +72,6 @@
 
   <button id="drawLogout">Logout</button>
 </main>
-<script src="official-draw-admin.js?v=R1.5.0"></script>
+<script src="official-draw-admin.js?v=R1.6.0"></script>
 </body>
 </html>
