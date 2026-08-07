@@ -23,3 +23,9 @@
 - [x] Deployment and test docs
 - [ ] Production SQL execution
 - [ ] Preview deployment and QA
+
+## R1 Production V2 correction
+
+Live schema inspection confirmed `tournament_draws.id` is `bigint`, while
+franchise IDs remain `uuid`. The production migration was rebuilt accordingly.
+The required migration is now `TNYPL_R1_PRODUCTION_V2_MIGRATION.sql`.
