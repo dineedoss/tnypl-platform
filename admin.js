@@ -78,7 +78,7 @@ document.getElementById('logoutBtn').onclick=async()=>{await sb.auth.signOut();s
 
 async function loadPlayers(){const{data,error}=await sb.from('players').select('*').order('created_at',{ascending:false});if(error){alert(error.message);return}players=data||[];renderStats();renderTable()}
 function renderStats(){totalCount.textContent=players.length;paymentCount.textContent=players.filter(p=>p.payment_verified).length;ageCount.textContent=players.filter(p=>p.age_verified).length;eligibleCount.textContent=players.filter(p=>p.status==='eligible'||p.drafted).length}
-function filtered(){const q=searchInput.value.toLowerCase(),s=statusFilter.value;return players.filter(p=>(!s||(s==='drafted'?p.drafted:p.status===s))&&(`${p.full_name} ${p.district} ${p.primary_role} ${p.drafted_team||''}`.toLowerCase().includes(q)))}
+function filtered(){const q=searchInput.value.toLowerCase(),s=statusFilter.value,t=document.getElementById('tierFilter')?.value||'';return players.filter(p=>(!s||(s==='drafted'?p.drafted:p.status===s))&&(!t||(t==='unclassified'?!p.player_tier:p.player_tier===t))&&(`${p.full_name} ${p.district} ${p.primary_role} ${p.drafted_team||''}`.toLowerCase().includes(q)))}
 
 async function signedLink(path){
   if(!path)return null;
@@ -100,6 +100,8 @@ function renderTable(){body.innerHTML=filtered().map(p=>`<tr>
 <td><button onclick="openAttachment('${esc(p.age_proof_path)}')">Age proof</button> <button onclick="openAttachment('${esc(p.payment_receipt_path)}')">Receipt</button></td>
 <td>${p.payment_verified?'✅':'⏳'}</td><td>${p.age_verified?'✅':'⏳'}</td>
 <td>${p.drafted?'Drafted':esc(p.status)}</td>
+<td><strong>${esc((p.player_tier||'Unclassified').toUpperCase())}</strong><br><button onclick="openTierAnalytics('${p.id}')">Analyze</button></td>
+<td>${p.overall_player_score??p.cricheroes_score??'-'}</td>
 <td><select id="team-${p.id}"><option value="">Select team</option>${teams.map(t=>`<option ${p.drafted_team===t?'selected':''}>${t}</option>`).join('')}</select></td>
 <td>
 <button onclick="toggleVerify('${p.id}','payment_verified',${!p.payment_verified})">Payment</button>
@@ -124,7 +126,7 @@ window.draftPlayer=async id=>{
   if(!response.ok)alert(`Player drafted, but email failed: ${result.error}`);else alert('Player drafted and congratulations email sent.');
   await loadPlayers()
 }
-searchInput.oninput=renderTable;statusFilter.onchange=renderTable;
+searchInput.oninput=renderTable;statusFilter.onchange=renderTable;document.getElementById('tierFilter')?.addEventListener('change',renderTable);
 exportBtn.onclick=()=>{const cols=['full_name','date_of_birth','parent_name','parent_phone','email','district','school','academy','cricheroes_url','primary_role','batting_style','bowling_style','tshirt_size','pant_size','payment_verified','age_verified','status','drafted','drafted_team','drafted_at'];const csv=[cols.join(','),...players.map(p=>cols.map(c=>`"${String(p[c]??'').replaceAll('"','""')}"`).join(','))].join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='tnypl-players.csv';a.click()}
 checkSession();
 
