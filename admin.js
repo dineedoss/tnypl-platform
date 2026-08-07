@@ -4,10 +4,76 @@ let players=[];
 const teams=["Chennai Strikers","Kovai Kings","Karaikudi Kings","Trichy Titans","Nellai Falcons","Tiruppur Blazers","Thanjavur Royals","Tuticorin Sharks"];
 const loginPanel=document.getElementById('loginPanel'),dashboard=document.getElementById('dashboard'),body=document.getElementById('playersBody');
 
-async function checkSession(){const{data}=await sb.auth.getSession();data.session?showDashboard():showLogin()}
-function showLogin(){loginPanel.hidden=false;dashboard.hidden=true}
-async function showDashboard(){loginPanel.hidden=true;dashboard.hidden=false;await loadPlayers()}
-document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const{error}=await sb.auth.signInWithPassword({email:adminEmail.value,password:adminPassword.value});loginMessage.textContent=error?error.message:'';if(!error)showDashboard()});
+async function isAdminUser(userId){
+  const {data,error}=await sb
+    .from('admin_users')
+    .select('user_id')
+    .eq('user_id',userId)
+    .maybeSingle();
+
+  return !error && !!data;
+}
+
+async function checkSession(){
+  const {data}=await sb.auth.getSession();
+  const session=data.session;
+
+  if(!session){
+    showLogin();
+    return;
+  }
+
+  if(await isAdminUser(session.user.id)){
+    await showDashboard();
+    return;
+  }
+
+  await sb.auth.signOut();
+  loginPanel.hidden=false;
+  dashboard.hidden=true;
+  loginMessage.textContent='Admin access required.';
+}
+
+function showLogin(){
+  loginPanel.hidden=false;
+  dashboard.hidden=true;
+}
+
+async function showDashboard(){
+  const {data}=await sb.auth.getSession();
+  if(!data.session || !(await isAdminUser(data.session.user.id))){
+    await sb.auth.signOut();
+    showLogin();
+    loginMessage.textContent='Admin access required.';
+    return;
+  }
+
+  loginPanel.hidden=true;
+  dashboard.hidden=false;
+  await loadPlayers();
+}
+document.getElementById('loginForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+
+  const {data,error}=await sb.auth.signInWithPassword({
+    email:adminEmail.value,
+    password:adminPassword.value
+  });
+
+  if(error){
+    loginMessage.textContent=error.message;
+    return;
+  }
+
+  if(!data.user || !(await isAdminUser(data.user.id))){
+    await sb.auth.signOut();
+    loginMessage.textContent='Admin access required.';
+    return;
+  }
+
+  loginMessage.textContent='';
+  await showDashboard();
+});
 document.getElementById('logoutBtn').onclick=async()=>{await sb.auth.signOut();showLogin()};
 
 async function loadPlayers(){const{data,error}=await sb.from('players').select('*').order('created_at',{ascending:false});if(error){alert(error.message);return}players=data||[];renderStats();renderTable()}
@@ -61,3 +127,39 @@ window.draftPlayer=async id=>{
 searchInput.oninput=renderTable;statusFilter.onchange=renderTable;
 exportBtn.onclick=()=>{const cols=['full_name','date_of_birth','parent_name','parent_phone','email','district','school','academy','cricheroes_url','primary_role','batting_style','bowling_style','tshirt_size','pant_size','payment_verified','age_verified','status','drafted','drafted_team','drafted_at'];const csv=[cols.join(','),...players.map(p=>cols.map(c=>`"${String(p[c]??'').replaceAll('"','""')}"`).join(','))].join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='tnypl-players.csv';a.click()}
 checkSession();
+
+document.getElementById('sendPendingRegistrationEmails')?.addEventListener('click',async()=>{
+  const btn=document.getElementById('sendPendingRegistrationEmails');
+  if(!confirm('Send confirmation emails only to registrations that have not yet received one?'))return;
+  btn.disabled=true;
+  const oldText=btn.textContent;
+  btn.textContent='Sending...';
+  try{
+    const {data:{session}}=await sb.auth.getSession();
+    if(!session)throw new Error('Admin session expired. Please log in again.');
+    const response=await fetch('/.netlify/functions/process-registration-emails',{
+      method:'POST',
+      headers:{
+        'content-type':'application/json',
+        'authorization':`Bearer ${session.access_token}`
+      },
+      body:JSON.stringify({limit:20})
+    });
+    const result=await response.json();
+    if(!response.ok)throw new Error(result.error||'Unable to process registration emails.');
+    alert(
+  `Registration emails processed: ${result.processed}\n` +
+  `Sent: ${result.sent}\n` +
+  `Failed: ${result.failed}\n\n` +
+  (result.failed_items?.length
+    ? `First error: ${result.failed_items[0].error}`
+    : 'No error details returned.')
+);
+    await loadPlayers();
+  }catch(err){
+    alert(`Email processing failed: ${err.message}`);
+  }finally{
+    btn.disabled=false;
+    btn.textContent=oldText;
+  }
+});
