@@ -27,13 +27,16 @@ function currentPool(){
 }
 
 function setButtons(){
-  const enabled = drawId !== null && !wheelAnimating;
-  lockDraw.disabled=!enabled;
-  undoSpin.disabled=!enabled;
-  resetDraw.disabled=!enabled;
-  spinWheel.disabled=!enabled || currentPool().length===0;
-  acceptWinner.disabled=!enabled || !winner;
-  generateFixtures.disabled=!enabled;
+  const hasValidDraw = drawId !== null;
+  const isLive = hasValidDraw && drawRecord?.status === "live";
+  const idle = !wheelAnimating;
+
+  lockDraw.disabled = !hasValidDraw || !idle || isLive;
+  undoSpin.disabled = !hasValidDraw || !idle;
+  resetDraw.disabled = !hasValidDraw || !idle;
+  spinWheel.disabled = !isLive || !idle || currentPool().length===0;
+  acceptWinner.disabled = !isLive || !idle || !winner;
+  generateFixtures.disabled = !hasValidDraw || !idle;
 }
 
 function renderGroups(){
@@ -46,13 +49,17 @@ function renderGroups(){
 }
 
 function renderFranchiseList(){
-  allFranchises.innerHTML = entries.map(x=>{
-    const status = x.position_code || (x.group_code ? `Group ${x.group_code}` : "Unassigned");
+  const pool=currentPool();
+  allFranchises.innerHTML = pool.map(x=>{
+    const status = drawStage.value==="group"
+      ? "Awaiting group"
+      : (x.group_code==="A" ? "Awaiting A position" : "Awaiting B position");
     return `<div class="franchise-row"><strong>${x.franchises?.name||"Franchise"}</strong><span>${status}</span></div>`;
-  }).join("") || "<p>No franchises loaded for this draw.</p>";
-  franchiseSummary.textContent = entries.length
-    ? `${entries.length} franchises loaded · ${entries.filter(x=>!x.group_code).length} awaiting group allocation`
-    : "No franchises loaded.";
+  }).join("") || "<p>No eligible franchises remain for this stage.</p>";
+
+  franchiseSummary.textContent = pool.length
+    ? `${pool.length} eligible franchise${pool.length===1?"":"s"} remaining`
+    : "Stage complete.";
 }
 
 function drawWheel(rotation = wheelRotation){
@@ -97,11 +104,11 @@ function drawWheel(rotation = wheelRotation){
   ctx.beginPath();ctx.arc(cx,cy,r*.17,0,Math.PI*2);ctx.fillStyle="#d9ad43";ctx.fill();
   ctx.fillStyle="#071a38";ctx.font="900 32px Arial";ctx.textAlign="center";ctx.fillText("SPIN",cx,cy+10);
 
-  // Fixed pointer at the top
+  // Fixed pointer at the top, pointing down toward the selected slice
   ctx.beginPath();
-  ctx.moveTo(cx,22);
-  ctx.lineTo(cx-18,58);
-  ctx.lineTo(cx+18,58);
+  ctx.moveTo(cx-20,22);
+  ctx.lineTo(cx+20,22);
+  ctx.lineTo(cx,62);
   ctx.closePath();
   ctx.fillStyle="#ffd86b";
   ctx.fill();
@@ -146,6 +153,10 @@ createDraw.onclick=async()=>{
 lockDraw.onclick=async()=>{if(!hasDraw())return;const result=await db.rpc("admin_lock_tournament_draw",{p_draw_id:Number(drawId)});if(result.error){showMessage(result.error.message);return}showMessage("Draw is live.",true);await loadDraw()};
 spinWheel.onclick=()=>{
   if(!hasDraw() || wheelAnimating)return;
+  if(drawRecord?.status!=="live"){
+    showMessage("Lock the draw before spinning.");
+    return;
+  }
 
   const pool=currentPool();
   if(!pool.length){
@@ -164,10 +175,12 @@ spinWheel.onclick=()=>{
 
   // Rotate selected slice center to the fixed top pointer.
   const pointerAngle=-Math.PI/2;
-  const targetBase=pointerAngle-selectedCenter;
-  const extraTurns=(6 + Math.floor(Math.random()*3))*Math.PI*2;
+  const desiredFinalRotation=pointerAngle-selectedCenter;
   const startRotation=wheelRotation;
-  const targetRotation=startRotation+extraTurns+targetBase;
+  const normalize=(angle)=>((angle%(Math.PI*2))+(Math.PI*2))%(Math.PI*2);
+  const delta=normalize(desiredFinalRotation-normalize(startRotation));
+  const extraTurns=(6 + Math.floor(Math.random()*3))*Math.PI*2;
+  const targetRotation=startRotation+extraTurns+delta;
   const duration=4200;
   const started=performance.now();
 
@@ -202,8 +215,15 @@ spinWheel.onclick=()=>{
   requestAnimationFrame(animate);
 };
 acceptWinner.onclick=async()=>{
+  if(drawRecord?.status!=="live")return showMessage("Lock the draw before accepting a result.");
   if(!winner)return showMessage("Spin first.");
   const stage=drawStage.value==="group"?"group":"position";
+  if(stage==="position"){
+    const expectedPrefix=drawStage.value==="positionA"?"A":"B";
+    if(!nextPosition.value.startsWith(expectedPrefix)){
+      return showMessage(`Choose a ${expectedPrefix} position.`);
+    }
+  }
   const result=await db.rpc("admin_accept_draw_result",{
     p_draw_id:Number(drawId),
     p_franchise_id:winner.franchise_id,
@@ -218,12 +238,38 @@ acceptWinner.onclick=async()=>{
 undoSpin.onclick=async()=>{if(!hasDraw())return;const result=await db.rpc("admin_undo_last_draw_spin",{p_draw_id:Number(drawId)});if(result.error){showMessage(result.error.message);return}showMessage("Last result undone.",true);await loadDraw()};
 resetDraw.onclick=async()=>{if(!hasDraw())return;if(!confirm("Reset all assignments?"))return;const result=await db.rpc("admin_reset_tournament_draw",{p_draw_id:Number(drawId)});if(result.error){showMessage(result.error.message);return}showMessage("Draw reset.",true);await loadDraw()};
 generateFixtures.onclick=async()=>{if(!hasDraw())return;if(!fixtureStartDate.value)return showMessage("Choose start date.");const result=await db.rpc("admin_generate_group_fixtures",{p_draw_id:Number(drawId),p_start_date:fixtureStartDate.value,p_venue:fixtureVenue.value.trim()||"TNYPL Official Venue",p_ground:fixtureGround.value.trim()||"Ground 1",p_first_time:fixtureTime1.value||"09:00",p_second_time:fixtureTime2.value||"13:30"});if(result.error){showMessage(result.error.message);return}showMessage(`${result.data} matches generated.`,true);await loadDraw()};
-drawStage.onchange=()=>{winner=null;winnerText.textContent="Press Spin to select an eligible franchise.";renderAll()};
+function updateStageControls(){
+  const stage=drawStage.value;
+
+  if(stage==="group"){
+    nextGroup.hidden=false;
+    nextPosition.hidden=true;
+  }else{
+    nextGroup.hidden=true;
+    nextPosition.hidden=false;
+    const prefix=stage==="positionA"?"A":"B";
+    const current=nextPosition.value;
+    nextPosition.innerHTML=[1,2,3,4]
+      .map(n=>`<option value="${prefix}${n}">${prefix}${n}</option>`)
+      .join("");
+    if(current.startsWith(prefix)) nextPosition.value=current;
+  }
+}
+
+drawStage.onchange=()=>{
+  winner=null;
+  randomValue=null;
+  wheelRotation=0;
+  winnerText.textContent="Press Spin to select an eligible franchise.";
+  updateStageControls();
+  renderAll();
+};
 drawLogout.onclick=async()=>{await db.auth.signOut();location.href="admin.html"};
 
 (async function init(){
   const s=(await db.auth.getSession()).data.session;if(!s)return location.href="admin.html";
   const a=await db.from("admin_users").select("user_id").eq("user_id",s.user.id).maybeSingle();
   if(!a.data)return location.href="admin.html";
+  updateStageControls();
   await loadDraw();
 })();
