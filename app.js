@@ -177,7 +177,18 @@ form?.addEventListener('submit',async e=>{
     };
 
     const {error}=await sb.from('players').insert(payload);
-    if(error)throw error;
+    if(error){
+      const duplicateRegistration =
+        error.code==='23505' ||
+        /duplicate_player_registration|duplicate|unique|email.*date of birth/i.test(
+          `${error.message||''} ${error.details||''} ${error.hint||''}`
+        );
+
+      if(duplicateRegistration){
+        throw new Error('This player is already registered. We found an existing registration with the same Email ID and Date of Birth. If you need to update or correct the registration, please contact the TNYPL Admin Team instead of submitting another registration.');
+      }
+      throw error;
+    }
     console.log('Player registration saved successfully.');
     form.reset();ageDisplay.value='';showStep(1);
     msg.textContent='Registration received. Parent consent and waiver were recorded. A confirmation email will be sent.';
