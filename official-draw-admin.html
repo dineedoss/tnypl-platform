@@ -1,1 +1,68 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Official Draw Control</title><link rel="stylesheet" href="official-draw.css"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script></head><body><main><a href="admin.html">Admin</a> · <a href="official-draw-public.html">Public Draw</a><h1>Official Draw Control</h1><div id="drawMessage" hidden></div><input id="drawName" value="TNYPL Season 1 Official Draw"><button id="createDraw">Create Draw</button><button id="lockDraw">Lock Draw</button><select id="drawStage"><option value="group">Group</option><option value="positionA">Group A Position</option><option value="positionB">Group B Position</option></select><select id="nextGroup"><option>A</option><option>B</option></select><select id="nextPosition"><option>A1</option><option>A2</option><option>A3</option><option>A4</option><option>B1</option><option>B2</option><option>B3</option><option>B4</option></select><button id="spinWheel">Spin</button><button id="acceptWinner">Accept</button><button id="undoSpin">Undo</button><button id="resetDraw">Reset</button><canvas id="wheelCanvas" width="700" height="700"></canvas><div id="winnerText"></div><h2>Group A</h2><div id="groupA"></div><h2>Group B</h2><div id="groupB"></div><input id="fixtureStartDate" type="date"><input id="fixtureVenue"><input id="fixtureGround"><input id="fixtureTime1" type="time" value="09:00"><input id="fixtureTime2" type="time" value="13:30"><button id="generateFixtures">Generate 15 Matches</button><button id="drawLogout">Logout</button></main><script src="official-draw-admin.js"></script></body></html>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TNYPL Official Draw Control</title>
+  <link rel="stylesheet" href="official-draw.css?v=R1.1">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+</head>
+<body>
+<main>
+  <a href="admin.html">Admin</a> ·
+  <a href="official-draw-public.html" target="_blank">Public Draw</a>
+
+  <h1>Official Draw Control</h1>
+  <div id="drawMessage" hidden></div>
+
+  <div class="draw-controls">
+    <input id="drawName" value="TNYPL Season 1 Official Draw">
+    <button id="createDraw">Create Draw</button>
+    <button id="lockDraw" disabled>Lock Draw</button>
+
+    <select id="drawStage">
+      <option value="group">Group Allocation</option>
+      <option value="positionA">Group A Positions</option>
+      <option value="positionB">Group B Positions</option>
+    </select>
+
+    <select id="nextGroup">
+      <option value="A">Group A</option>
+      <option value="B">Group B</option>
+    </select>
+
+    <select id="nextPosition">
+      <option>A1</option><option>A2</option><option>A3</option><option>A4</option>
+      <option>B1</option><option>B2</option><option>B3</option><option>B4</option>
+    </select>
+
+    <button id="spinWheel" disabled>Spin</button>
+    <button id="acceptWinner" disabled>Accept</button>
+    <button id="undoSpin" disabled>Undo</button>
+    <button id="resetDraw" disabled>Reset</button>
+  </div>
+
+  <canvas id="wheelCanvas" width="700" height="700"></canvas>
+  <div id="winnerText">Loading the latest draw…</div>
+
+  <section class="group-columns">
+    <div><h2>Group A</h2><div id="groupA"></div></div>
+    <div><h2>Group B</h2><div id="groupB"></div></div>
+  </section>
+
+  <section>
+    <h2>Generate and Publish Schedule</h2>
+    <input id="fixtureStartDate" type="date">
+    <input id="fixtureVenue" placeholder="Venue">
+    <input id="fixtureGround" placeholder="Ground">
+    <input id="fixtureTime1" type="time" value="09:00">
+    <input id="fixtureTime2" type="time" value="13:30">
+    <button id="generateFixtures" disabled>Generate 15 Matches</button>
+  </section>
+
+  <button id="drawLogout">Logout</button>
+</main>
+<script src="official-draw-admin.js?v=R1.1.0"></script>
+</body>
+</html>
