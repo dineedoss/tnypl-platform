@@ -4,9 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>TNYPL Official Draw Control</title>
-  <link rel="stylesheet" href="official-draw.css?v=R1.1">
+  <link rel="stylesheet" href="official-draw.css?v=R1.2">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
+  <style>
+    .draw-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(320px,.7fr);gap:20px}
+    .franchise-panel{background:#071a38;border-radius:16px;padding:18px}
+    .franchise-grid{display:grid;grid-template-columns:1fr;gap:8px}
+    .franchise-row{display:flex;align-items:center;justify-content:space-between;background:#03142d;border:1px solid rgba(255,255,255,.08);padding:10px 12px;border-radius:10px}
+    .franchise-row span:last-child{font-size:.8rem;color:#d9ad43}
+    .group-columns{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .group-box{background:#03142d;padding:14px;border-radius:12px}
+    .draw-status{margin:10px 0;color:#9fb1c8}
+    @media(max-width:900px){.draw-layout{grid-template-columns:1fr}.group-columns{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
 <main>
@@ -43,13 +54,25 @@
     <button id="resetDraw" disabled>Reset</button>
   </div>
 
-  <canvas id="wheelCanvas" width="700" height="700"></canvas>
-  <div id="winnerText">Loading the latest draw…</div>
+  <div class="draw-status" id="drawStatus">Loading latest draw…</div>
 
-  <section class="group-columns">
-    <div><h2>Group A</h2><div id="groupA"></div></div>
-    <div><h2>Group B</h2><div id="groupB"></div></div>
-  </section>
+  <div class="draw-layout">
+    <section>
+      <canvas id="wheelCanvas" width="800" height="800"></canvas>
+      <div id="winnerText">Loading the latest draw…</div>
+
+      <section class="group-columns">
+        <div class="group-box"><h2>Group A</h2><div id="groupA"></div></div>
+        <div class="group-box"><h2>Group B</h2><div id="groupB"></div></div>
+      </section>
+    </section>
+
+    <aside class="franchise-panel">
+      <h2>All 8 Franchises</h2>
+      <p id="franchiseSummary">No draw loaded.</p>
+      <div id="allFranchises" class="franchise-grid"></div>
+    </aside>
+  </div>
 
   <section>
     <h2>Generate and Publish Schedule</h2>
@@ -63,6 +86,6 @@
 
   <button id="drawLogout">Logout</button>
 </main>
-<script src="official-draw-admin.js?v=R1.1.0"></script>
+<script src="official-draw-admin.js?v=R1.2.0"></script>
 </body>
 </html>
