@@ -617,3 +617,18 @@ footer img{width:110px;height:90px;object-fit:contain}
 .payment-registration-warning b{display:block;font-size:.72rem;letter-spacing:.08em;color:#8a5d00;margin-bottom:6px}
 .payment-registration-warning p{margin:0;font-size:.73rem;line-height:1.55;font-weight:650}
 @media(max-width:680px){.payment-registration-warning{max-width:none}}
+
+/* TNYPL tournament venues */
+.tournament-venues{padding:88px 0;background:#f7f9fc;color:#101827}
+.venue-heading{max-width:760px;margin-bottom:34px}
+.venue-heading small{color:#9b6d0a;font-size:.68rem;font-weight:900;letter-spacing:.18em}
+.venue-heading h2{font-family:"Barlow Condensed",sans-serif;font-size:clamp(3.4rem,6vw,6rem);line-height:.88;text-transform:uppercase;margin:12px 0 16px}
+.venue-heading p{color:#687589;line-height:1.7}
+.venue-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.venue-card{padding:32px;min-height:260px;border-radius:22px;background:linear-gradient(145deg,#071b3a,#041127);color:#fff;border:1px solid rgba(217,173,67,.28);box-shadow:0 20px 48px rgba(12,27,55,.14)}
+.venue-card small{color:#d9ad43;font-size:.65rem;font-weight:900;letter-spacing:.15em}
+.venue-card h3{margin:22px 0 10px;font-family:"Barlow Condensed",sans-serif;font-size:clamp(2.2rem,4vw,3.6rem);line-height:.93;text-transform:uppercase}
+.venue-card p{color:#b7c5d8;margin:0 0 34px}
+.venue-card a{display:inline-flex;padding:12px 16px;border-radius:9px;background:#d9ad43;color:#06132a;font-size:.75rem;font-weight:900}
+@media(max-width:760px){.venue-grid{grid-template-columns:1fr}.tournament-venues{padding:65px 0}.venue-card{min-height:230px}}
+
