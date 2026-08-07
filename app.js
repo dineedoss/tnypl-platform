@@ -42,9 +42,27 @@ if(dob){
 
 const cric=document.getElementById('cricheroesUrl');
 function normalizeCricHeroes(value){
-  let v=(value||'').trim();
-  if(v && !/^https?:\/\//i.test(v))v='https://'+v;
-  return v;
+  const raw=(value||'').trim();
+  if(!raw)return '';
+
+  // Accept a plain profile URL or the complete CricHeroes share message.
+  const urlMatch=raw.match(
+    /https?:\/\/(?:www\.)?(?:cricheroes\.com|(?:[\w-]+\.)?chshare\.link)\/[^\s<>"')\]]+/i
+  );
+
+  if(urlMatch){
+    return urlMatch[0].replace(/[.,;!?]+$/,'');
+  }
+
+  const bareMatch=raw.match(
+    /(?:www\.)?(?:cricheroes\.com|(?:[\w-]+\.)?chshare\.link)\/[^\s<>"')\]]+/i
+  );
+
+  if(bareMatch){
+    return ('https://'+bareMatch[0]).replace(/[.,;!?]+$/,'');
+  }
+
+  return raw;
 }
 function validCricHeroes(value){
   try{
@@ -57,7 +75,7 @@ function validCricHeroes(value){
 }
 cric?.addEventListener('blur',()=>{
   cric.value=normalizeCricHeroes(cric.value);
-  cric.setCustomValidity(validCricHeroes(cric.value)?'':'Enter a valid CricHeroes profile or chshare.link URL.');
+  cric.setCustomValidity(validCricHeroes(cric.value)?'':'Paste a CricHeroes profile URL or the complete CricHeroes share message.');
 });
 
 function panelError(panel,message=''){
@@ -71,7 +89,7 @@ function validatePanel(step){
   for(const el of controls){
     if(el.id==='cricheroesUrl'){
       el.value=normalizeCricHeroes(el.value);
-      el.setCustomValidity(validCricHeroes(el.value)?'':'Enter a valid CricHeroes profile or chshare.link URL.');
+      el.setCustomValidity(validCricHeroes(el.value)?'':'Paste a CricHeroes profile URL or the complete CricHeroes share message.');
     }
     if(el.id==='dob' && el.value && (el.value<minDob||el.value>maxDob)){
       el.setCustomValidity('Player is outside the eligible DOB range.');
@@ -116,7 +134,7 @@ form?.addEventListener('submit',async e=>{
   try{
     if(!sb)throw new Error('Registration service is unavailable.');
     if(!dob.value||dob.value<minDob||dob.value>maxDob)throw new Error('DOB must be between 01 January 2010 and 31 December 2012.');
-    if(!validCricHeroes(cric.value))throw new Error('A valid CricHeroes profile link is required.');
+    if(!validCricHeroes(cric.value))throw new Error('Paste a valid CricHeroes profile link or complete CricHeroes share message.');
     if(!document.getElementById('parentConsent').checked)throw new Error('Parent/Guardian Consent is required.');
     if(!document.getElementById('waiverAcceptance').checked)throw new Error('Waiver acceptance is required.');
     if(!document.getElementById('informationAccuracy').checked)throw new Error('Information accuracy confirmation is required.');
