@@ -81,9 +81,14 @@ document.getElementById('sendPendingRegistrationEmails')?.addEventListener('clic
     });
     const result=await response.json();
     if(!response.ok)throw new Error(result.error||'Unable to process registration emails.');
-    alert(`Registration emails processed: ${result.processed}
-Sent: ${result.sent}
-Failed: ${result.failed}`);
+    alert(
+  `Registration emails processed: ${result.processed}\n` +
+  `Sent: ${result.sent}\n` +
+  `Failed: ${result.failed}\n\n` +
+  (result.failed_items?.length
+    ? `First error: ${result.failed_items[0].error}`
+    : 'No error details returned.')
+);
     await loadPlayers();
   }catch(err){
     alert(`Email processing failed: ${err.message}`);
