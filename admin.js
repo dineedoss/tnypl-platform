@@ -61,3 +61,34 @@ window.draftPlayer=async id=>{
 searchInput.oninput=renderTable;statusFilter.onchange=renderTable;
 exportBtn.onclick=()=>{const cols=['full_name','date_of_birth','parent_name','parent_phone','email','district','school','academy','cricheroes_url','primary_role','batting_style','bowling_style','tshirt_size','pant_size','payment_verified','age_verified','status','drafted','drafted_team','drafted_at'];const csv=[cols.join(','),...players.map(p=>cols.map(c=>`"${String(p[c]??'').replaceAll('"','""')}"`).join(','))].join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='tnypl-players.csv';a.click()}
 checkSession();
+
+document.getElementById('sendPendingRegistrationEmails')?.addEventListener('click',async()=>{
+  const btn=document.getElementById('sendPendingRegistrationEmails');
+  if(!confirm('Send confirmation emails only to registrations that have not yet received one?'))return;
+  btn.disabled=true;
+  const oldText=btn.textContent;
+  btn.textContent='Sending...';
+  try{
+    const {data:{session}}=await sb.auth.getSession();
+    if(!session)throw new Error('Admin session expired. Please log in again.');
+    const response=await fetch('/.netlify/functions/process-registration-emails',{
+      method:'POST',
+      headers:{
+        'content-type':'application/json',
+        'authorization':`Bearer ${session.access_token}`
+      },
+      body:JSON.stringify({limit:20})
+    });
+    const result=await response.json();
+    if(!response.ok)throw new Error(result.error||'Unable to process registration emails.');
+    alert(`Registration emails processed: ${result.processed}
+Sent: ${result.sent}
+Failed: ${result.failed}`);
+    await loadPlayers();
+  }catch(err){
+    alert(`Email processing failed: ${err.message}`);
+  }finally{
+    btn.disabled=false;
+    btn.textContent=oldText;
+  }
+});
