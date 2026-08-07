@@ -37,7 +37,7 @@ ADMIN
 https://tnypl.in/admin.html
 
 CONTACT EMAIL
-ttnypl@gmail.com
+info@tnypl.in
 
 DEPLOY
 rm -rf /tmp/tnypl-v10

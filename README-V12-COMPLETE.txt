@@ -2,7 +2,7 @@ TNYPL V12 COMPLETE LAUNCH PACKAGE
 
 OFFICIAL DETAILS
 Website: https://tnypl.in
-Email: ttnypl@gmail.com
+Email: info@tnypl.in
 YouTube: https://youtube.com/@tamilnaduyouthpremierleague
 Player Draft: 25 August 2026
 Tournament: 14–18 September 2026

@@ -16,7 +16,7 @@ INCLUDED
 - Satish Raja photo and Trichy Titans profile
 - Privacy Policy
 - Terms & Conditions
-- Contact page using ttnypl@gmail.com
+- Contact page using info@tnypl.in
 - FAQ
 - Draft & Auction Rules
 - Dummy player registration loader
