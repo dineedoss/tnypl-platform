@@ -4,10 +4,76 @@ let players=[];
 const teams=["Chennai Strikers","Kovai Kings","Karaikudi Kings","Trichy Titans","Nellai Falcons","Tiruppur Blazers","Thanjavur Royals","Tuticorin Sharks"];
 const loginPanel=document.getElementById('loginPanel'),dashboard=document.getElementById('dashboard'),body=document.getElementById('playersBody');
 
-async function checkSession(){const{data}=await sb.auth.getSession();data.session?showDashboard():showLogin()}
-function showLogin(){loginPanel.hidden=false;dashboard.hidden=true}
-async function showDashboard(){loginPanel.hidden=true;dashboard.hidden=false;await loadPlayers()}
-document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const{error}=await sb.auth.signInWithPassword({email:adminEmail.value,password:adminPassword.value});loginMessage.textContent=error?error.message:'';if(!error)showDashboard()});
+async function isAdminUser(userId){
+  const {data,error}=await sb
+    .from('admin_users')
+    .select('user_id')
+    .eq('user_id',userId)
+    .maybeSingle();
+
+  return !error && !!data;
+}
+
+async function checkSession(){
+  const {data}=await sb.auth.getSession();
+  const session=data.session;
+
+  if(!session){
+    showLogin();
+    return;
+  }
+
+  if(await isAdminUser(session.user.id)){
+    await showDashboard();
+    return;
+  }
+
+  await sb.auth.signOut();
+  loginPanel.hidden=false;
+  dashboard.hidden=true;
+  loginMessage.textContent='Admin access required.';
+}
+
+function showLogin(){
+  loginPanel.hidden=false;
+  dashboard.hidden=true;
+}
+
+async function showDashboard(){
+  const {data}=await sb.auth.getSession();
+  if(!data.session || !(await isAdminUser(data.session.user.id))){
+    await sb.auth.signOut();
+    showLogin();
+    loginMessage.textContent='Admin access required.';
+    return;
+  }
+
+  loginPanel.hidden=true;
+  dashboard.hidden=false;
+  await loadPlayers();
+}
+document.getElementById('loginForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+
+  const {data,error}=await sb.auth.signInWithPassword({
+    email:adminEmail.value,
+    password:adminPassword.value
+  });
+
+  if(error){
+    loginMessage.textContent=error.message;
+    return;
+  }
+
+  if(!data.user || !(await isAdminUser(data.user.id))){
+    await sb.auth.signOut();
+    loginMessage.textContent='Admin access required.';
+    return;
+  }
+
+  loginMessage.textContent='';
+  await showDashboard();
+});
 document.getElementById('logoutBtn').onclick=async()=>{await sb.auth.signOut();showLogin()};
 
 async function loadPlayers(){const{data,error}=await sb.from('players').select('*').order('created_at',{ascending:false});if(error){alert(error.message);return}players=data||[];renderStats();renderTable()}
