@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
+<title id="title">TNYPL Season 2 2027 Logo</title>
+<desc id="desc">Modern circular TNYPL Season 2 emblem with cricket-inspired seam and Tamil Nadu youth league identity.</desc>
+<defs>
+  <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+    <stop offset="0" stop-color="#00D4FF"/>
+    <stop offset="0.55" stop-color="#7B61FF"/>
+    <stop offset="1" stop-color="#FFD166"/>
+  </linearGradient>
+  <radialGradient id="bg" cx="50%" cy="38%" r="70%">
+    <stop offset="0" stop-color="#17385E"/>
+    <stop offset="1" stop-color="#07111F"/>
+  </radialGradient>
+</defs>
+
+<circle cx="320" cy="320" r="292" fill="url(#bg)" stroke="url(#g1)" stroke-width="14"/>
+<circle cx="320" cy="320" r="258" fill="none" stroke="#8DA7C4" stroke-opacity=".22" stroke-width="2"/>
+<circle cx="320" cy="320" r="228" fill="none" stroke="#00D4FF" stroke-opacity=".18" stroke-width="2" stroke-dasharray="6 14"/>
+
+<!-- stylized cricket ball -->
+<circle cx="320" cy="216" r="70" fill="#102746" stroke="#00D4FF" stroke-width="5"/>
+<path d="M284 160 C315 188 326 244 356 272" fill="none" stroke="#FFD166" stroke-width="8" stroke-linecap="round"/>
+<path d="M294 166 C324 194 336 239 365 264" fill="none" stroke="#F8FAFC" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/>
+
+<!-- monogram -->
+<text x="320" y="360" text-anchor="middle" fill="#F8FAFC" font-family="Arial Black, Arial, sans-serif" font-size="112" font-weight="900" letter-spacing="-8">T2</text>
+
+<text x="320" y="430" text-anchor="middle" fill="#00D4FF" font-family="Arial, sans-serif" font-size="34" font-weight="800" letter-spacing="8">TNYPL</text>
+<text x="320" y="478" text-anchor="middle" fill="#F8FAFC" font-family="Arial, sans-serif" font-size="21" font-weight="700" letter-spacing="4">SEASON TWO</text>
+<text x="320" y="518" text-anchor="middle" fill="#FFD166" font-family="Arial, sans-serif" font-size="18" font-weight="800" letter-spacing="5">2027 · NEW ERA</text>
+
+<circle cx="117" cy="320" r="7" fill="#FFD166"/>
+<circle cx="523" cy="320" r="7" fill="#FFD166"/>
+</svg>
