@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 620" role="img" aria-labelledby="title desc">
+<title id="title">TNYPL V2 crest</title><desc id="desc">Navy and gold shield with a temple, cricket bat and ball, and TNYPL lettering.</desc>
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7d878"/><stop offset=".42" stop-color="#d9a83e"/><stop offset="1" stop-color="#8e5f10"/></linearGradient>
+  <linearGradient id="n" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#12345f"/><stop offset="1" stop-color="#03142b"/></linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000" flood-opacity=".45"/></filter>
+</defs>
+<g filter="url(#shadow)">
+  <path d="M260 18 465 92v188c0 137-82 252-205 314C137 532 55 417 55 280V92z" fill="url(#n)" stroke="url(#g)" stroke-width="14"/>
+  <path d="M260 42 439 108v170c0 120-70 221-179 279C151 499 81 398 81 278V108z" fill="none" stroke="#f0c75e" stroke-opacity=".35" stroke-width="3"/>
+  <!-- temple -->
+  <g fill="none" stroke="url(#g)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M210 168h100l-13-30h-74zM221 138h78l-10-27h-58zM232 111h56l-8-25h-40zM244 86h32l-6-24h-20z"/>
+    <path d="M205 168h110v38H205z"/>
+    <path d="M226 168v38M248 168v38M272 168v38M294 168v38" opacity=".7"/>
+  </g>
+  <!-- crossed bats -->
+  <g stroke="url(#g)" stroke-linecap="round">
+    <path d="M166 238 327 414" stroke-width="26"/><path d="M354 238 193 414" stroke-width="26"/>
+    <path d="M150 221 181 251M370 221 339 251" stroke-width="12"/>
+  </g>
+  <circle cx="340" cy="263" r="28" fill="#b52126" stroke="#f6d477" stroke-width="6"/>
+  <path d="M323 249c10 7 20 17 31 29M327 244c12 8 23 19 34 32" stroke="#f6d477" stroke-width="3" fill="none" opacity=".85"/>
+  <!-- central band -->
+  <path d="M96 335c103-31 225-31 328 0l-24 117c-95-23-185-23-280 0z" fill="#07182f" stroke="url(#g)" stroke-width="7"/>
+  <text x="260" y="410" text-anchor="middle" font-family="Arial Black,Impact,sans-serif" font-size="86" letter-spacing="2" fill="url(#g)" stroke="#3b2505" stroke-width="2">TNYPL</text>
+  <path d="M135 455h250l-24 45H159z" fill="url(#g)" stroke="#6d470d" stroke-width="4"/>
+  <text x="260" y="483" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="800" font-size="18" letter-spacing="2" fill="#06152a">YOUTH PREMIER LEAGUE</text>
+  <text x="260" y="533" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="16" letter-spacing="5" fill="#e8c05a">ESTD 2026</text>
+</g>
+</svg>
