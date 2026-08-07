@@ -18,7 +18,7 @@ insert into public.league_settings(key,value) values
  ('draft_date','2026-08-25T10:00:00+05:30'),
  ('tournament_start','2026-09-14T08:00:00+05:30'),
  ('tournament_end','2026-09-18T20:00:00+05:30'),
- ('official_email','ttnypl@gmail.com'),
+ ('official_email','info@tnypl.in'),
  ('youtube_channel_url','https://youtube.com/@tamilnaduyouthpremierleague'),
  ('live_match_id',''),
  ('live_youtube_url',''),

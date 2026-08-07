@@ -1,4 +1,5 @@
 window.TNYPL_CONFIG = {
+  CONTACT_EMAIL: "info@tnypl.in",
   SUPABASE_URL: "https://jjjlvsmwlffddnalighh.supabase.co",
   SUPABASE_ANON_KEY: "sb_publishable_QH0rxV2hO_O-sSd2T_CAcw_npxIhqtK",
   MIN_DOB: "2010-01-01",
