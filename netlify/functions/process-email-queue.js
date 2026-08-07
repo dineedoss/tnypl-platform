@@ -18,7 +18,7 @@ exports.handler=async(event)=>{
  let sent=0;
  for(const item of items||[]){
   const fn=templates[item.template_key]||templates.registration_received,mail=fn(item.payload||{});
-  const response=await fetch("https://api.resend.com/emails",{method:"POST",headers:{"authorization":`Bearer ${resend}`,"content-type":"application/json"},body:JSON.stringify({from:process.env.EMAIL_FROM||"TNYPL <registrations@tnypl.in>",to:[item.recipient_email],reply_to:"ttnypl@gmail.com",subject:mail.subject,html:mail.html+"<hr><p>TNYPL · tnypl.in · ttnypl@gmail.com</p>"})});
+  const response=await fetch("https://api.resend.com/emails",{method:"POST",headers:{"authorization":`Bearer ${resend}`,"content-type":"application/json"},body:JSON.stringify({from:process.env.EMAIL_FROM||"TNYPL <info@tnypl.in>",to:[item.recipient_email],reply_to:"ttnypl@gmail.com",subject:mail.subject,html:mail.html+"<hr><p>TNYPL · tnypl.in · ttnypl@gmail.com</p>"})});
   if(response.ok){sent++;await sb.from("email_queue").update({status:"sent",sent_at:new Date().toISOString()}).eq("id",item.id)}
   else await sb.from("email_queue").update({status:"failed",last_error:await response.text()}).eq("id",item.id);
  }

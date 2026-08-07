@@ -6,7 +6,7 @@ SUPABASE_SERVICE_ROLE_KEY
 
 For automated transactional email:
 RESEND_API_KEY
-EMAIL_FROM=TNYPL <registrations@tnypl.in>
+EMAIL_FROM=TNYPL <info@tnypl.in>
 
 Optional:
 CRICHEROES_API_URL
