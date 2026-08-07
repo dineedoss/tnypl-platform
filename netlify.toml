@@ -10,3 +10,9 @@
   for = "/*.svg"
   [headers.values]
     Cache-Control = "public, max-age=86400"
+
+
+# TNYPL automatic player-registration confirmation emails.
+[functions."auto-registration-emails"]
+  schedule = "* * * * *"
+
