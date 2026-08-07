@@ -1,5 +1,33 @@
 document.write('<script src="auction-shared.js"><\/script>');
 window.addEventListener("load",()=>{
+ const AUCTION_START = new Date("2026-08-22T18:30:00Z");
+ let auctionCountdownTimer = null;
+
+ function updateAuctionCountdown(){
+  const remaining = AUCTION_START.getTime() - Date.now();
+  const box = document.getElementById("auctionCountdown");
+  if(!box) return;
+  if(remaining <= 0){
+   auctionDays.textContent="00"; auctionHours.textContent="00"; auctionMinutes.textContent="00"; auctionSeconds.textContent="00";
+   publicWaitingTitle.textContent="Auction Day";
+   publicWaitingMessage.textContent="The TNYPL Season 1 player auction is scheduled for today. The live screen will activate when the Auction Commissioner starts the auction.";
+   return;
+  }
+  const totalSeconds=Math.floor(remaining/1000);
+  const days=Math.floor(totalSeconds/86400);
+  const hours=Math.floor((totalSeconds%86400)/3600);
+  const minutes=Math.floor((totalSeconds%3600)/60);
+  const seconds=totalSeconds%60;
+  auctionDays.textContent=String(days).padStart(2,"0");
+  auctionHours.textContent=String(hours).padStart(2,"0");
+  auctionMinutes.textContent=String(minutes).padStart(2,"0");
+  auctionSeconds.textContent=String(seconds).padStart(2,"0");
+ }
+
+ function startAuctionCountdown(){
+  updateAuctionCountdown();
+  if(!auctionCountdownTimer) auctionCountdownTimer=setInterval(updateAuctionCountdown,1000);
+ }
  function streamEmbedUrl(url){
   try{
    const u=new URL(url);
@@ -39,12 +67,21 @@ window.addEventListener("load",()=>{
    publicWaiting.hidden=showLive;
 
    if(!showLive){
-    publicWaitingTitle.textContent=status==="closed"?"Auction Completed":"Auction Not Started";
-    publicWaitingMessage.textContent=status==="closed"
-      ?"The TNYPL Season 1 player auction has concluded. Final squads and auction results will be published shortly."
-      :(settings.public_message||"The TNYPL player auction has not started yet. Please stay tuned.");
+    startAuctionCountdown();
+    if(status==="closed" && Date.now()>=AUCTION_START.getTime()){
+     publicWaitingTitle.textContent="Auction Completed";
+     publicWaitingMessage.textContent="The TNYPL Season 1 player auction has concluded. Final squads and auction results will be published shortly.";
+     auctionCountdown.hidden=true;
+    }else{
+     auctionCountdown.hidden=false;
+     publicWaitingTitle.textContent="Player Auction - 23 August 2026";
+     publicWaitingMessage.textContent=settings.public_message||"The TNYPL Season 1 player auction will be held on 23 August 2026. Follow every bid live from this page.";
+     updateAuctionCountdown();
+    }
     return;
    }
+
+   auctionCountdown.hidden=true;
 
    publicStatus.textContent=status.toUpperCase();
    publicPlayerName.textContent=player.full_name;
