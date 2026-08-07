@@ -417,3 +417,197 @@ footer img{width:110px;height:90px;object-fit:contain}
     border-radius: 18px;
   }
 }
+
+/* TNYPL R1.0.2 HOMEPAGE POLISH */
+.homepage-partners{
+  padding:88px 0 92px;
+  background:linear-gradient(180deg,#071b3a 0%,#06172f 100%);
+  color:#fff;
+  border-top:1px solid rgba(231,184,67,.28);
+}
+.homepage-partners h2{
+  max-width:900px;
+  margin:12px auto 14px;
+  font-size:clamp(3.2rem,5.8vw,5.8rem);
+  line-height:.9;
+  letter-spacing:.01em;
+}
+.partners-intro{
+  max-width:680px;
+  margin:0 auto 34px;
+  color:#b8c7da;
+  line-height:1.7;
+  font-size:.92rem;
+}
+.partner-card-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px!important;
+  max-width:980px;
+  margin:0 auto;
+}
+.partner-card{
+  min-height:132px;
+  padding:26px!important;
+  border-radius:18px!important;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:9px;
+  background:#fff!important;
+  color:#07152d;
+  box-shadow:0 18px 45px rgba(0,0,0,.2)!important;
+  border:1px solid rgba(231,184,67,.22);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.partner-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 24px 58px rgba(0,0,0,.28)!important;
+}
+.partner-card strong{
+  font-size:1rem;
+  text-align:center;
+}
+.partner-card span{
+  padding:0!important;
+  background:none!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  color:#9b6d0a;
+  font-size:.7rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+.partner-card-open{
+  background:rgba(255,255,255,.06)!important;
+  color:#fff;
+  border:1px dashed rgba(231,184,67,.55);
+}
+.partner-card-open span{color:#e7b843}
+
+.tournament-band{
+  background:#e7b843;
+  color:#07152d;
+  padding:30px 0;
+}
+.tournament-band-grid{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:50px;
+  align-items:center;
+}
+.tournament-band small{
+  display:block;
+  font-size:.66rem;
+  font-weight:900;
+  letter-spacing:.18em;
+  margin-bottom:7px;
+}
+.tournament-band strong{
+  display:block;
+  font-family:"Barlow Condensed",sans-serif;
+  font-size:clamp(2rem,3.3vw,3.35rem);
+  line-height:1;
+  text-transform:uppercase;
+}
+
+.homepage-footer{
+  padding:0;
+  background:#02060d;
+  color:#fff;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.homepage-footer-main{
+  display:grid!important;
+  grid-template-columns:240px 1fr 1.1fr!important;
+  gap:50px;
+  align-items:center!important;
+  padding:45px 0;
+}
+.footer-brand img{
+  width:170px!important;
+  height:auto;
+  display:block;
+}
+.footer-event small{
+  display:block;
+  color:#e7b843;
+  font-size:.62rem;
+  font-weight:900;
+  letter-spacing:.15em;
+  margin-bottom:8px;
+}
+.footer-event strong{
+  display:block;
+  font-family:"Barlow Condensed",sans-serif;
+  font-size:2rem;
+  text-transform:uppercase;
+  line-height:1;
+}
+.footer-event span{
+  display:block;
+  margin-top:9px;
+  color:#9eafc3;
+  font-size:.75rem;
+}
+.footer-navigation{
+  display:grid!important;
+  grid-template-columns:repeat(3,max-content);
+  justify-content:end;
+  gap:13px 22px!important;
+}
+.footer-navigation a{
+  font-size:.72rem!important;
+  font-weight:700;
+  color:#dce6f3!important;
+}
+.homepage-footer-bottom{
+  min-height:70px;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:25px;
+  align-items:center;
+  border-top:1px solid rgba(255,255,255,.08);
+  color:#8798ae;
+  font-size:.65rem;
+}
+.footer-legal{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.homepage-footer-bottom a{
+  color:#e7b843;
+}
+.homepage-footer-bottom>span{
+  text-align:right;
+}
+
+@media(max-width:900px){
+  .partner-card-grid{grid-template-columns:1fr}
+  .tournament-band-grid{grid-template-columns:1fr;gap:22px;text-align:center}
+  .homepage-footer-main{
+    grid-template-columns:1fr!important;
+    text-align:center;
+    gap:24px;
+  }
+  .footer-brand img{margin:0 auto}
+  .footer-navigation{
+    justify-content:center;
+    grid-template-columns:repeat(3,max-content);
+  }
+  .homepage-footer-bottom{
+    grid-template-columns:1fr;
+    text-align:center;
+    padding:24px 0;
+  }
+  .footer-legal{justify-content:center}
+  .homepage-footer-bottom>span{text-align:center}
+}
+@media(max-width:560px){
+  .homepage-partners{padding:65px 0}
+  .homepage-partners h2{font-size:3.45rem}
+  .partner-card{min-height:112px}
+  .footer-navigation{grid-template-columns:repeat(2,max-content)}
+}
