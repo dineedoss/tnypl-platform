@@ -243,12 +243,6 @@ acceptWinner.onclick=async()=>{
 undoSpin.onclick=async()=>{if(!hasDraw())return;const result=await db.rpc("admin_undo_last_draw_spin",{p_draw_id:Number(drawId)});if(result.error){showMessage(result.error.message);return}showMessage("Last result undone.",true);await loadDraw()};
 resetDraw.onclick=async()=>{if(!hasDraw())return;if(!confirm("Reset all assignments?"))return;const result=await db.rpc("admin_reset_tournament_draw",{p_draw_id:Number(drawId)});if(result.error){showMessage(result.error.message);return}showMessage("Draw reset.",true);await loadDraw()};
 generateFixtures.onclick=async()=>{if(!hasDraw())return;if(!fixtureStartDate.value)return showMessage("Choose start date.");const result=await db.rpc("admin_generate_group_fixtures",{p_draw_id:Number(drawId),p_start_date:fixtureStartDate.value,p_venue:fixtureVenue.value.trim()||"TNYPL Official Venue",p_ground:fixtureGround.value.trim()||"Ground 1",p_first_time:fixtureTime1.value||"09:00",p_second_time:fixtureTime2.value||"13:30"});if(result.error){showMessage(result.error.message);return}showMessage(`${result.data} matches generated.`,true);await loadDraw()};
-
-  randomValue=null;
-  wheelRotation=0;
-  winnerText.textContent="Press Spin to select an eligible franchise.";
-  renderAll();
-};
 drawLogout.onclick=async()=>{await db.auth.signOut();location.href="admin.html"};
 
 (async function init(){
