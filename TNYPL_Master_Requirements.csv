@@ -1,0 +1,14 @@
+ID,Area,Requirement,Release,Priority,Status,Acceptance Criteria
+TNYPL-001,Match Center,"Explicit relationships, safe errors and empty states",R1,Critical,Ready for Test,Public Match Center loads safely.
+TNYPL-002,Owners,"Correct photos, details and responsive fallbacks",R1,Critical,Ready for Test,All owner cards render correctly.
+TNYPL-003,Admin Team,Database-driven team management,R1,Critical,Ready for Test,Admins can manage member details.
+TNYPL-004,Founder,"Founder & Chairman title, approved Image 2, biography, vision and mission",R1,High,Ready for Test,Correct founder content appears.
+TNYPL-005,Sponsors,Three secure links; Ayyappa non-clickable,R1,High,Ready for Test,Links work and missing URL is safe.
+TNYPL-006,Registration,Asia/Kolkata countdown and automatic closure,R1,Critical,Ready for Test,Timer and closure work.
+TNYPL-007,Admin Portal,All admin URLs after one login,R1,Critical,Ready for Test,Every module is reachable.
+TNYPL-008,Official Draw,"Exact RPCs, audit, undo, reset, public screen",R1,Critical,Ready for Test,All draw actions succeed.
+TNYPL-009,Official Draw,Generate 15 matches,R1,Critical,Ready for Test,"12 group, 2 semifinal and final fixtures created."
+TNYPL-010,Responsive UI,"Mobile layout, cards, buttons and images",R1,High,Ready for Test,Responsive QA passes.
+TNYPL-011,Packaging,"Source, SQL, docs, tests and known issues",R1,Critical,Ready for Test,All artifacts included.
+TNYPL-012,Release Control,release/r1-production-candidate branch,R1,Critical,Blocked,Create locally; GitHub write permission returned 403.
+TNYPL-013,Leadership,Final Senthil/Ranjith/Ajay/Satish biographies,R1.1,High,Blocked,Awaiting approved details.

@@ -1,149 +1,253 @@
-const odCfg=window.TNYPL_CONFIG;
-const odSb=supabase.createClient(odCfg.SUPABASE_URL,odCfg.SUPABASE_ANON_KEY);
-let odSession=null,drawId=null,entries=[],history=[],remaining=[],currentWinner=null,currentRandom=null;
-let rotation=0,spinning=false;
+const db = supabase.createClient(
+  TNYPL_CONFIG.SUPABASE_URL,
+  TNYPL_CONFIG.SUPABASE_ANON_KEY
+);
 
-function odMsg(text,ok=false){
- drawMessage.hidden=false;drawMessage.textContent=text;drawMessage.style.background=ok?"#123f32":"#4c3910";
- setTimeout(()=>drawMessage.hidden=true,6500);
+let drawId = null;
+let drawRecord = null;
+let entries = [];
+let winner = null;
+let randomValue = null;
+let wheelRotation = 0;
+let wheelAnimating = false;
+const SLOT_SEQUENCE=["A1","A2","A3","A4","B1","B2","B3","B4"];
+
+function showMessage(text, success = false) {
+  drawMessage.hidden = false;
+  drawMessage.textContent = text;
+  drawMessage.style.color = success ? "#62e6a7" : "#ffb6c1";
 }
-function secureRandom(){
- const arr=new Uint32Array(2);crypto.getRandomValues(arr);
- return ((arr[0]*4294967296+arr[1])%9007199254740991)/9007199254740991;
+function clearMessage(){drawMessage.hidden=true;drawMessage.textContent=""}
+function hasDraw(){if(drawId===null){showMessage("Create or load an official draw first.");return false}return true}
+
+function currentPool(){
+  return entries.filter(x=>!x.position_code);
 }
-function colors(i,n){
- const hues=[42,205,342,164,18,265,115,318];
- return `hsl(${hues[i%hues.length]} 68% ${i%2?42:48}%)`;
+
+function currentSlot(){
+  const assigned=entries.filter(x=>x.position_code).length;
+  return SLOT_SEQUENCE[assigned] || null;
 }
-function drawWheel(){
- const c=wheelCanvas,ctx=c.getContext("2d"),w=c.width,h=c.height,cx=w/2,cy=h/2,r=Math.min(w,h)*.46;
- ctx.clearRect(0,0,w,h);
- if(!remaining.length){
-  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle="#071a38";ctx.fill();
-  ctx.fillStyle="#d9ad43";ctx.font="800 44px Inter";ctx.textAlign="center";ctx.fillText("DRAW COMPLETE",cx,cy);
-  return;
- }
- const slice=Math.PI*2/remaining.length;
- remaining.forEach((e,i)=>{
-  const start=rotation+i*slice,end=start+slice;
-  ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,end);ctx.closePath();ctx.fillStyle=colors(i,remaining.length);ctx.fill();
-  ctx.save();ctx.translate(cx,cy);ctx.rotate(start+slice/2);ctx.textAlign="right";ctx.fillStyle="#fff";ctx.font=`800 ${remaining.length>6?24:30}px Inter`;ctx.shadowColor="rgba(0,0,0,.45)";ctx.shadowBlur=4;
-  const label=e.franchises?.name||"Franchise";ctx.fillText(label.slice(0,24),r-32,8);ctx.restore();
- });
- ctx.beginPath();ctx.arc(cx,cy,r*.18,0,Math.PI*2);ctx.fillStyle="#061329";ctx.fill();ctx.lineWidth=10;ctx.strokeStyle="#d9ad43";ctx.stroke();
+
+function setButtons(){
+  const hasValidDraw = drawId !== null;
+  const isLive = hasValidDraw && drawRecord?.status === "live";
+  const idle = !wheelAnimating;
+
+  lockDraw.disabled = !hasValidDraw || !idle || isLive;
+  undoSpin.disabled = !hasValidDraw || !idle;
+  resetDraw.disabled = !hasValidDraw || !idle;
+  spinWheel.disabled = !isLive || !idle || currentPool().length===0 || !currentSlot();
+  acceptWinner.disabled = !isLive || !idle || !winner;
+  generateFixtures.disabled = !hasValidDraw || !idle;
 }
-function selectedPool(){
- const stage=drawStage.value;
- if(stage==="group")return entries.filter(e=>!e.group_code);
- if(stage==="positionA")return entries.filter(e=>e.group_code==="A"&&!e.position_code);
- return entries.filter(e=>e.group_code==="B"&&!e.position_code);
-}
-function updatePool(){
- remaining=selectedPool();currentWinner=null;acceptWinner.disabled=true;winnerText.textContent=remaining.length?"Press SPIN to select from the remaining franchises.":"No eligible franchises remain for this stage.";
- stageLabel.textContent=drawStage.value==="group"?"Group Allocation":drawStage.value==="positionA"?"Group A Position Draw":"Group B Position Draw";
- drawWheel();
-}
-async function init(){
- const {data:{session}}=await odSb.auth.getSession();odSession=session;
- if(!session){location.href="admin.html";return}
- const {data:admin}=await odSb.from("admin_users").select("user_id").eq("user_id",session.user.id).maybeSingle();
- if(!admin){location.href="admin.html";return}
- await loadLatestDraw();
-}
-async function loadLatestDraw(){
- const {data}=await odSb.from("tournament_draws").select("*").order("created_at",{ascending:false}).limit(1).maybeSingle();
- if(data){drawId=data.id;drawName.value=data.draw_name;await loadDrawData()}else updatePool();
-}
-async function loadDrawData(){
- if(!drawId)return;
- const [{data:e,error:ee},{data:h,error:he}]=await Promise.all([
-  odSb.from("tournament_draw_entries").select("*,franchises(id,name,slug)").eq("draw_id",drawId).order("created_at"),
-  odSb.from("tournament_draw_history").select("*,franchises(name)").eq("draw_id",drawId).order("spin_number",{ascending:false})
- ]);
- if(ee)throw ee;if(he)throw he;entries=e||[];history=h||[];
- renderGroups();renderHistory();updatePool();
-}
+
 function renderGroups(){
- const render=g=>entries.filter(e=>e.group_code===g).sort((a,b)=>(a.position_code||"Z").localeCompare(b.position_code||"Z")).map(e=>`<div class="group-team"><strong>${e.position_code||g}</strong> · ${e.franchises?.name||"Franchise"}</div>`).join("")||'<div class="group-team">Waiting for draw</div>';
- groupA.innerHTML=render("A");groupB.innerHTML=render("B");
+  groupA.innerHTML=entries.filter(x=>x.group_code==="A")
+    .sort((a,b)=>(a.position_code||"Z").localeCompare(b.position_code||"Z"))
+    .map(x=>`<p>${x.position_code||"A"} · ${x.franchises?.name||"Franchise"}</p>`).join("")||"<p>Waiting for draw</p>";
+  groupB.innerHTML=entries.filter(x=>x.group_code==="B")
+    .sort((a,b)=>(a.position_code||"Z").localeCompare(b.position_code||"Z"))
+    .map(x=>`<p>${x.position_code||"B"} · ${x.franchises?.name||"Franchise"}</p>`).join("")||"<p>Waiting for draw</p>";
 }
-function renderHistory(){
- drawHistory.innerHTML=history.filter(h=>!h.undone).map(h=>`<div class="history-row"><div><strong>Spin ${h.spin_number}: ${h.franchises?.name||"Franchise"}</strong><br><span>${h.stage==="group"?"Group "+h.group_code:"Position "+h.position_code}</span></div><span>${new Date(h.created_at).toLocaleTimeString()}</span></div>`).join("")||"<p style='color:#9db0c8'>No accepted spins yet.</p>";
+
+function renderFranchiseList(){
+  const pool=currentPool();
+  allFranchises.innerHTML = pool.map(x=>
+    `<div class="franchise-row"><strong>${x.franchises?.name||"Franchise"}</strong><span>Available</span></div>`
+  ).join("") || "<p>All eight positions have been assigned.</p>";
+
+  franchiseSummary.textContent = pool.length
+    ? `${pool.length} franchise${pool.length===1?"":"s"} remaining · next ${currentSlot()}`
+    : "Draw complete.";
 }
-async function spin(){
- if(spinning||remaining.length===0)return;
- spinning=true;spinWheel.disabled=true;acceptWinner.disabled=true;currentRandom=secureRandom();
- const winnerIndex=Math.floor(currentRandom*remaining.length);
- currentWinner=remaining[winnerIndex];
- const slice=Math.PI*2/remaining.length;
- const target=-(winnerIndex*slice+slice/2)-Math.PI/2;
- const rounds=8+Math.floor(secureRandom()*4);
- const start=rotation,end=target+rounds*Math.PI*2;
- const duration=5200,startTime=performance.now();
- ceremonyOverlay.hidden=false;closeCeremony.hidden=true;ceremonyWinner.textContent="";ceremonyAssignment.textContent="";
- let count=3;ceremonyCountdown.textContent=count;
- const timer=setInterval(()=>{count--;ceremonyCountdown.textContent=count>0?count:"SPIN!";if(count<0){clearInterval(timer);ceremonyCountdown.textContent=""}},700);
- function animate(now){
-  const t=Math.min(1,(now-startTime)/duration);const ease=1-Math.pow(1-t,4);rotation=start+(end-start)*ease;drawWheel();
-  if(t<1)requestAnimationFrame(animate);else{
-   rotation=target;drawWheel();spinning=false;spinWheel.disabled=false;acceptWinner.disabled=false;
-   ceremonyWinner.textContent=currentWinner.franchises?.name||"Franchise";
-   const assignment=drawStage.value==="group"?`Selected for Group ${nextGroup.value}`:`Selected for ${nextPosition.value}`;
-   ceremonyAssignment.textContent=assignment;winnerText.textContent=`${currentWinner.franchises?.name} — ${assignment}`;closeCeremony.hidden=false;
+
+function drawWheel(rotation = wheelRotation){
+  const canvas=wheelCanvas, ctx=canvas.getContext("2d"), pool=currentPool();
+  const cx=canvas.width/2, cy=canvas.height/2, r=canvas.width*.44;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  if(!pool.length){
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle="#03142d";ctx.fill();
+    ctx.fillStyle="#9fb1c8";ctx.font="700 30px Arial";ctx.textAlign="center";
+    ctx.fillText(entries.length ? "NO ELIGIBLE FRANCHISES" : "CREATE OR LOAD DRAW",cx,cy);
+    return;
   }
- }
- requestAnimationFrame(animate);
+
+  const colors=["#173f7a","#9f2f4f","#1e6b59","#8c5a1e","#5a3f8c","#0e7183","#7c3f20","#285b9a"];
+  const slice=Math.PI*2/pool.length;
+
+  ctx.save();
+  ctx.translate(cx,cy);
+  ctx.rotate(rotation);
+  ctx.translate(-cx,-cy);
+
+  pool.forEach((item,i)=>{
+    const start=-Math.PI/2+i*slice,end=start+slice;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,end);ctx.closePath();
+    ctx.fillStyle=colors[i%colors.length];ctx.fill();
+
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.rotate(start+slice/2);
+    ctx.textAlign="right";
+    ctx.fillStyle="#fff";
+    ctx.font="700 24px Arial";
+    const name=(item.franchises?.name||"Franchise").slice(0,22);
+    ctx.fillText(name,r-24,8);
+    ctx.restore();
+  });
+
+  ctx.restore();
+
+  // Center button
+  ctx.beginPath();ctx.arc(cx,cy,r*.17,0,Math.PI*2);ctx.fillStyle="#d9ad43";ctx.fill();
+  ctx.fillStyle="#071a38";ctx.font="900 32px Arial";ctx.textAlign="center";ctx.fillText("SPIN",cx,cy+10);
+
+  // Fixed pointer at the top, pointing down toward the selected slice
+  ctx.beginPath();
+  ctx.moveTo(cx-20,22);
+  ctx.lineTo(cx+20,22);
+  ctx.lineTo(cx,62);
+  ctx.closePath();
+  ctx.fillStyle="#ffd86b";
+  ctx.fill();
 }
-spinWheel.onclick=spin;
-closeCeremony.onclick=()=>ceremonyOverlay.hidden=true;
-acceptWinner.onclick=async()=>{
- if(!currentWinner||!drawId)return;
- try{
-  const stage=drawStage.value==="group"?"group":"position";
-  const group=stage==="group"?nextGroup.value:currentWinner.group_code;
-  const position=stage==="position"?nextPosition.value:null;
-  const {error}=await odSb.rpc("admin_accept_draw_result",{p_draw_id:drawId,p_franchise_id:currentWinner.franchise_id,p_stage:stage,p_group_code:group,p_position_code:position,p_random_value:currentRandom});
-  if(error)throw error;
-  odMsg("Draw result accepted and written to the audit history.",true);
-  if(stage==="group"){
-   const a=entries.filter(e=>e.group_code==="A").length+(group==="A"?1:0);
-   const b=entries.filter(e=>e.group_code==="B").length+(group==="B"?1:0);
-   if(a<4&&b<4)nextGroup.value=group==="A"?"B":"A";else if(a>=4)nextGroup.value="B";else nextGroup.value="A";
+
+function renderAll(){
+  renderGroups();
+  renderFranchiseList();
+  drawWheel();
+  drawStatus.textContent = drawRecord
+    ? `Draw #${drawId} · ${drawRecord.status||"draft"} · ${entries.length} franchises`
+    : "No draw loaded";
+  if(window.nextSlot) nextSlot.textContent=currentSlot()||"COMPLETE";
+  setButtons();
+}
+
+async function loadDraw(drawToLoad=null){
+  clearMessage();
+  let draw=drawToLoad;
+  if(!draw){
+    const result=await db.from("tournament_draws").select("*").order("created_at",{ascending:false}).limit(1).maybeSingle();
+    if(result.error){showMessage(result.error.message);return}
+    draw=result.data;
   }
-  ceremonyOverlay.hidden=true;await loadDrawData();
- }catch(e){odMsg(e.message)}
-};
+  if(!draw){
+    drawId=null;drawRecord=null;entries=[];winner=null;winnerText.textContent="Create a draw to begin.";renderAll();return;
+  }
+  drawId=Number(draw.id);drawRecord=draw;drawName.value=draw.draw_name||drawName.value;
+  const entryResult=await db.from("tournament_draw_entries").select("*,franchises(id,name,slug)").eq("draw_id",drawId).order("created_at");
+  if(entryResult.error){showMessage(entryResult.error.message);return}
+  entries=entryResult.data||[];winner=null;randomValue=null;
+  winnerText.textContent=`Loaded draw #${drawId}`;
+  renderAll();
+}
+
 createDraw.onclick=async()=>{
- try{
-  const {data,error}=await odSb.rpc("admin_create_tournament_draw",{p_draw_name:drawName.value});
-  if(error)throw error;drawId=data;odMsg("New draw created with the eight active franchises.",true);await loadDrawData();
- }catch(e){odMsg(e.message)}
+  createDraw.disabled=true;
+  const result=await db.rpc("admin_create_tournament_draw",{p_draw_name:drawName.value.trim()||"TNYPL Season 1 Official Draw"});
+  createDraw.disabled=false;
+  if(result.error){showMessage(result.error.message);return}
+  drawId=Number(result.data);showMessage(`Draw #${drawId} created.`,true);await loadDraw();
 };
-lockDraw.onclick=async()=>{
- if(!drawId)return odMsg("Create a draw first.");
- try{const {error}=await odSb.rpc("admin_lock_tournament_draw",{p_draw_id:drawId});if(error)throw error;odMsg("Draw locked and live. Franchise list cannot change during the ceremony.",true);await loadDrawData()}catch(e){odMsg(e.message)}
+lockDraw.onclick=async()=>{if(!hasDraw())return;const result=await db.rpc("admin_lock_tournament_draw",{p_draw_id:Number(drawId)});if(result.error){showMessage(result.error.message);return}showMessage("Draw is live.",true);await loadDraw()};
+spinWheel.onclick=()=>{
+  if(!hasDraw() || wheelAnimating)return;
+  if(drawRecord?.status!=="live"){
+    showMessage("Lock the draw before spinning.");
+    return;
+  }
+
+  const pool=currentPool();
+  if(!pool.length){
+    winner=null;
+    winnerText.textContent="No eligible franchise remains for this stage.";
+    renderAll();
+    return;
+  }
+
+  randomValue=crypto.getRandomValues(new Uint32Array(1))[0]/4294967296;
+  const selectedIndex=Math.floor(randomValue*pool.length);
+  winner=pool[selectedIndex];
+
+  const slice=Math.PI*2/pool.length;
+  const selectedCenter=-Math.PI/2 + selectedIndex*slice + slice/2;
+
+  // Rotate selected slice center to the fixed top pointer.
+  const pointerAngle=-Math.PI/2;
+  const desiredFinalRotation=pointerAngle-selectedCenter;
+  const startRotation=wheelRotation;
+  const normalize=(angle)=>((angle%(Math.PI*2))+(Math.PI*2))%(Math.PI*2);
+  const delta=normalize(desiredFinalRotation-normalize(startRotation));
+  const extraTurns=(6 + Math.floor(Math.random()*3))*Math.PI*2;
+  const targetRotation=startRotation+extraTurns+delta;
+  const duration=4200;
+  const started=performance.now();
+
+  wheelAnimating=true;
+  spinWheel.disabled=true;
+  acceptWinner.disabled=true;
+  undoSpin.disabled=true;
+  resetDraw.disabled=true;
+  winnerText.textContent="Spinning…";
+
+  function animate(now){
+    const progress=Math.min(1,(now-started)/duration);
+    const eased=1-Math.pow(1-progress,4);
+    wheelRotation=startRotation+(targetRotation-startRotation)*eased;
+    drawWheel(wheelRotation);
+
+    if(progress<1){
+      requestAnimationFrame(animate);
+      return;
+    }
+
+    wheelRotation=((targetRotation%(Math.PI*2))+(Math.PI*2))%(Math.PI*2);
+    drawWheel(wheelRotation);
+    wheelAnimating=false;
+    winnerText.textContent=`Selected: ${winner.franchises?.name||"Franchise"}`;
+    acceptWinner.disabled=false;
+    undoSpin.disabled=false;
+    resetDraw.disabled=false;
+    setButtons();
+  }
+
+  requestAnimationFrame(animate);
 };
-undoSpin.onclick=async()=>{
- if(!drawId||!confirm("Undo the last accepted spin? The audit record will remain marked as undone."))return;
- try{const {error}=await odSb.rpc("admin_undo_last_draw_spin",{p_draw_id:drawId});if(error)throw error;odMsg("Last spin undone.",true);await loadDrawData()}catch(e){odMsg(e.message)}
+acceptWinner.onclick=async()=>{
+  if(drawRecord?.status!=="live")return showMessage("Lock the draw before accepting a result.");
+  if(!winner)return showMessage("Spin first.");
+
+  const slot=currentSlot();
+  if(!slot)return showMessage("All eight positions are already assigned.");
+
+  const result=await db.rpc("admin_accept_draw_slot",{
+    p_draw_id:Number(drawId),
+    p_franchise_id:winner.franchise_id,
+    p_position_code:slot,
+    p_random_value:randomValue
+  });
+
+  if(result.error){
+    showMessage(result.error.message);
+    return;
+  }
+
+  showMessage(`${winner.franchises?.name||"Franchise"} assigned to ${slot}.`,true);
+  winner=null;
+  randomValue=null;
+  wheelRotation=0;
+  await loadDraw();
 };
-resetDraw.onclick=async()=>{
- if(!drawId||!confirm("Reset every group, position and spin in this draw?"))return;
- try{const {error}=await odSb.rpc("admin_reset_tournament_draw",{p_draw_id:drawId});if(error)throw error;odMsg("Draw fully reset.",true);await loadDrawData()}catch(e){odMsg(e.message)}
-};
-generateFixtures.onclick=async()=>{
- if(!drawId)return odMsg("Create and complete the draw first.");
- if(!fixtureStartDate.value)return odMsg("Select the tournament start date.");
- if(!confirm("Generate and publish the official 15-match schedule? Existing fixtures previously generated by V25 will be replaced."))return;
- try{
-  const {data,error}=await odSb.rpc("admin_generate_group_fixtures",{p_draw_id:drawId,p_start_date:fixtureStartDate.value,p_venue:fixtureVenue.value||"TNYPL Official Venue",p_ground:fixtureGround.value||"Ground 1",p_first_time:fixtureTime1.value,p_second_time:fixtureTime2.value});
-  if(error)throw error;odMsg(`${data} matches generated and published to the Match Center.`,true);
- }catch(e){odMsg(e.message)}
-};
-drawStage.onchange=()=>{
- if(drawStage.value==="positionA")nextPosition.value="A1";
- if(drawStage.value==="positionB")nextPosition.value="B1";
- updatePool();
-};
-drawLogout.onclick=async()=>{await odSb.auth.signOut();location.href="admin.html"};
-window.addEventListener("load",init);
+undoSpin.onclick=async()=>{if(!hasDraw())return;const result=await db.rpc("admin_undo_last_draw_spin",{p_draw_id:Number(drawId)});if(result.error){showMessage(result.error.message);return}showMessage("Last result undone.",true);await loadDraw()};
+resetDraw.onclick=async()=>{if(!hasDraw())return;if(!confirm("Reset all assignments?"))return;const result=await db.rpc("admin_reset_tournament_draw",{p_draw_id:Number(drawId)});if(result.error){showMessage(result.error.message);return}showMessage("Draw reset.",true);await loadDraw()};
+generateFixtures.onclick=async()=>{if(!hasDraw())return;if(!fixtureStartDate.value)return showMessage("Choose start date.");const result=await db.rpc("admin_generate_group_fixtures",{p_draw_id:Number(drawId),p_start_date:fixtureStartDate.value,p_venue:fixtureVenue.value.trim()||"TNYPL Official Venue",p_ground:fixtureGround.value.trim()||"Ground 1",p_first_time:fixtureTime1.value||"09:00",p_second_time:fixtureTime2.value||"13:30"});if(result.error){showMessage(result.error.message);return}showMessage(`${result.data} matches generated.`,true);await loadDraw()};
+drawLogout.onclick=async()=>{await db.auth.signOut();location.href="admin.html"};
+
+(async function init(){
+  const s=(await db.auth.getSession()).data.session;if(!s)return location.href="admin.html";
+  const a=await db.from("admin_users").select("user_id").eq("user_id",s.user.id).maybeSingle();
+  if(!a.data)return location.href="admin.html";
+  await loadDraw();
+})();

@@ -1,82 +1,77 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TNYPL Official Draw Ceremony</title><link rel="icon" href="favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="official-draw.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
-</head><body class="draw-app">
-<header class="draw-topbar"><div class="draw-shell">
-<a class="draw-brand" href="admin.html"><img src="tnypl-official-logo.png"><div><strong>OFFICIAL DRAW CONTROL</strong><span>GROUPS · POSITIONS · FIXTURES</span></div></a>
-<nav class="draw-nav"><a href="admin-match-center.html">Match Center</a><a href="official-draw-public.html" target="_blank">Public Screen</a><a href="match-center.html" target="_blank">Published Schedule</a><button id="drawLogout">Logout</button></nav>
-</div></header>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TNYPL Official Draw Control</title>
+  <link rel="stylesheet" href="official-draw.css?v=R1.6">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <style>
+    .draw-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(320px,.7fr);gap:20px}
+    .franchise-panel{background:#071a38;border-radius:16px;padding:18px}
+    .franchise-grid{display:grid;grid-template-columns:1fr;gap:8px}
+    .franchise-row{display:flex;align-items:center;justify-content:space-between;background:#03142d;border:1px solid rgba(255,255,255,.08);padding:10px 12px;border-radius:10px}
+    .franchise-row span:last-child{font-size:.8rem;color:#d9ad43}
+    .group-columns{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .group-box{background:#03142d;padding:14px;border-radius:12px}
+    .draw-status{margin:10px 0;color:#9fb1c8}
+    @media(max-width:900px){.draw-layout{grid-template-columns:1fr}.group-columns{grid-template-columns:1fr}}
+  .next-slot-box{display:inline-flex;align-items:center;gap:6px;background:#03142d;border:1px solid rgba(255,255,255,.12);padding:10px 14px;border-radius:9px;color:#fff}.next-slot-box strong{color:#d9ad43;font-size:1.15rem}</style>
+</head>
+<body>
+<main>
+  <a href="admin.html">Admin</a> ·
+  <a href="official-draw-public.html" target="_blank">Public Draw</a>
 
-<main class="draw-shell draw-stage">
-<section class="draw-title"><small>TNYPL SEASON 1</small><h1>Official Group Draw.</h1><p>Conduct the group and position draw live, record every accepted spin, and publish the complete 15-match tournament schedule directly into the Match Center.</p></section>
-<div id="drawMessage" class="notice" hidden></div>
+  <h1>Official Draw Control</h1>
+  <div id="drawMessage" hidden></div>
 
-<section class="draw-layout">
-<div class="wheel-card">
-<div class="wheel-wrap">
-<div class="wheel-pointer"></div>
-<canvas id="wheelCanvas" class="wheel-canvas" width="900" height="900"></canvas>
-<button id="spinWheel" class="spin-button">SPIN</button>
-</div>
-<div id="winnerBanner" class="winner-banner">
-<small>CURRENT STAGE</small><h2 id="stageLabel">Create or load a draw</h2><p id="winnerText">Lock the eight-franchise list before beginning the live ceremony.</p>
-<button id="acceptWinner" class="draw-btn" disabled>ACCEPT RESULT</button>
-</div>
-</div>
+  <div class="draw-controls">
+    <input id="drawName" value="TNYPL Season 1 Official Draw">
+    <button id="createDraw">Create Draw</button>
+    <button id="lockDraw" disabled>Lock Draw</button>
 
-<aside>
-<section class="draw-panel">
-<h2>Draw Setup</h2>
-<div class="draw-field"><label>Draw Name</label><input id="drawName" value="TNYPL Season 1 Official Draw"></div>
-<button id="createDraw" class="draw-btn full">CREATE NEW DRAW</button>
-<button id="lockDraw" class="draw-btn secondary full" style="margin-top:8px">LOCK 8 FRANCHISES & GO LIVE</button>
-<div class="control-grid" style="margin-top:9px"><button id="undoSpin" class="draw-btn dark">UNDO LAST</button><button id="resetDraw" class="draw-btn danger">RESET DRAW</button></div>
-</section>
+    <div class="next-slot-box">Next position: <strong id="nextSlot">A1</strong></div>
 
-<section class="draw-panel" style="margin-top:16px">
-<h2>Groups & Positions</h2>
-<div class="group-grid">
-<div class="group-box"><h3>Group A</h3><div id="groupA"></div></div>
-<div class="group-box"><h3>Group B</h3><div id="groupB"></div></div>
-</div>
-<div class="draw-field"><label>Current Draw Stage</label><select id="drawStage">
-<option value="group">Group Allocation</option>
-<option value="positionA">Group A Positions</option>
-<option value="positionB">Group B Positions</option>
-</select></div>
-<div class="draw-field"><label>Next Group Assignment</label><select id="nextGroup"><option value="A">Group A</option><option value="B">Group B</option></select></div>
-<div class="draw-field"><label>Next Position</label><select id="nextPosition">
-<option value="A1">A1</option><option value="A2">A2</option><option value="A3">A3</option><option value="A4">A4</option>
-<option value="B1">B1</option><option value="B2">B2</option><option value="B3">B3</option><option value="B4">B4</option>
-</select></div>
-</section>
+    <button id="spinWheel" disabled>Spin</button>
+    <button id="acceptWinner" disabled>Accept</button>
+    <button id="undoSpin" disabled>Undo</button>
+    <button id="resetDraw" disabled>Reset</button>
+  </div>
 
-<section class="draw-panel" style="margin-top:16px">
-<h2>Generate Schedule</h2>
-<div class="draw-field"><label>Tournament Start Date</label><input id="fixtureStartDate" type="date"></div>
-<div class="draw-field"><label>Venue</label><input id="fixtureVenue" placeholder="Official TNYPL Venue"></div>
-<div class="draw-field"><label>Ground</label><input id="fixtureGround" placeholder="Ground 1"></div>
-<div class="control-grid">
-<div class="draw-field"><label>Morning Match</label><input id="fixtureTime1" type="time" value="09:00"></div>
-<div class="draw-field"><label>Afternoon Match</label><input id="fixtureTime2" type="time" value="13:30"></div>
-</div>
-<button id="generateFixtures" class="draw-btn full">GENERATE & PUBLISH 15 MATCHES</button>
-</section>
+  <div class="draw-status" id="drawStatus">Loading latest draw…</div>
 
-<section class="draw-panel" style="margin-top:16px">
-<h2>Audit History</h2><div id="drawHistory" class="draw-history"></div>
-</section>
-</aside>
-</section>
+  <div class="draw-layout">
+    <section>
+      <canvas id="wheelCanvas" width="800" height="800"></canvas>
+      <div id="winnerText">Loading the latest draw…</div>
+
+      <section class="group-columns">
+        <div class="group-box"><h2>Group A</h2><div id="groupA"></div></div>
+        <div class="group-box"><h2>Group B</h2><div id="groupB"></div></div>
+      </section>
+    </section>
+
+    <aside class="franchise-panel">
+      <h2>Remaining Franchises</h2>
+      <p id="franchiseSummary">No draw loaded.</p>
+      <div id="allFranchises" class="franchise-grid"></div>
+    </aside>
+  </div>
+
+  <section>
+    <h2>Generate and Publish Schedule</h2>
+    <input id="fixtureStartDate" type="date">
+    <input id="fixtureVenue" placeholder="Venue">
+    <input id="fixtureGround" placeholder="Ground">
+    <input id="fixtureTime1" type="time" value="09:00">
+    <input id="fixtureTime2" type="time" value="13:30">
+    <button id="generateFixtures" disabled>Generate 15 Matches</button>
+  </section>
+
+  <button id="drawLogout">Logout</button>
 </main>
-
-<section id="ceremonyOverlay" class="ceremony-overlay" hidden>
-<div><img src="tnypl-official-logo.png"><p id="ceremonySubtitle">TNYPL OFFICIAL DRAW</p><div id="ceremonyCountdown" class="countdown"></div><h1 id="ceremonyWinner"></h1><p id="ceremonyAssignment"></p><button id="closeCeremony" class="draw-btn">RETURN TO CONTROL ROOM</button></div>
-</section>
-
-<script src="official-draw-admin.js"></script>
-</body></html>
+<script src="official-draw-admin.js?v=R1.6.1"></script>
+</body>
+</html>
