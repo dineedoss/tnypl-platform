@@ -3,14 +3,14 @@ const sb=supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
 let session=null;
 
 const foundingOwners=[
- {slug:"chennai-strikers",franchise:"Chennai Strikers",owner:"Vimalesh Vedachalam",email:"vim22veda@gmail.com"},
- {slug:"kovai-kings",franchise:"Kovai Kings",owner:"Gopi Ramadoss",email:"Gopiramadoss@gmail.com"},
+ {slug:"chennai-strikers",franchise:"Chennai Strikers",owner:"Vimalesh Vedachalam",email:"info@tnypl.in"},
+ {slug:"kovai-kings",franchise:"Kovai Kings",owner:"Gopi Ramadoss",email:"info@tnypl.in"},
  {slug:"karaikudi-kings",franchise:"Karaikudi Kings",owner:"Porkai Pandian Gopalakrishnan",email:"porkai@cakepoint.in"},
- {slug:"trichy-titans",franchise:"Trichy Titans",owner:"Satish Raja",email:"Satishraja1509@gmail.com"},
- {slug:"nellai-falcons",franchise:"Nellai Falcons",owner:"Ramanathan Periyaraja",email:"rohan.ramanathan@gmail.com"},
+ {slug:"trichy-titans",franchise:"Trichy Titans",owner:"Satish Raja",email:"info@tnypl.in"},
+ {slug:"nellai-falcons",franchise:"Nellai Falcons",owner:"Ramanathan Periyaraja",email:"info@tnypl.in"},
  {slug:"tiruppur-blazers",franchise:"Tiruppur Blazers",owner:"P. C. Binny Jo",email:"binny.jo@rediffmail.com"},
- {slug:"thanjavur-royals",franchise:"Thanjavur Royals",owner:"Santhana Krishnan",email:"Santhanakrishnan1982@gmail.com"},
- {slug:"tuticorin-sharks",franchise:"Tuticorin Sharks",owner:"Suresh Durai",email:"d.suresh2003@gmail.com"}
+ {slug:"thanjavur-royals",franchise:"Thanjavur Royals",owner:"Santhana Krishnan",email:"info@tnypl.in"},
+ {slug:"tuticorin-sharks",franchise:"Tuticorin Sharks",owner:"Suresh Durai",email:"info@tnypl.in"}
 ];
 
 const logoMap={

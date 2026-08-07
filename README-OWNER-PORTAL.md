@@ -8,4 +8,4 @@ git commit -m "Add Chennai Strikers owner portal"
 git push origin main
 
 Owner login email:
-dineshdevadosscloud@gmail.com
+info@tnypl.in

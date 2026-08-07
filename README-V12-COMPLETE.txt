@@ -2,7 +2,7 @@ TNYPL V12 COMPLETE LAUNCH PACKAGE
 
 OFFICIAL DETAILS
 Website: https://tnypl.in
-Email: ttnypl@gmail.com
+Email: info@tnypl.in
 YouTube: https://youtube.com/@tamilnaduyouthpremierleague
 Player Draft: 25 August 2026
 Tournament: 14–18 September 2026
@@ -52,9 +52,9 @@ Run SUPABASE-V12-COMPLETE-SETUP.sql in Supabase SQL Editor.
 
 OWNER ACCOUNTS
 Create/invite owners in Supabase Authentication. The SQL automatically assigns the three emails already supplied:
-- Gopiramadoss@gmail.com
+- info@tnypl.in
 - porkai@cakepoint.in
-- rohan.ramanathan@gmail.com
+- info@tnypl.in
 
 Add the remaining three owner emails when available.
 

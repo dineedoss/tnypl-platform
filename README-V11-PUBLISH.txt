@@ -14,7 +14,7 @@ INCLUDED
 - Supabase integration
 - Admin attachment review
 - Draft + congratulations email workflow
-- Official email ttnypl@gmail.com
+- Official email info@tnypl.in
 - Mobile responsive styling
 
 ADMIN URL
