@@ -176,14 +176,9 @@ form?.addEventListener('submit',async e=>{
       status:'pending'
     };
 
-    const {data:inserted,error}=await sb.from('players').insert(payload).select('id').single();
+    const {error}=await sb.from('players').insert(payload);
     if(error)throw error;
-    try{
-      await fetch('/.netlify/functions/send-player-email',{
-        method:'POST',headers:{'content-type':'application/json'},
-        body:JSON.stringify({type:'registration',player_id:inserted.id})
-      })
-    }catch(emailError){console.warn('Registration saved; email could not be sent.',emailError)}
+    console.log('Player registration saved successfully.');
     form.reset();ageDisplay.value='';showStep(1);
     msg.textContent='Registration received. Parent consent and waiver were recorded. A confirmation email will be sent.';
     msg.style.color='#6ee7b7'
