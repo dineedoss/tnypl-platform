@@ -8,6 +8,8 @@ let drawRecord = null;
 let entries = [];
 let winner = null;
 let randomValue = null;
+let wheelRotation = 0;
+let wheelAnimating = false;
 
 function showMessage(text, success = false) {
   drawMessage.hidden = false;
@@ -25,7 +27,7 @@ function currentPool(){
 }
 
 function setButtons(){
-  const enabled = drawId !== null;
+  const enabled = drawId !== null && !wheelAnimating;
   lockDraw.disabled=!enabled;
   undoSpin.disabled=!enabled;
   resetDraw.disabled=!enabled;
@@ -53,29 +55,56 @@ function renderFranchiseList(){
     : "No franchises loaded.";
 }
 
-function drawWheel(){
+function drawWheel(rotation = wheelRotation){
   const canvas=wheelCanvas, ctx=canvas.getContext("2d"), pool=currentPool();
   const cx=canvas.width/2, cy=canvas.height/2, r=canvas.width*.44;
   ctx.clearRect(0,0,canvas.width,canvas.height);
+
   if(!pool.length){
     ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle="#03142d";ctx.fill();
     ctx.fillStyle="#9fb1c8";ctx.font="700 30px Arial";ctx.textAlign="center";
     ctx.fillText(entries.length ? "NO ELIGIBLE FRANCHISES" : "CREATE OR LOAD DRAW",cx,cy);
     return;
   }
+
   const colors=["#173f7a","#9f2f4f","#1e6b59","#8c5a1e","#5a3f8c","#0e7183","#7c3f20","#285b9a"];
   const slice=Math.PI*2/pool.length;
+
+  ctx.save();
+  ctx.translate(cx,cy);
+  ctx.rotate(rotation);
+  ctx.translate(-cx,-cy);
+
   pool.forEach((item,i)=>{
     const start=-Math.PI/2+i*slice,end=start+slice;
     ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,end);ctx.closePath();
     ctx.fillStyle=colors[i%colors.length];ctx.fill();
-    ctx.save();ctx.translate(cx,cy);ctx.rotate(start+slice/2);
-    ctx.textAlign="right";ctx.fillStyle="#fff";ctx.font="700 24px Arial";
+
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.rotate(start+slice/2);
+    ctx.textAlign="right";
+    ctx.fillStyle="#fff";
+    ctx.font="700 24px Arial";
     const name=(item.franchises?.name||"Franchise").slice(0,22);
-    ctx.fillText(name,r-24,8);ctx.restore();
+    ctx.fillText(name,r-24,8);
+    ctx.restore();
   });
+
+  ctx.restore();
+
+  // Center button
   ctx.beginPath();ctx.arc(cx,cy,r*.17,0,Math.PI*2);ctx.fillStyle="#d9ad43";ctx.fill();
   ctx.fillStyle="#071a38";ctx.font="900 32px Arial";ctx.textAlign="center";ctx.fillText("SPIN",cx,cy+10);
+
+  // Fixed pointer at the top
+  ctx.beginPath();
+  ctx.moveTo(cx,22);
+  ctx.lineTo(cx-18,58);
+  ctx.lineTo(cx+18,58);
+  ctx.closePath();
+  ctx.fillStyle="#ffd86b";
+  ctx.fill();
 }
 
 function renderAll(){
@@ -116,13 +145,61 @@ createDraw.onclick=async()=>{
 };
 lockDraw.onclick=async()=>{if(!hasDraw())return;const result=await db.rpc("admin_lock_tournament_draw",{p_draw_id:Number(drawId)});if(result.error){showMessage(result.error.message);return}showMessage("Draw is live.",true);await loadDraw()};
 spinWheel.onclick=()=>{
-  if(!hasDraw())return;
+  if(!hasDraw() || wheelAnimating)return;
+
   const pool=currentPool();
-  if(!pool.length){winner=null;winnerText.textContent="No eligible franchise remains for this stage.";renderAll();return}
+  if(!pool.length){
+    winner=null;
+    winnerText.textContent="No eligible franchise remains for this stage.";
+    renderAll();
+    return;
+  }
+
   randomValue=crypto.getRandomValues(new Uint32Array(1))[0]/4294967296;
-  winner=pool[Math.floor(randomValue*pool.length)];
-  winnerText.textContent=`Selected: ${winner.franchises?.name||"Franchise"}`;
-  acceptWinner.disabled=false;
+  const selectedIndex=Math.floor(randomValue*pool.length);
+  winner=pool[selectedIndex];
+
+  const slice=Math.PI*2/pool.length;
+  const selectedCenter=-Math.PI/2 + selectedIndex*slice + slice/2;
+
+  // Rotate selected slice center to the fixed top pointer.
+  const pointerAngle=-Math.PI/2;
+  const targetBase=pointerAngle-selectedCenter;
+  const extraTurns=(6 + Math.floor(Math.random()*3))*Math.PI*2;
+  const startRotation=wheelRotation;
+  const targetRotation=startRotation+extraTurns+targetBase;
+  const duration=4200;
+  const started=performance.now();
+
+  wheelAnimating=true;
+  spinWheel.disabled=true;
+  acceptWinner.disabled=true;
+  undoSpin.disabled=true;
+  resetDraw.disabled=true;
+  winnerText.textContent="Spinning…";
+
+  function animate(now){
+    const progress=Math.min(1,(now-started)/duration);
+    const eased=1-Math.pow(1-progress,4);
+    wheelRotation=startRotation+(targetRotation-startRotation)*eased;
+    drawWheel(wheelRotation);
+
+    if(progress<1){
+      requestAnimationFrame(animate);
+      return;
+    }
+
+    wheelRotation=((targetRotation%(Math.PI*2))+(Math.PI*2))%(Math.PI*2);
+    drawWheel(wheelRotation);
+    wheelAnimating=false;
+    winnerText.textContent=`Selected: ${winner.franchises?.name||"Franchise"}`;
+    acceptWinner.disabled=false;
+    undoSpin.disabled=false;
+    resetDraw.disabled=false;
+    setButtons();
+  }
+
+  requestAnimationFrame(animate);
 };
 acceptWinner.onclick=async()=>{
   if(!winner)return showMessage("Spin first.");
