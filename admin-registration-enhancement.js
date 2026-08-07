@@ -1,263 +1,222 @@
 (() => {
   'use strict';
-  const VERSION='1.2.4';
-  const ENH_ID='tnyplRegistrationEnhancement';
-  const FILTER_ID='tnyplDuplicateFilter';
-  const PAGE_SIZE_ID='tnyplPageSize';
-  const PAGE_INFO_ID='tnyplPageInfo';
-  const state={expanded:new Set(),filter:'all',busy:false,timer:null,page:1,pageSize:15};
-
+  const VERSION='1.2.5';
+  const state={filter:'all',expanded:new Set(),page:1,pageSize:10,busy:false,timer:null};
   const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   const normEmail=v=>String(v||'').trim().toLowerCase();
-  const normDob=v=>String(v||'').trim().replace(/\s+/g,'').slice(0,10);
+  const normDob=v=>{
+    const s=String(v||'').trim().replace(/\s+/g,' ');
+    const iso=s.match(/(20\d{2}|19\d{2})\D{0,2}(\d{1,2})\D{0,2}(\d{1,2})/);
+    if(iso) return `${iso[1]}-${String(iso[2]).padStart(2,'0')}-${String(iso[3]).padStart(2,'0')}`;
+    const d=new Date(s);
+    if(!Number.isNaN(d.getTime())) return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    return s.toLowerCase().replace(/[^a-z0-9]/g,'');
+  };
   const keyOf=(email,dob)=>`${normEmail(email)}|${normDob(dob)}`;
 
-  function playerArray(){
+  function playersArray(){
     try { return (typeof players!=='undefined' && Array.isArray(players)) ? players : []; }
     catch(_) { return []; }
   }
-  function dobOf(p){ return p?.date_of_birth||p?.dob||p?.dateOfBirth||''; }
-  function phoneOf(p){
-    return p?.phone || p?.phone_number || p?.mobile || p?.mobile_number || p?.contact_number ||
-      p?.contact_phone || p?.parent_phone || p?.guardian_phone || p?.whatsapp_number || p?.whatsapp || '';
-  }
-  function playerKey(p){ return keyOf(p?.email,dobOf(p)); }
-  function groupsFromPlayers(){
-    const map=new Map();
-    for(const p of playerArray()){
-      const key=playerKey(p);
-      if(key==='|') continue;
-      if(!map.has(key)) map.set(key,[]);
-      map.get(key).push(p);
-    }
-    return map;
-  }
+  function phoneOf(p){return p?.phone||p?.phone_number||p?.mobile||p?.mobile_number||p?.contact_number||p?.contact_phone||p?.parent_phone||p?.guardian_phone||p?.whatsapp_number||p?.whatsapp||'';}
+  function emailOf(p){return p?.email||p?.player_email||p?.parent_email||'';}
 
   function findPlayerTable(){
     return [...document.querySelectorAll('table')].find(t=>{
       const h=(t.tHead?.innerText||t.querySelector('thead')?.innerText||'').toLowerCase();
       return h.includes('player') && h.includes('dob') && h.includes('district');
-    }) || null;
+    })||null;
   }
-  function headRow(table){ return table.tHead?.rows?.[0]||table.querySelector('thead tr'); }
-  function headerIndex(table,label){
+  function headRow(table){return table.tHead?.rows?.[0]||table.querySelector('thead tr');}
+  function findHeaderIndex(table,matcher){
     const h=headRow(table); if(!h) return -1;
-    label=String(label).toLowerCase();
-    return [...h.cells].findIndex(c=>(c.textContent||'').trim().toLowerCase()===label);
+    return [...h.cells].findIndex(c=>matcher((c.textContent||'').trim().toLowerCase()));
   }
-  function playerIndex(table){
-    const h=headRow(table); if(!h) return 0;
-    const i=[...h.cells].findIndex(c=>(c.textContent||'').toLowerCase().includes('player'));
-    return i<0?0:i;
+  function playerIdx(table){const i=findHeaderIndex(table,t=>t.includes('player'));return i<0?0:i;}
+  function dobIdx(table){const i=findHeaderIndex(table,t=>t==='dob'||t.includes('date of birth'));return i<0?1:i;}
+  function emailFromRow(row,table){
+    const c=row.cells?.[playerIdx(table)]; if(!c)return '';
+    const ma=c.querySelector('a[href^="mailto:"]');
+    if(ma) return (ma.getAttribute('href')||'').replace(/^mailto:/i,'').trim()||ma.textContent.trim();
+    return (c.innerText||'').match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)?.[0]||'';
   }
-  function dobIndex(table){
-    const i=headerIndex(table,'dob'); return i<0?1:i;
-  }
-  function cellEmail(row,table){
-    const first=row.cells?.[playerIndex(table)];
-    if(!first) return '';
-    const a=first.querySelector('a[href^="mailto:"]');
-    const mail=a?.textContent || a?.getAttribute('href')?.replace(/^mailto:/i,'');
-    if(mail) return mail.trim();
-    return (first.innerText||'').match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)?.[0]||'';
-  }
-  function cellDob(row,table){
-    const text=row.cells?.[dobIndex(table)]?.innerText?.trim()||'';
-    return normDob(text);
-  }
-  function findPlayerForRow(row,table,groups){
-    const key=keyOf(cellEmail(row,table),cellDob(row,table));
-    const arr=groups.get(key)||[];
-    const dupOrdinal=[...row.parentElement?.rows||[]]
-      .filter(r=>keyOf(cellEmail(r,table),cellDob(r,table))===key)
-      .indexOf(row);
-    return arr[Math.max(0,dupOrdinal)] || arr[0] || playerArray().find(p=>normEmail(p?.email)===normEmail(cellEmail(row,table))) || null;
-  }
-
-  function markLayout(table){
-    document.body.classList.add('tnypl-admin-pro-v124');
-    const main=table.closest('main') || table.closest('[class*="content" i]') || table.parentElement?.parentElement;
-    if(main) main.classList.add('tnypl-admin-registration-shell');
-  }
-  function ensureTableWrap(table){
-    if(table.parentElement?.classList.contains('tnypl-admin-table-wrap')) return;
-    const wrap=document.createElement('div'); wrap.className='tnypl-admin-table-wrap';
-    table.parentNode.insertBefore(wrap,table); wrap.appendChild(table);
-  }
-
-  function ensurePhoneColumn(table,groups){
-    const h=headRow(table); if(!h) return;
-    let idx=[...h.cells].findIndex(c=>c.dataset?.tnyplPhoneHead==='1' || (c.textContent||'').trim().toLowerCase()==='phone');
-    if(idx<0){
-      const th=document.createElement('th'); th.textContent='Phone'; th.dataset.tnyplPhoneHead='1';
-      const pIdx=playerIndex(table);
-      h.insertBefore(th,h.cells[pIdx+1]||null);
-      idx=[...h.cells].indexOf(th);
-    } else h.cells[idx].dataset.tnyplPhoneHead='1';
-
+  function dobFromRow(row,table){return (row.cells?.[dobIdx(table)]?.innerText||'').trim();}
+  function domGroups(table){
+    const map=new Map();
     for(const row of table.tBodies?.[0]?.rows||[]){
-      let td=[...row.cells].find(c=>c.dataset?.tnyplPhoneCell==='1');
-      if(!td){
-        td=document.createElement('td'); td.dataset.tnyplPhoneCell='1';
-        const pIdx=playerIndex(table);
-        row.insertBefore(td,row.cells[pIdx+1]||null);
-      }
-      const p=findPlayerForRow(row,table,groups);
-      const phone=String(phoneOf(p)||'').trim();
-      if(phone){
-        const tel=phone.replace(/[^+\d]/g,'');
-        td.innerHTML=`<a class="tnypl-phone-link" href="tel:${esc(tel||phone)}" title="Call ${esc(phone)}"><span aria-hidden="true">☎</span><span>${esc(phone)}</span></a>`;
-        row.dataset.tnyplPhone=phone.toLowerCase();
-      }else{
-        td.innerHTML='<span class="tnypl-empty-value">—</span>';
-        row.dataset.tnyplPhone='';
-      }
+      if(row.dataset.tnyplSynthetic==='1') continue;
+      const email=emailFromRow(row,table), dob=dobFromRow(row,table);
+      const key=keyOf(email,dob);
+      if(!email||!dob||key==='|') continue;
+      if(!map.has(key)) map.set(key,[]);
+      map.get(key).push(row);
     }
+    return map;
+  }
+  function findPlayerByEmail(email){return playersArray().find(p=>normEmail(emailOf(p))===normEmail(email))||null;}
+
+  function buildSidebar(){
+    if(document.getElementById('tnyplProSidebar')) return;
+    const links=[...document.querySelectorAll('a[href]')]
+      .filter(a=>a.offsetParent!==null && !a.closest('#tnyplProSidebar'))
+      .map(a=>({text:(a.textContent||'').trim(),href:a.getAttribute('href')||'#'}))
+      .filter(x=>x.text && x.text.length<45 && !/open|receipt|age proof|analyze/i.test(x.text));
+    const pick=(re,fallback,href='#')=>links.find(x=>re.test(x.text))||{text:fallback,href};
+    const items=[
+      pick(/player registration/i,'Player Registrations','admin.html'),
+      pick(/franchise/i,'Franchise Management','#'),
+      pick(/^matches$|match center/i,'Matches','#'),
+      pick(/sponsor/i,'Sponsors','#'),
+      pick(/admin team/i,'Admin Team','#'),
+      pick(/league vision/i,'League Vision','#')
+    ];
+    const side=document.createElement('aside'); side.id='tnyplProSidebar'; side.className='tnypl-pro-sidebar';
+    side.innerHTML=`<div class="tnypl-side-brand"><div class="tnypl-side-mark">🏏</div><div><strong>TNYPL</strong><span>ADMIN</span></div></div><div class="tnypl-side-label">MAIN MENU</div><nav>${items.map((x,i)=>`<a class="${i===0?'active':''}" href="${esc(x.href)}"><span>${['▦','♙','⚔','♢','♧','◎'][i]}</span>${esc(x.text)}</a>`).join('')}</nav><div class="tnypl-side-label">QUICK ACTIONS</div><nav><a href="#tnyplRegistrationEnhancement"><span>⌕</span>Registration Analytics</a><a href="mailto:info@tnypl.in"><span>✉</span>Contact Support</a></nav><div class="tnypl-side-help"><strong>Need Help?</strong><p>For support or assistance, contact the TNYPL admin team.</p><a href="mailto:info@tnypl.in">info@tnypl.in</a></div>`;
+    document.body.prepend(side);
   }
 
-  function buildSummary(table,groups){
-    const all=playerArray(); if(!all.length) return;
-    const unique=groups.size;
-    const dupGroups=[...groups.values()].filter(v=>v.length>1).length;
-    const dupSubmissions=[...groups.values()].reduce((n,v)=>n+Math.max(0,v.length-1),0);
-    let box=document.getElementById(ENH_ID);
-    if(!box){
-      box=document.createElement('section'); box.id=ENH_ID; box.className='tnypl-reg-enhancement';
-      const anchor=table.closest('.tnypl-admin-table-wrap')||table; anchor.parentNode.insertBefore(box,anchor);
+  function hideLegacyTop(table){
+    const heading=[...document.querySelectorAll('h1,h2,h3,h4,strong')].find(e=>/ADMIN CONTROL CENTER/i.test(e.textContent||''));
+    if(heading){
+      let box=heading.parentElement;
+      if(box && box!==document.body) box.classList.add('tnypl-legacy-admin-top');
     }
-    box.innerHTML=`
-      <div class="tnypl-reg-heading"><div><h1>Player Registrations</h1><p>Manage registrations, contact details, eligibility, tiering and franchise assignment.</p></div><span class="tnypl-version-pill">Admin v${VERSION}</span></div>
-      <div class="tnypl-reg-kpis">
-        <div class="tnypl-reg-kpi"><small>Total registrations</small><strong>${all.length}</strong><span>All submitted records</span></div>
-        <div class="tnypl-reg-kpi"><small>Unique players</small><strong>${unique}</strong><span>Grouped by Email + DOB</span></div>
-        <div class="tnypl-reg-kpi"><small>Duplicate submissions</small><strong>${dupSubmissions}</strong><span>Preserved for review</span></div>
-        <div class="tnypl-reg-kpi"><small>Duplicate groups</small><strong>${dupGroups}</strong><span>Need review / correction</span></div>
-      </div>
-      <div class="tnypl-reg-note"><span>ⓘ</span><div><b>Safe duplicate handling:</b> existing registrations are never deleted. Same Email + DOB submissions are grouped; the same parent email with a different DOB remains valid for siblings.</div></div>`;
-  }
-
-  function ensureFilter(table){
-    let f=document.getElementById(FILTER_ID);
-    if(!f){
-      f=document.createElement('select'); f.id=FILTER_ID; f.className='tnypl-reg-filter';
-      f.innerHTML='<option value="all">All records</option><option value="duplicates">Duplicates only</option><option value="unique">Unique only</option>';
-      f.value=state.filter;
-      f.addEventListener('change',()=>{state.filter=f.value;state.page=1;applyRowVisibility(table)});
-      const search=document.querySelector('input[placeholder*="Search" i]');
-      const toolbar=search?.parentElement || table.parentElement;
-      if(toolbar){ toolbar.classList.add('tnypl-admin-toolbar'); toolbar.appendChild(f); }
-    }
-    const search=document.querySelector('input[placeholder*="Search" i]');
-    if(search){
-      search.placeholder='Search name, email, phone, district or role...';
-      if(!search.dataset.tnyplPhoneSearch){
-        search.dataset.tnyplPhoneSearch='1';
-        search.addEventListener('input',()=>{state.page=1;setTimeout(()=>applyRowVisibility(table),0)});
-      }
-    }
-    return f;
-  }
-
-  function ensureDuplicateColumn(table,groups){
-    const h=headRow(table); if(!h) return;
-    let dupIndex=[...h.cells].findIndex(c=>c.dataset?.tnyplDupHead==='1' || (c.textContent||'').trim().toLowerCase()==='duplicates');
-    if(dupIndex<0){
-      const th=document.createElement('th'); th.textContent='Duplicates'; th.dataset.tnyplDupHead='1';
-      const actions=[...h.cells].find(c=>(c.textContent||'').trim().toLowerCase()==='actions');
-      if(actions) h.insertBefore(th,actions); else h.appendChild(th);
-    }
-    const visibleGroups=new Map();
-    for(const row of table.tBodies?.[0]?.rows||[]){
-      const key=keyOf(cellEmail(row,table),cellDob(row,table));
-      if(!visibleGroups.has(key)) visibleGroups.set(key,[]); visibleGroups.get(key).push(row);
-    }
-    for(const [key,rows] of visibleGroups){
-      const total=groups.get(key)?.length || rows.length;
-      rows.forEach((row,i)=>{
-        row.dataset.tnyplDupKey=key; row.dataset.tnyplDupPrimary=i===0?'1':'0'; row.dataset.tnyplDupCount=String(total);
-        row.classList.toggle('tnypl-duplicate-row',i>0 && total>1);
-        let td=[...row.cells].find(c=>c.dataset?.tnyplDupCell==='1');
-        if(!td){
-          td=document.createElement('td'); td.dataset.tnyplDupCell='1';
-          const actionCell=[...row.cells].find(c=>/reject|pay|draft|action/i.test(c.innerText||''));
-          if(actionCell) row.insertBefore(td,actionCell); else row.appendChild(td);
-        }
-        td.innerHTML=i===0
-          ? `<span class="tnypl-duplicate-badge ${total>1?'':'is-unique'}">${total}</span>${total>1?`<button type="button" class="tnypl-view-duplicates" data-key="${esc(key)}">${state.expanded.has(key)?'Hide':'View'}</button>`:''}`
-          : '<span class="tnypl-duplicate-badge">↳</span>';
-      });
-    }
-    table.querySelectorAll('.tnypl-view-duplicates').forEach(btn=>{
-      btn.onclick=()=>{ const key=btn.dataset.key; state.expanded.has(key)?state.expanded.delete(key):state.expanded.add(key); applyRowVisibility(table); };
+    // Hide the old 4-card KPI row only; the enhanced KPIs replace it.
+    [...document.querySelectorAll('div,section')].forEach(el=>{
+      if(el.closest('#tnyplRegistrationEnhancement')||el.contains(table)) return;
+      const t=(el.innerText||'').replace(/\s+/g,' ').trim();
+      if(t && t.length<300 && /Total registrations/i.test(t) && /Payment verified/i.test(t) && /Age verified/i.test(t) && /Draft eligible/i.test(t)) el.classList.add('tnypl-legacy-kpis');
     });
   }
 
-  function ensurePagination(table){
-    let bar=document.getElementById('tnyplPagination');
-    if(!bar){
-      bar=document.createElement('div'); bar.id='tnyplPagination'; bar.className='tnypl-pagination';
-      bar.innerHTML=`<div id="${PAGE_INFO_ID}"></div><div class="tnypl-page-controls"><button type="button" data-page="prev">‹</button><span class="tnypl-page-current">1</span><button type="button" data-page="next">›</button><select id="${PAGE_SIZE_ID}"><option>10</option><option selected>15</option><option>25</option><option>50</option><option>100</option></select><span>per page</span></div>`;
-      const wrap=table.closest('.tnypl-admin-table-wrap'); wrap?.insertAdjacentElement('afterend',bar);
-      bar.querySelector('[data-page="prev"]').onclick=()=>{if(state.page>1){state.page--;applyRowVisibility(table)}};
-      bar.querySelector('[data-page="next"]').onclick=()=>{state.page++;applyRowVisibility(table)};
-      bar.querySelector(`#${PAGE_SIZE_ID}`).onchange=e=>{state.pageSize=Number(e.target.value)||15;state.page=1;applyRowVisibility(table)};
+  function ensureShell(table){
+    document.body.classList.add('tnypl-admin-pro-v125');
+    buildSidebar(); hideLegacyTop(table);
+    const parent=table.closest('main')||table.closest('[class*="container" i]')||table.parentElement?.parentElement;
+    if(parent) parent.classList.add('tnypl-admin-registration-shell');
+    if(!document.getElementById('tnyplTopHeader')){
+      const hdr=document.createElement('div'); hdr.id='tnyplTopHeader'; hdr.className='tnypl-top-header';
+      hdr.innerHTML=`<div><h1>Player Registrations</h1><p>View and manage all player registrations. Duplicate entries (same Email + DOB) are grouped automatically.</p></div><div class="tnypl-top-actions"><button type="button" id="tnyplRefresh">↻ Refresh</button></div>`;
+      const anchor=table.closest('.tnypl-admin-table-wrap')||table;
+      anchor.parentNode.insertBefore(hdr,anchor);
+      hdr.querySelector('#tnyplRefresh').onclick=()=>location.reload();
     }
   }
 
-  function baseVisible(row){
-    // Respect rows hidden by the original admin filters before our pagination pass.
-    const inline=row.style?.display;
-    if(inline==='none' && row.dataset.tnyplHiddenByUs!=='1') return false;
-    return true;
+  function wrapTable(table){
+    if(table.parentElement?.classList.contains('tnypl-admin-table-wrap')) return table.parentElement;
+    const wrap=document.createElement('div');wrap.className='tnypl-admin-table-wrap';table.parentNode.insertBefore(wrap,table);wrap.appendChild(table);return wrap;
   }
-  function applyRowVisibility(table){
-    const rows=[...(table.tBodies?.[0]?.rows||[])];
-    const search=(document.querySelector('input[placeholder*="Search" i]')?.value||'').trim().toLowerCase();
-    const candidates=[];
-    for(const row of rows){
-      row.dataset.tnyplHiddenByUs='0';
-      row.hidden=false;
-      const key=row.dataset.tnyplDupKey||'';
-      const primary=row.dataset.tnyplDupPrimary==='1';
-      const count=Number(row.dataset.tnyplDupCount||1);
-      let show=baseVisible(row);
-      if(state.filter==='duplicates') show=show&&count>1;
-      if(state.filter==='unique') show=show&&count===1;
-      if(count>1 && !primary && !state.expanded.has(key)) show=false;
-      if(search && row.dataset.tnyplPhone?.includes(search)) show=true;
-      if(show) candidates.push(row);
+
+  function ensurePhone(table){
+    const h=headRow(table);if(!h)return;
+    let idx=findHeaderIndex(table,t=>t==='phone');
+    if(idx<0){const th=document.createElement('th');th.textContent='Phone';th.dataset.tnyplPhoneHead='1';const p=playerIdx(table);h.insertBefore(th,h.cells[p+1]||null);idx=p+1;}
+    const arr=playersArray();
+    for(const row of table.tBodies?.[0]?.rows||[]){
+      let td=[...row.cells].find(c=>c.dataset.tnyplPhoneCell==='1');
+      if(!td){td=document.createElement('td');td.dataset.tnyplPhoneCell='1';const p=playerIdx(table);row.insertBefore(td,row.cells[p+1]||null);}
+      const email=emailFromRow(row,table);const p=arr.find(x=>normEmail(emailOf(x))===normEmail(email));const phone=String(phoneOf(p)||'').trim();
+      row.dataset.tnyplPhone=phone.toLowerCase();
+      td.innerHTML=phone?`<a class="tnypl-phone-link" href="tel:${esc(phone.replace(/[^+\d]/g,''))}">☎ ${esc(phone)}</a>`:'<span class="tnypl-empty-value">—</span>';
     }
-    const total=candidates.length;
-    const maxPage=Math.max(1,Math.ceil(total/state.pageSize));
-    if(state.page>maxPage) state.page=maxPage;
-    const start=(state.page-1)*state.pageSize, end=start+state.pageSize;
-    rows.forEach(row=>{ row.hidden=true; row.dataset.tnyplHiddenByUs='1'; });
-    candidates.slice(start,end).forEach(row=>{ row.hidden=false; row.dataset.tnyplHiddenByUs='0'; });
-    const info=document.getElementById(PAGE_INFO_ID);
-    if(info) info.textContent=total?`Showing ${start+1}–${Math.min(end,total)} of ${total} records`:'No matching records';
-    const cur=document.querySelector('.tnypl-page-current'); if(cur) cur.textContent=`${state.page} / ${maxPage}`;
-    const prev=document.querySelector('[data-page="prev"]'), next=document.querySelector('[data-page="next"]');
-    if(prev) prev.disabled=state.page<=1; if(next) next.disabled=state.page>=maxPage;
-    table.querySelectorAll('.tnypl-view-duplicates').forEach(btn=>btn.textContent=state.expanded.has(btn.dataset.key)?'Hide':'View');
+  }
+
+  function ensureDuplicateColumn(table,groups){
+    const h=headRow(table); if(!h)return;
+    let di=findHeaderIndex(table,t=>t==='duplicates');
+    if(di<0){const th=document.createElement('th');th.textContent='Duplicates';th.dataset.tnyplDupHead='1';const ai=findHeaderIndex(table,t=>t==='actions');if(ai>=0)h.insertBefore(th,h.cells[ai]);else h.appendChild(th);}
+    for(const [key,rows] of groups){
+      const count=rows.length;
+      rows.forEach((row,i)=>{
+        row.dataset.tnyplDupKey=key;row.dataset.tnyplDupPrimary=i===0?'1':'0';row.dataset.tnyplDupCount=String(count);
+        row.classList.toggle('tnypl-duplicate-row',i>0&&count>1);
+        let td=[...row.cells].find(c=>c.dataset.tnyplDupCell==='1');
+        if(!td){td=document.createElement('td');td.dataset.tnyplDupCell='1';const ai=findHeaderIndex(table,t=>t==='actions');if(ai>=0)row.insertBefore(td,row.cells[ai]);else row.appendChild(td);}
+        if(i===0) td.innerHTML=`<span class="tnypl-duplicate-badge ${count===1?'is-unique':''}">${count}</span>${count>1?`<button type="button" class="tnypl-view-duplicates" data-key="${esc(key)}">View</button>`:''}`;
+        else td.innerHTML='<span class="tnypl-duplicate-badge">↳</span>';
+      });
+    }
+    table.querySelectorAll('.tnypl-view-duplicates').forEach(b=>b.onclick=()=>{const k=b.dataset.key;state.expanded.has(k)?state.expanded.delete(k):state.expanded.add(k);state.page=1;applyVisibility(table);});
+  }
+
+  function buildDashboard(table,groups){
+    const rows=[...(table.tBodies?.[0]?.rows||[])];
+    const total=rows.length, unique=groups.size, dupGroups=[...groups.values()].filter(g=>g.length>1).length, dupSubs=total-unique;
+    const rejected=rows.filter(r=>/rejected/i.test(r.innerText||'')).length;
+    let box=document.getElementById('tnyplRegistrationEnhancement');
+    if(!box){box=document.createElement('section');box.id='tnyplRegistrationEnhancement';box.className='tnypl-reg-enhancement';const top=document.getElementById('tnyplTopHeader');top.insertAdjacentElement('afterend',box);}
+    box.innerHTML=`<div class="tnypl-reg-kpis">
+      <div class="tnypl-reg-kpi blue"><div class="ico">♙</div><div><small>Total Registrations</small><strong>${total}</strong><span>All submitted records</span></div></div>
+      <div class="tnypl-reg-kpi green"><div class="ico">◎</div><div><small>Unique Players</small><strong>${unique}</strong><span>Grouped by Email + DOB</span></div></div>
+      <div class="tnypl-reg-kpi orange"><div class="ico">◉</div><div><small>Duplicate Submissions</small><strong>${dupSubs}</strong><span>Extra duplicate attempts</span></div></div>
+      <div class="tnypl-reg-kpi purple"><div class="ico">♙</div><div><small>Duplicate Groups</small><strong>${dupGroups}</strong><span>Need review / correction</span></div></div>
+      <div class="tnypl-reg-kpi red"><div class="ico">⊗</div><div><small>Rejected Players</small><strong>${rejected}</strong><span>Not eligible</span></div></div>
+    </div><div class="tnypl-reg-note"><b>ⓘ &nbsp; Safe duplicate handling:</b>&nbsp; Existing registrations are never deleted. Rows with the same normalized Email ID and Date of Birth are grouped in this admin view. The same parent email with a different DOB remains valid for siblings.</div>`;
+  }
+
+  function toolbar(table){
+    let bar=document.getElementById('tnyplProToolbar');
+    if(!bar){
+      bar=document.createElement('div');bar.id='tnyplProToolbar';bar.className='tnypl-pro-toolbar';
+      bar.innerHTML=`<div class="tnypl-search-wrap">⌕ <input id="tnyplProSearch" type="search" placeholder="Search by name, email, phone, district or role..."></div><select id="tnyplDupFilter"><option value="all">All Records</option><option value="duplicates">Duplicates Only</option><option value="unique">Unique Only</option></select><button type="button" id="tnyplClearFilters">Clear Filters</button>`;
+      const wrap=table.closest('.tnypl-admin-table-wrap');wrap.parentNode.insertBefore(bar,wrap);
+      bar.querySelector('#tnyplProSearch').addEventListener('input',()=>{state.page=1;applyVisibility(table)});
+      bar.querySelector('#tnyplDupFilter').addEventListener('change',e=>{state.filter=e.target.value;state.page=1;applyVisibility(table)});
+      bar.querySelector('#tnyplClearFilters').onclick=()=>{bar.querySelector('#tnyplProSearch').value='';bar.querySelector('#tnyplDupFilter').value='all';state.filter='all';state.page=1;applyVisibility(table)};
+      // Move existing useful admin buttons into our toolbar without changing handlers.
+      [...document.querySelectorAll('button')].filter(b=>!b.closest('#tnyplProToolbar')&&!b.closest('#tnyplProSidebar')&&/Export CSV|Send Pending Registration Emails/i.test(b.textContent||'')).forEach(b=>bar.appendChild(b));
+    }
+  }
+
+  function pagination(table){
+    let p=document.getElementById('tnyplPagination');if(p)return;
+    p=document.createElement('div');p.id='tnyplPagination';p.className='tnypl-pagination';
+    p.innerHTML='<div id="tnyplPageInfo"></div><div class="tnypl-page-controls"><button type="button" data-p="prev">‹</button><span id="tnyplPageCurrent">1 / 1</span><button type="button" data-p="next">›</button><select id="tnyplPageSize"><option selected>10</option><option>15</option><option>25</option><option>50</option><option>100</option></select><span>per page</span></div>';
+    table.closest('.tnypl-admin-table-wrap').insertAdjacentElement('afterend',p);
+    p.querySelector('[data-p="prev"]').onclick=()=>{if(state.page>1){state.page--;applyVisibility(table)}};
+    p.querySelector('[data-p="next"]').onclick=()=>{state.page++;applyVisibility(table)};
+    p.querySelector('#tnyplPageSize').onchange=e=>{state.pageSize=Number(e.target.value)||10;state.page=1;applyVisibility(table)};
+  }
+
+  function applyVisibility(table){
+    const rows=[...(table.tBodies?.[0]?.rows||[])];
+    const q=(document.getElementById('tnyplProSearch')?.value||'').trim().toLowerCase();
+    const visible=[];
+    for(const row of rows){
+      const count=Number(row.dataset.tnyplDupCount||1), primary=row.dataset.tnyplDupPrimary!=='0', key=row.dataset.tnyplDupKey||'';
+      let show=true;
+      if(state.filter==='duplicates') show=count>1;
+      if(state.filter==='unique') show=count===1;
+      // Core fix: duplicate secondary rows are hidden by default, independent of the global players array.
+      if(count>1 && !primary && !state.expanded.has(key)) show=false;
+      if(q){
+        const hay=`${row.innerText||''} ${row.dataset.tnyplPhone||''}`.toLowerCase();
+        show=show&&hay.includes(q);
+      }
+      if(show)visible.push(row);
+    }
+    const max=Math.max(1,Math.ceil(visible.length/state.pageSize));if(state.page>max)state.page=max;
+    rows.forEach(r=>{r.hidden=true;r.style.display='none';});
+    const start=(state.page-1)*state.pageSize,end=start+state.pageSize;
+    visible.slice(start,end).forEach(r=>{r.hidden=false;r.style.display='';});
+    const info=document.getElementById('tnyplPageInfo');if(info)info.textContent=visible.length?`Showing ${start+1} to ${Math.min(end,visible.length)} of ${visible.length} unique/grouped records`:'No matching records';
+    const cur=document.getElementById('tnyplPageCurrent');if(cur)cur.textContent=`${state.page} / ${max}`;
+    const prev=document.querySelector('#tnyplPagination [data-p="prev"]'),next=document.querySelector('#tnyplPagination [data-p="next"]');if(prev)prev.disabled=state.page<=1;if(next)next.disabled=state.page>=max;
+    table.querySelectorAll('.tnypl-view-duplicates').forEach(b=>b.textContent=state.expanded.has(b.dataset.key)?'Hide':'View');
   }
 
   function enhance(){
-    if(state.busy) return; state.busy=true;
+    if(state.busy)return;state.busy=true;
     try{
-      const table=findPlayerTable(); if(!table) return;
-      markLayout(table);
-      const groups=groupsFromPlayers();
-      ensureTableWrap(table);
-      ensurePhoneColumn(table,groups);
-      buildSummary(table,groups);
-      ensureFilter(table);
-      ensureDuplicateColumn(table,groups);
-      ensurePagination(table);
-      table.classList.add('tnypl-pro-player-table');
-      applyRowVisibility(table);
-    } finally { state.busy=false; }
+      const table=findPlayerTable();if(!table)return;
+      wrapTable(table);ensureShell(table);ensurePhone(table);
+      const groups=domGroups(table);
+      ensureDuplicateColumn(table,groups);buildDashboard(table,groups);toolbar(table);pagination(table);
+      table.classList.add('tnypl-pro-player-table');applyVisibility(table);
+    } finally{state.busy=false;}
   }
-  function schedule(){ clearTimeout(state.timer); state.timer=setTimeout(enhance,120); }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',enhance); else enhance();
+  function schedule(){clearTimeout(state.timer);state.timer=setTimeout(enhance,250);}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enhance);else enhance();
   new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true});
 })();
